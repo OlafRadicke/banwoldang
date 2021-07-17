@@ -1,10 +1,10 @@
 package common
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 type filetree interface {
@@ -25,20 +25,41 @@ func (fileTree *FileTree) Collecting() {
 	}
 }
 
-func (fileTree *FileTree) fileHandler(path string, info os.FileInfo, err error) error {
+func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err error) error {
 	if err != nil {
 		return err
 	}
-	fmt.Println(path, info.Name(), info.Size())
+	// log.Println(path, info.Name(), info.Size())
 	if info.IsDir() {
-		fmt.Println("Just a directory")
+		// log.Println("Just a directory")
 	} else {
-		fmt.Println("Is a file! And typ:", filepath.Ext(info.Name()))
 		fileTree.Findings++
 		if filepath.Ext(info.Name()) == ".xml" {
-			fmt.Println("..And a manifet file!!")
+			log.Println("===========================================")
+			log.Println("Manifest file: ", searchPath)
+			log.Println("Content file: ", reconstructContenFile(searchPath))
 		}
 
 	}
 	return nil
+}
+
+//  Reconstruct the path of the conten file from the path of a manifest file.
+func reconstructContenFile(manifestFilePath string) string {
+	pathParts := strings.Split(manifestFilePath, "/")
+	onsUpLevel := len(pathParts) - 2
+	onsUpPath := strings.Join(pathParts[0:onsUpLevel], "/")
+
+	manifestCoreName := pathParts[len(pathParts)-1]
+	extension := filepath.Ext(manifestCoreName)
+	contentFileName := manifestCoreName[0 : len(manifestCoreName)-len(extension)]
+
+	contenFilePath := onsUpPath + "/" + contentFileName
+	if _, err := os.Stat(contenFilePath); err == nil {
+		// path/to/whatever exists
+		log.Println("Manifet file and conten file a exit!")
+	} else {
+		log.Println("File not exist: ", contenFilePath)
+	}
+	return contenFilePath
 }
