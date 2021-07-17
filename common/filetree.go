@@ -35,9 +35,10 @@ func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err e
 	} else {
 		fileTree.Findings++
 		if filepath.Ext(info.Name()) == ".xml" {
-			log.Println("===========================================")
-			log.Println("Manifest file: ", searchPath)
-			log.Println("Content file: ", reconstructContenFile(searchPath))
+			// log.Println("===========================================")
+			// log.Println("Manifest file: ", searchPath)
+			// log.Println("Content file: ", reconstructContenFile(searchPath))
+			readingManifestFile(searchPath)
 		}
 
 	}
@@ -57,7 +58,7 @@ func reconstructContenFile(manifestFilePath string) string {
 	contenFilePath := onsUpPath + "/" + contentFileName
 	if _, err := os.Stat(contenFilePath); err == nil {
 		// path/to/whatever exists
-		log.Println("Manifet file and conten file a exit!")
+		// log.Println("Manifet file and conten file a exit!")
 	} else {
 		log.Println("File not exist: ", contenFilePath)
 	}
