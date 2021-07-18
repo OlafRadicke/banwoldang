@@ -63,9 +63,11 @@ func readingManifestFile(mediaInfo *MediaInformation) {
 	}
 
 	for i := 0; i < len(comment.Categories.CategoryList); i++ {
-		fmt.Println("cat value: " + comment.Categories.CategoryList[i].Value)
+		// fmt.Println("cat value: " + comment.Categories.CategoryList[i].Value)
+		mediaInfo.Categories = append(mediaInfo.Categories, comment.Categories.CategoryList[i].Value)
 	}
 
+	fmt.Println("cat len: ", len(mediaInfo.Categories))
 	defer xmlFile.Close()
 
 }

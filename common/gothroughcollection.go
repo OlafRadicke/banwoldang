@@ -22,6 +22,10 @@ type MediaInformation struct {
 	OnsUpPath       string
 	ContentFileName string
 	ContentFilePath string
+	HashValue       string
+	Extension       string
+	GenFilePath     string
+	Categories      []string
 }
 
 func (fileTree *FileTree) GoThroughCollection() {
@@ -48,6 +52,8 @@ func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err e
 			mediaInfo.ManifestPath = searchPath
 			reconstructContenFile(&mediaInfo)
 			readingManifestFile(&mediaInfo)
+			createMediaFileHash(&mediaInfo)
+			genericFileTree(&mediaInfo)
 		}
 
 	}
