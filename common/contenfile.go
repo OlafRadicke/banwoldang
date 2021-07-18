@@ -9,7 +9,7 @@ import (
 
 //  Reconstruct the path of the conten file from the path of a manifest file.
 func reconstructContenFile(mediaInfo *MediaInformation) {
-	pathParts := strings.Split(mediaInfo.ManifestPath, "/")
+	pathParts := strings.Split(mediaInfo.ManifestFilePath, "/")
 	onsUpLevel := len(pathParts) - 2
 	mediaInfo.OnsUpPath = strings.Join(pathParts[0:onsUpLevel], "/")
 

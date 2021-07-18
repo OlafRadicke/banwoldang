@@ -23,7 +23,7 @@ type FileTree struct {
 
 type MediaInformation struct {
 	// Relative path of manifest xml file.
-	ManifestPath string
+	ManifestFilePath string
 	// The relative directory path on up with the media files.
 	OnsUpPath string
 	// The name of the media file
@@ -57,15 +57,26 @@ func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err e
 	} else {
 		fileTree.Findings++
 		mediaInfo := MediaInformation{}
+
 		if filepath.Ext(info.Name()) == ".xml" {
+			mediaInfo.ManifestFilePath = searchPath
 			// log.Println("===========================================")
 			// log.Println("Manifest file: ", searchPath)
 			// log.Println("Content file: ", reconstructContenFile(searchPath))
-			mediaInfo.ManifestPath = searchPath
 			reconstructContenFile(&mediaInfo)
 			readingManifestFile(&mediaInfo)
 			createMediaFileHash(&mediaInfo)
 			genericFileTree(&mediaInfo, fileTree)
+		} else {
+			mediaInfo.ContentFilePath = searchPath
+			log.Println("reconstructManifestFile:", searchPath)
+			reconstructManifestFile(&mediaInfo)
+			createMediaFileHash(&mediaInfo)
+			genericNonCatFileTree(&mediaInfo, fileTree)
+
+			// if findManifestFile(&mediaInfo) {
+
+			// }
 		}
 
 	}

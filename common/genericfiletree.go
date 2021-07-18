@@ -9,6 +9,12 @@ import (
 	"path/filepath"
 )
 
+// Generate directory with symlinks of file without categories.
+func genericNonCatFileTree(mediaInfo *MediaInformation, fileTree *FileTree) {
+	log.Println("Generate directory with file without categories. ")
+}
+
+// Generate directory tree with symlinks of file with categories.
 func genericFileTree(mediaInfo *MediaInformation, fileTree *FileTree) {
 
 	for i := 0; i < len(mediaInfo.Categories); i++ {

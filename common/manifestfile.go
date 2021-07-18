@@ -6,6 +6,8 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"path/filepath"
+	"strings"
 )
 
 // XML strctur of manifest file:
@@ -51,7 +53,7 @@ type Category struct {
 }
 
 func readingManifestFile(mediaInfo *MediaInformation) {
-	xmlFile, err := os.Open(mediaInfo.ManifestPath)
+	xmlFile, err := os.Open(mediaInfo.ManifestFilePath)
 	if err != nil {
 		log.Println(err)
 	}
@@ -69,5 +71,28 @@ func readingManifestFile(mediaInfo *MediaInformation) {
 
 	fmt.Println("cat len: ", len(mediaInfo.Categories))
 	defer xmlFile.Close()
+
+}
+
+// func findManifestFile(mediaInfo *MediaInformation) bool {
+// 	mediaInfo.ContentFilePath
+
+// 	testManifestFilePath = mediaInfo.ContentFilePath + ".comments/" + filename + ".xml"
+// }
+
+//  Reconstruct the path of the conten file from the path of a manifest file.
+func reconstructManifestFile(mediaInfo *MediaInformation) {
+	pathParts := strings.Split(mediaInfo.ContentFilePath, "/")
+	mediaInfo.ContentFileName = pathParts[len(pathParts)-1]
+	baseDir := filepath.Dir(mediaInfo.ContentFilePath)
+	mediaInfo.Extension = filepath.Ext(mediaInfo.ContentFileName)
+	mediaInfo.ManifestFilePath = baseDir + ".comments/" + mediaInfo.ContentFileName + ".xml"
+
+	if _, err := os.Stat(mediaInfo.ContentFilePath); err == nil {
+		// path/to/whatever exists
+		// log.Println("Manifet file and conten file a exit!")
+	} else {
+		log.Println("Manifest file not exist: ", mediaInfo.ManifestFilePath)
+	}
 
 }
