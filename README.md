@@ -1,7 +1,7 @@
 Banwoldang
 ==========
 
-gThumb helper
+A helper tool for [gThumb](https://wiki.gnome.org/Apps/Gthumb)
 
 Build
 -----

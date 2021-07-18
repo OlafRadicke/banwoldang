@@ -14,8 +14,9 @@ func reconstructContenFile(mediaInfo *MediaInformation) {
 	mediaInfo.OnsUpPath = strings.Join(pathParts[0:onsUpLevel], "/")
 
 	manifestCoreName := pathParts[len(pathParts)-1]
-	extension := filepath.Ext(manifestCoreName)
-	mediaInfo.ContentFileName = manifestCoreName[0 : len(manifestCoreName)-len(extension)]
+	manifestExtension := filepath.Ext(manifestCoreName)
+	mediaInfo.ContentFileName = manifestCoreName[0 : len(manifestCoreName)-len(manifestExtension)]
+	mediaInfo.Extension = filepath.Ext(mediaInfo.ContentFileName)
 
 	mediaInfo.ContentFilePath = mediaInfo.OnsUpPath + "/" + mediaInfo.ContentFileName
 	if _, err := os.Stat(mediaInfo.ContentFilePath); err == nil {

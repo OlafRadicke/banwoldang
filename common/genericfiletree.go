@@ -9,32 +9,36 @@ import (
 	"path/filepath"
 )
 
-func genericFileTree(mediaInfo *MediaInformation) {
+func genericFileTree(mediaInfo *MediaInformation, fileTree *FileTree) {
 
 	for i := 0; i < len(mediaInfo.Categories); i++ {
-		genFilePath := "./gereric-tree/" + mediaInfo.Categories[i] + "/" + mediaInfo.HashValue + mediaInfo.Extension
-		katPath := "./gereric-tree/" + mediaInfo.Categories[i]
-		absolutTarget, err1 := filepath.Abs(genFilePath)
+
+		genFilePath := fileTree.GenericDir + "gereric-tree/" + mediaInfo.Categories[i] + "/" + mediaInfo.HashValue + mediaInfo.Extension
+		absolutLinkTarget, err1 := filepath.Abs(genFilePath)
 		if err1 != nil {
 			log.Fatal(err1)
 		}
+		// log.Println("genFilePath: ", absolutLinkTarget)
 
-		log.Println("genFilePath: ", absolutTarget)
-		absolutSource, err2 := filepath.Abs(mediaInfo.ContentFilePath)
+		absolutLinkSource, err2 := filepath.Abs(mediaInfo.ContentFilePath)
 		if err2 != nil {
 			log.Fatal(err2)
 		}
-		log.Println("mediaInfo.ContentFilePath: ", absolutSource)
+		// log.Println("mediaInfo.ContentFilePath: ", absolutLinkSource)
 
+		katPath := fileTree.GenericDir + "gereric-tree/" + mediaInfo.Categories[i]
 		if _, err := os.Stat(katPath); os.IsNotExist(err) {
 			err := os.MkdirAll(katPath, 0770)
 			if err != nil {
 				log.Fatal(err)
 			}
 		}
-		err := os.Symlink(absolutSource, absolutTarget)
+
+		err := os.Symlink(absolutLinkSource, absolutLinkTarget)
 		if err != nil {
-			log.Fatal(err)
+			// log.Fatal("Create symlink: ", err)
+			log.Println("Create symlink: ", err)
+			return
 		}
 	}
 
@@ -43,7 +47,10 @@ func genericFileTree(mediaInfo *MediaInformation) {
 func createMediaFileHash(mediaInfo *MediaInformation) {
 	openFile, err := os.Open(mediaInfo.ContentFilePath)
 	if err != nil {
-		log.Fatal(err)
+		// log.Fatal(err)
+		log.Println("Open file for hashing: ", err)
+		defer openFile.Close()
+		return
 	}
 	defer openFile.Close()
 
