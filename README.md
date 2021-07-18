@@ -14,13 +14,13 @@ Run
 ---
 
 ```bash
-go run ./main.go  ./path
+go run ./main.go  ./path-to-media/ ./path-to-dynamic-dir/
 ```
 
 or
 
 ```bash
-./banwoldang ./
+./banwoldang ./path-to-media/ ./path-to-dynamic-dir/
 
 ```
 
