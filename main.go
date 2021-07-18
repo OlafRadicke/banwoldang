@@ -22,7 +22,7 @@ func main() {
 
 	fileTree := common.FileTree{}
 	fileTree.StartPath = startPasth
-	fileTree.Collecting()
+	fileTree.GoThroughCollection()
 	log.Println("Findings: ", fileTree.Findings)
 }
 

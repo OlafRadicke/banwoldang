@@ -8,6 +8,8 @@ import (
 	"os"
 )
 
+// XML strctur of manifest file:
+//
 // <?xml version="1.0" encoding="UTF-8"?>
 // <comment version="3.0">
 //   <caption/>
@@ -40,20 +42,16 @@ type Comment struct {
 }
 
 type Categories struct {
-	// XMLName      xml.Name   `xml:"categories"`
 	CategoryList []Category `xml:"category"`
 	Value        string     `xml:"value,attr"`
 }
 
 type Category struct {
-	// XMLName xml.Name `xml:"category"`
-	// Value   string   `xml:"value,attr"`
-	// Type    string   `xml:"type,attr"`
 	Value string `xml:"value,attr"`
 }
 
-func readingManifestFile(manifestFilePath string) {
-	xmlFile, err := os.Open(manifestFilePath)
+func readingManifestFile(mediaInfo *MediaInformation) {
+	xmlFile, err := os.Open(mediaInfo.ManifestPath)
 	if err != nil {
 		log.Println(err)
 	}
