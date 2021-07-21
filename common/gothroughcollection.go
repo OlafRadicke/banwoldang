@@ -69,7 +69,7 @@ func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err e
 			genericFileTree(&mediaInfo, fileTree)
 		} else {
 			mediaInfo.ContentFilePath = searchPath
-			log.Println("reconstructManifestFile:", searchPath)
+			// log.Println("reconstructManifestFile:", searchPath)
 			reconstructManifestFile(&mediaInfo)
 			createMediaFileHash(&mediaInfo)
 			genericNonCatFileTree(&mediaInfo, fileTree)
