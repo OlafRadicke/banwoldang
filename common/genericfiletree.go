@@ -1,17 +1,15 @@
 package common
 
 import (
-	"crypto/sha256"
-	"encoding/base64"
-	"io"
 	"log"
 	"os"
-	"os/exec"
 	"path/filepath"
+
+	"github.com/OlafRadicke/banwoldang/mediainformation"
 )
 
 // Generate directory with symlinks of file without categories.
-func genericNonCatFileTree(mediaInfo *MediaInformation, fileTree *FileTree) {
+func genericNonCatFileTree(mediaInfo *mediainformation.MediaInformation, fileTree *FileTree) {
 	log.Println("Generate directory with file without categories. ")
 	genFilePath := fileTree.GenericDir + "gereric-tree/00-no-cats/" + mediaInfo.HashValue + mediaInfo.Extension
 	absolutLinkTarget, err1 := filepath.Abs(genFilePath)
@@ -41,8 +39,12 @@ func genericNonCatFileTree(mediaInfo *MediaInformation, fileTree *FileTree) {
 	}
 }
 
+func genericSingleCatFileTree(mediaInfo *mediainformation.MediaInformation, fileTree *FileTree) {
+	// pass
+}
+
 // Generate directory tree with symlinks of file with categories.
-func genericFileTree(mediaInfo *MediaInformation, fileTree *FileTree) {
+func genericFileTree(mediaInfo *mediainformation.MediaInformation, fileTree *FileTree) {
 
 	for i := 0; i < len(mediaInfo.Categories); i++ {
 
@@ -75,34 +77,4 @@ func genericFileTree(mediaInfo *MediaInformation, fileTree *FileTree) {
 		}
 	}
 
-}
-
-func createMediaFileHash(mediaInfo *MediaInformation) {
-	openFile, err := os.Open(mediaInfo.ContentFilePath)
-	if err != nil {
-		// log.Fatal(err)
-		log.Println("Open file for hashing: ", err)
-		defer openFile.Close()
-		return
-	}
-	defer openFile.Close()
-
-	hasher := sha256.New()
-	if _, err := io.Copy(hasher, openFile); err != nil {
-		log.Fatal(err)
-	}
-	ifTest := false
-	if ifTest {
-		uuid, err := exec.Command("uuidgen").Output()
-		if err != nil {
-			log.Fatal(err)
-		}
-		log.Println("UUID: ", uuid)
-		mediaInfo.HashValue = base64.URLEncoding.EncodeToString(uuid)
-		log.Println("UUID base64: ", mediaInfo.HashValue)
-	} else {
-		mediaInfo.HashValue = base64.URLEncoding.EncodeToString(hasher.Sum(nil))
-		log.Println("hash: ", mediaInfo.HashValue)
-	}
-	// log.Println("Hash: ", mediaInfo.HashValue)
 }

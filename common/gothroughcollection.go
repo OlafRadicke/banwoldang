@@ -4,6 +4,8 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+
+	"github.com/OlafRadicke/banwoldang/mediainformation"
 )
 
 type filetree interface {
@@ -21,25 +23,6 @@ type FileTree struct {
 	Findings int
 }
 
-type MediaInformation struct {
-	// Relative path of manifest xml file.
-	ManifestFilePath string
-	// The relative directory path on up with the media files.
-	OnsUpPath string
-	// The name of the media file
-	ContentFileName string
-	// The media file with the relative path
-	ContentFilePath string
-	// The hash value of the media file
-	HashValue string
-	// The extension of the media file
-	Extension string
-	// The relative path for the generic file tree
-	GenFilePath string
-	// The list with the categories of a media file
-	Categories []string
-}
-
 func (fileTree *FileTree) GoThroughCollection() {
 	err := filepath.Walk(fileTree.StartPath, fileTree.fileHandler)
 	if err != nil {
@@ -51,27 +34,34 @@ func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err e
 	if err != nil {
 		return err
 	}
-	// log.Println(searchPath, info.Name(), info.Size())
+	log.Println("func params:", searchPath, info.Name(), info.Size())
 	if info.IsDir() {
 		// log.Println("Just a directory")
 	} else {
 		fileTree.Findings++
-		mediaInfo := MediaInformation{}
-
+		mediaInfo := mediainformation.MediaInformation{}
 		if filepath.Ext(info.Name()) == ".xml" {
+
+			log.Println("===========================================")
+			log.Println("searchPath: ", searchPath)
 			mediaInfo.ManifestFilePath = searchPath
-			// log.Println("===========================================")
-			// log.Println("Manifest file: ", searchPath)
-			// log.Println("Content file: ", reconstructContenFile(searchPath))
-			reconstructContenFile(&mediaInfo)
-			readingManifestFile(&mediaInfo)
-			createMediaFileHash(&mediaInfo)
+			log.Println("Manifest file: ", searchPath)
+			log.Println("mediaInfo.ManifestFilePath: ", mediaInfo.ManifestFilePath)
+			log.Println("===========================================")
+
+			mediaInfo.ReconstructContenFile()
+			mediaInfo.ReadingManifestFile()
+			mediaInfo.CreateMediaFileHash()
 			genericFileTree(&mediaInfo, fileTree)
 		} else {
+			log.Println("-------------------------------------------")
+			log.Println("searchPath: ", searchPath)
 			mediaInfo.ContentFilePath = searchPath
+			log.Println("mediaInfo.ContentFilePath: ", mediaInfo.ContentFilePath)
+			log.Println("--------------------------------------------")
 			// log.Println("reconstructManifestFile:", searchPath)
-			reconstructManifestFile(&mediaInfo)
-			createMediaFileHash(&mediaInfo)
+			mediaInfo.ReconstructManifestFile()
+			mediaInfo.CreateMediaFileHash()
 			genericNonCatFileTree(&mediaInfo, fileTree)
 
 			// if findManifestFile(&mediaInfo) {

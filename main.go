@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"os"
+	"path/filepath"
 
 	common "github.com/OlafRadicke/banwoldang/common"
 )
@@ -21,9 +22,19 @@ func main() {
 	progArguments := checkInput()
 
 	fileTree := common.FileTree{}
-	fileTree.StartPath = progArguments.MediaDir
-	fileTree.GenericDir = progArguments.GenericDir
-	log.Println("Search in: ", progArguments.MediaDir)
+	absolutStartPath, err := filepath.Abs(progArguments.MediaDir)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Println("absolutStartPath: ", absolutStartPath)
+	fileTree.StartPath = absolutStartPath
+	absoluteGenericDir, err := filepath.Abs(progArguments.GenericDir)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Println("absoluteGenericDir: ", absoluteGenericDir)
+	fileTree.GenericDir = absoluteGenericDir
+	log.Println("Search in: ", fileTree.StartPath)
 
 	fileTree.GoThroughCollection()
 	log.Println("Findings: ", fileTree.Findings)
