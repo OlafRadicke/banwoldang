@@ -15,5 +15,5 @@ func (mediaInfo *MediaInformation) GenerateAbsoluteLinkDirContentPath(genericDir
 		log.Fatal(err1)
 	}
 	log.Println("absolutLinkTarget: ", absolutLinkTarget)
-	mediaInfo.AbsoluteLinkDirContentTarget = absolutLinkTarget
+	mediaInfo.AbsoluteContentLinkDirPath = absolutLinkTarget
 }

@@ -34,8 +34,14 @@ func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err e
 		} else {
 			log.Println("-------------------------------------------")
 			log.Println("searchPath: ", searchPath)
-			mediaInfo.ContentFilePath = searchPath
-			log.Println("mediaInfo.ContentFilePath: ", mediaInfo.ContentFilePath)
+			absolutLinkSource, err2 := filepath.Abs(searchPath)
+			if err2 != nil {
+				log.Fatal(err2)
+			}
+
+			log.Println("absolutLinkSource: ", absolutLinkSource)
+			mediaInfo.AbsoluteContentSourcePath = absolutLinkSource
+
 			log.Println("--------------------------------------------")
 			// log.Println("reconstructManifestFile:", searchPath)
 			mediaInfo.ReconstructManifestFile()

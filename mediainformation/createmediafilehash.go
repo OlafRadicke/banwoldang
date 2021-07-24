@@ -10,7 +10,7 @@ import (
 )
 
 func (mediaInfo *MediaInformation) CreateMediaFileHash() {
-	openFile, err := os.Open(mediaInfo.ContentFilePath)
+	openFile, err := os.Open(mediaInfo.AbsoluteContentSourcePath)
 	if err != nil {
 		// log.Fatal(err)
 		log.Println("Open file for hashing: ", err)

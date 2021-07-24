@@ -3,19 +3,12 @@ package mediainformation
 import (
 	"log"
 	"os"
-	"path/filepath"
 )
 
 // Generate directory with symlinks of file without categories.
 func (mediaInfo *MediaInformation) GenericNonCatFileTree(genericDir string) {
 
 	mediaInfo.GenerateAbsoluteLinkDirContentPath(genericDir, "00-no-cats")
-
-	absolutLinkSource, err2 := filepath.Abs(mediaInfo.ContentFilePath)
-	if err2 != nil {
-		log.Fatal(err2)
-	}
-	// log.Println("mediaInfo.ContentFilePath: ", absolutLinkSource)
 
 	katPath := genericDir + "gereric-tree/00-no-cats/"
 	if _, err := os.Stat(katPath); os.IsNotExist(err) {
@@ -25,7 +18,7 @@ func (mediaInfo *MediaInformation) GenericNonCatFileTree(genericDir string) {
 		}
 	}
 
-	err := os.Symlink(absolutLinkSource, mediaInfo.AbsoluteLinkDirContentTarget)
+	err := os.Symlink(mediaInfo.AbsoluteContentSourcePath, mediaInfo.AbsoluteContentLinkDirPath)
 	if err != nil {
 		// log.Fatal("Create symlink: ", err)
 		log.Println("Create symlink: ", err)

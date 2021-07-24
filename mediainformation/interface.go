@@ -24,10 +24,10 @@ type MediaInformation struct {
 	OnsUpPath string
 	// The name of the media file
 	ContentFileName string
-	// The media file with the relative path
-	ContentFilePath string
-	// Absolute path for the target link in the link directory.
-	AbsoluteLinkDirContentTarget string
+	// The source path of the media as an absolute path
+	AbsoluteContentSourcePath string
+	// Absolute path for the target link in the link directory rom the conten file.
+	AbsoluteContentLinkDirPath string
 	// The hash value of the media file
 	HashValue string
 	// The extension of the media file
@@ -51,12 +51,12 @@ func (mediaInfo *MediaInformation) ReconstructContenFile() {
 	mediaInfo.ContentFileName = manifestCoreName[0 : len(manifestCoreName)-len(manifestExtension)]
 	mediaInfo.Extension = filepath.Ext(mediaInfo.ContentFileName)
 
-	mediaInfo.ContentFilePath = mediaInfo.OnsUpPath + "/" + mediaInfo.ContentFileName
-	if _, err := os.Stat(mediaInfo.ContentFilePath); err == nil {
+	mediaInfo.AbsoluteContentSourcePath = mediaInfo.OnsUpPath + "/" + mediaInfo.ContentFileName
+	if _, err := os.Stat(mediaInfo.AbsoluteContentSourcePath); err == nil {
 		// path/to/whatever exists
 		// log.Println("Manifet file and conten file a exit!")
 	} else {
-		log.Println("File not exist: ", mediaInfo.ContentFilePath)
+		log.Println("File not exist: ", mediaInfo.AbsoluteContentSourcePath)
 	}
 
 }
