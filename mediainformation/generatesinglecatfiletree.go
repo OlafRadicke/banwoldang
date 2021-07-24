@@ -1,5 +1,5 @@
 package mediainformation
 
-func GenerateSingleCatFileTree(genericDir string) {
+func GenerateSingleCatFileTree(linkDir string) {
 	// pass
 }

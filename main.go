@@ -12,8 +12,8 @@ import (
 type ProgArguments struct {
 	// Location with the media files
 	MediaDir string
-	// Location for the generic directory
-	GenericDir string
+	// Location for the link directory
+	LinkDir string
 	// The minimum of needed params
 	MinimumArguments int
 }
@@ -28,12 +28,12 @@ func main() {
 	}
 	log.Println("absolutStartPath: ", absolutStartPath)
 	fileTree.StartPath = absolutStartPath
-	absoluteGenericDir, err := filepath.Abs(progArguments.GenericDir)
+	absoluteLinkDir, err := filepath.Abs(progArguments.LinkDir)
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Println("absoluteGenericDir: ", absoluteGenericDir)
-	fileTree.GenericDir = absoluteGenericDir
+	log.Println("absoluteLinkDir: ", absoluteLinkDir)
+	fileTree.LinkDir = absoluteLinkDir
 	log.Println("Search in: ", fileTree.StartPath)
 
 	fileTree.GoThroughCollection()
@@ -49,7 +49,7 @@ func checkInput() *ProgArguments {
 	} else {
 		// programName := os.Args[0]
 		progArguments.MediaDir = os.Args[1]
-		progArguments.GenericDir = os.Args[2]
+		progArguments.LinkDir = os.Args[2]
 
 		// startPasth = os.Args[1]
 		// log.Println("Arg numbers: ", givenArguments)

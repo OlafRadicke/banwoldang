@@ -6,7 +6,7 @@ import (
 )
 
 // Create the absolute link path of the contnet file for the link directory tree.
-// @genericDir param is the base directory of the link directory tree.
+// @linkDir param is the base directory of the link directory tree.
 // @subDir param is the name of a sub directory for link directory tree.
 func (mediaInfo *MediaInformation) SetAbsoluteContentLinkDirPath(subDir string) {
 	genFilePath := mediaInfo.AbsoluteLinkDirPath + "/" + subDir + "/" + mediaInfo.HashValue + mediaInfo.Extension

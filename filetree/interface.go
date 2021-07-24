@@ -13,8 +13,8 @@ type filetree interface {
 type FileTree struct {
 	// The start path for searching media files
 	StartPath string
-	// Location for the generic directory
-	GenericDir string
+	// Location for the link directory
+	LinkDir string
 	// The number of founded manifest Files
 	Findings int
 }
