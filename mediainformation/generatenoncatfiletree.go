@@ -6,7 +6,7 @@ import (
 )
 
 // Generate directory with symlinks of file without categories.
-func (mediaInfo *MediaInformation) GenericNonCatFileTree() {
+func (mediaInfo *MediaInformation) GenerateNonCatFileTree() {
 
 	mediaInfo.SetAbsoluteContentLinkDirPath("00-no-cats")
 

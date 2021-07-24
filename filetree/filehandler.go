@@ -31,7 +31,7 @@ func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err e
 			mediaInfo.ReconstructContenFile()
 			mediaInfo.ReadingManifestFile()
 			mediaInfo.CreateMediaFileHash()
-			mediaInfo.GenericFileTree()
+			mediaInfo.GenerateFileTree()
 		} else {
 			log.Println("-------------------------------------------")
 			log.Println("searchPath: ", searchPath)
@@ -49,7 +49,7 @@ func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err e
 			mediaInfo.SetAbsoluteLinkDirPath(fileTree.GenericDir)
 			mediaInfo.ReconstructManifestFile()
 			mediaInfo.CreateMediaFileHash()
-			mediaInfo.GenericNonCatFileTree()
+			mediaInfo.GenerateNonCatFileTree()
 
 			// if findManifestFile(&mediaInfo) {
 

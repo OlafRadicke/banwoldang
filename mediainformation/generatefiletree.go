@@ -6,7 +6,7 @@ import (
 )
 
 // Generate directory tree with symlinks of file with categories.
-func (mediaInfo *MediaInformation) GenericFileTree() {
+func (mediaInfo *MediaInformation) GenerateFileTree() {
 
 	for i := 0; i < len(mediaInfo.Categories); i++ {
 		mediaInfo.SetAbsoluteContentLinkDirPath(mediaInfo.Categories[i])
