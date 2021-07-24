@@ -10,15 +10,17 @@ import (
 type mediainformation interface {
 	CreateMediaFileHash()
 	GenericSingleCatFileTree(string) // TODO
-	GenericFileTree(string)          // TODO
-	GenericNonCatFileTree(string)    // TODO
+	GenericFileTree()                // TODO
+	GenericNonCatFileTree()          // TODO
 	ReadingManifestFile()
 	ReconstructContenFile()
 	ReconstructManifestFile()
-	SetAbsoluteContentLinkDirPath()
+	SetAbsoluteContentLinkDirPath(string)
+	SetAbsoluteLinkDirPath(string)
 }
 
 type MediaInformation struct {
+
 	// Relative path of manifest xml file.
 	ManifestFilePath string
 	// The relative directory path on up with the media files.
@@ -27,14 +29,14 @@ type MediaInformation struct {
 	ContentFileName string
 	// The source path of the media as an absolute path
 	AbsoluteContentSourcePath string
+	// Absolute path of the link directory
+	AbsoluteLinkDirPath string
 	// Absolute path for the target link in the link directory rom the conten file.
 	AbsoluteContentLinkDirPath string
 	// The hash value of the media file
 	HashValue string
 	// The extension of the media file
 	Extension string
-	// The relative path for the generic file tree
-	GenFilePath string
 	// The list with the categories of a media file
 	Categories []string
 }

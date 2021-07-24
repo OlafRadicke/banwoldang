@@ -6,12 +6,13 @@ import (
 )
 
 // Generate directory tree with symlinks of file with categories.
-func (mediaInfo *MediaInformation) GenericFileTree(genericDir string) {
+func (mediaInfo *MediaInformation) GenericFileTree() {
 
 	for i := 0; i < len(mediaInfo.Categories); i++ {
-		mediaInfo.SetAbsoluteContentLinkDirPath(genericDir, mediaInfo.Categories[i])
+		mediaInfo.SetAbsoluteContentLinkDirPath(mediaInfo.Categories[i])
 
-		katPath := genericDir + "gereric-tree/" + mediaInfo.Categories[i]
+		log.Println("mediaInfo.AbsoluteLinkDirPath: ", mediaInfo.AbsoluteLinkDirPath)
+		katPath := mediaInfo.AbsoluteLinkDirPath + "/" + mediaInfo.Categories[i]
 		if _, err := os.Stat(katPath); os.IsNotExist(err) {
 			err := os.MkdirAll(katPath, 0770)
 			if err != nil {
