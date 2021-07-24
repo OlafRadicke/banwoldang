@@ -1,4 +1,4 @@
-package common
+package filetree
 
 import (
 	"log"
@@ -7,28 +7,6 @@ import (
 
 	"github.com/OlafRadicke/banwoldang/mediainformation"
 )
-
-type filetree interface {
-	GoThroughCollection()
-	PrintAll()
-	fileHandler(path string, info os.FileInfo, err error) error
-}
-
-type FileTree struct {
-	// The start path for searching media files
-	StartPath string
-	// Location for the generic directory
-	GenericDir string
-	// The number of founded manifest Files
-	Findings int
-}
-
-func (fileTree *FileTree) GoThroughCollection() {
-	err := filepath.Walk(fileTree.StartPath, fileTree.fileHandler)
-	if err != nil {
-		log.Println(err)
-	}
-}
 
 func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err error) error {
 	if err != nil {
@@ -52,7 +30,7 @@ func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err e
 			mediaInfo.ReconstructContenFile()
 			mediaInfo.ReadingManifestFile()
 			mediaInfo.CreateMediaFileHash()
-			genericFileTree(&mediaInfo, fileTree)
+			mediaInfo.GenericFileTree(fileTree.GenericDir)
 		} else {
 			log.Println("-------------------------------------------")
 			log.Println("searchPath: ", searchPath)
@@ -62,7 +40,7 @@ func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err e
 			// log.Println("reconstructManifestFile:", searchPath)
 			mediaInfo.ReconstructManifestFile()
 			mediaInfo.CreateMediaFileHash()
-			genericNonCatFileTree(&mediaInfo, fileTree)
+			mediaInfo.GenericNonCatFileTree(fileTree.GenericDir)
 
 			// if findManifestFile(&mediaInfo) {
 

@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	common "github.com/OlafRadicke/banwoldang/common"
+	filetree "github.com/OlafRadicke/banwoldang/filetree"
 )
 
 // Struct with command line arguments
@@ -21,7 +21,7 @@ type ProgArguments struct {
 func main() {
 	progArguments := checkInput()
 
-	fileTree := common.FileTree{}
+	fileTree := filetree.FileTree{}
 	absolutStartPath, err := filepath.Abs(progArguments.MediaDir)
 	if err != nil {
 		log.Fatal(err)

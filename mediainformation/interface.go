@@ -9,6 +9,9 @@ import (
 
 type mediainformation interface {
 	CreateMediaFileHash()
+	GenericSingleCatFileTree(string) // TODO
+	GenericFileTree(string)          // TODO
+	GenericNonCatFileTree(string)    // TODO
 	ReadingManifestFile()
 	ReconstructContenFile()
 	ReconstructManifestFile()
