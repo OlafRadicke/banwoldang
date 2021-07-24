@@ -9,7 +9,7 @@ import (
 func (mediaInfo *MediaInformation) GenericFileTree(genericDir string) {
 
 	for i := 0; i < len(mediaInfo.Categories); i++ {
-		mediaInfo.GenerateAbsoluteLinkDirContentPath(genericDir, mediaInfo.Categories[i])
+		mediaInfo.SetAbsoluteContentLinkDirPath(genericDir, mediaInfo.Categories[i])
 
 		katPath := genericDir + "gereric-tree/" + mediaInfo.Categories[i]
 		if _, err := os.Stat(katPath); os.IsNotExist(err) {
@@ -26,5 +26,4 @@ func (mediaInfo *MediaInformation) GenericFileTree(genericDir string) {
 			return
 		}
 	}
-
 }

@@ -15,6 +15,7 @@ type mediainformation interface {
 	ReadingManifestFile()
 	ReconstructContenFile()
 	ReconstructManifestFile()
+	SetAbsoluteContentLinkDirPath()
 }
 
 type MediaInformation struct {
