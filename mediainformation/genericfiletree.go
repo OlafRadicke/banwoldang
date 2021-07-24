@@ -10,13 +10,7 @@ import (
 func (mediaInfo *MediaInformation) GenericFileTree(genericDir string) {
 
 	for i := 0; i < len(mediaInfo.Categories); i++ {
-
-		genFilePath := genericDir + "gereric-tree/" + mediaInfo.Categories[i] + "/" + mediaInfo.HashValue + mediaInfo.Extension
-		absolutLinkTarget, err1 := filepath.Abs(genFilePath)
-		if err1 != nil {
-			log.Fatal(err1)
-		}
-		// log.Println("genFilePath: ", absolutLinkTarget)
+		mediaInfo.GenerateAbsoluteLinkDirContentPath(genericDir, mediaInfo.Categories[i])
 
 		absolutLinkSource, err2 := filepath.Abs(mediaInfo.ContentFilePath)
 		if err2 != nil {
@@ -32,7 +26,7 @@ func (mediaInfo *MediaInformation) GenericFileTree(genericDir string) {
 			}
 		}
 
-		err := os.Symlink(absolutLinkSource, absolutLinkTarget)
+		err := os.Symlink(absolutLinkSource, mediaInfo.AbsoluteLinkDirContentTarget)
 		if err != nil {
 			// log.Fatal("Create symlink: ", err)
 			log.Println("Create symlink: ", err)

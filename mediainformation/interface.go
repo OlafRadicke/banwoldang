@@ -26,6 +26,8 @@ type MediaInformation struct {
 	ContentFileName string
 	// The media file with the relative path
 	ContentFilePath string
+	// Absolute path for the target link in the link directory.
+	AbsoluteLinkDirContentTarget string
 	// The hash value of the media file
 	HashValue string
 	// The extension of the media file
