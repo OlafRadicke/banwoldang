@@ -28,7 +28,7 @@ func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err e
 			log.Println("===========================================")
 
 			mediaInfo.SetAbsoluteLinkDirPath(fileTree.LinkDir)
-			mediaInfo.ReconstructContenFile()
+			mediaInfo.ReconstructContenSourceFile()
 			mediaInfo.ReadingManifestFile()
 			mediaInfo.CreateMediaFileHash()
 			mediaInfo.GenerateFileTree()

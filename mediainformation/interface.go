@@ -1,19 +1,12 @@
 package mediainformation
 
-import (
-	"log"
-	"os"
-	"path/filepath"
-	"strings"
-)
-
 type mediainformation interface {
 	CreateMediaFileHash()
 	GenerateSingleCatFileTree(string) // TODO
-	GenerateFileTree()                // TODO
-	GenerateNonCatFileTree()          // TODO
+	GenerateFileTree()
+	GenerateNonCatFileTree()
 	ReadingManifestFile()
-	ReconstructContenFile()
+	ReconstructContenSourceFile()
 	ReconstructManifestFile()
 	SetAbsoluteContentLinkDirPath(string)
 	SetAbsoluteLinkDirPath(string)
@@ -39,27 +32,4 @@ type MediaInformation struct {
 	Extension string
 	// The list with the categories of a media file
 	Categories []string
-}
-
-//  Reconstruct the path of the conten file from the path of a manifest file.
-func (mediaInfo *MediaInformation) ReconstructContenFile() {
-	log.Println("mediaInfo.ManifestFilePath: ", mediaInfo.ManifestFilePath)
-	pathParts := strings.Split(mediaInfo.ManifestFilePath, "/")
-	log.Println("pathParts: ", pathParts)
-	onsUpLevel := len(pathParts) - 2
-	mediaInfo.OnsUpPath = strings.Join(pathParts[0:onsUpLevel], "/")
-
-	manifestCoreName := pathParts[len(pathParts)-1]
-	manifestExtension := filepath.Ext(manifestCoreName)
-	mediaInfo.ContentFileName = manifestCoreName[0 : len(manifestCoreName)-len(manifestExtension)]
-	mediaInfo.Extension = filepath.Ext(mediaInfo.ContentFileName)
-
-	mediaInfo.AbsoluteContentSourcePath = mediaInfo.OnsUpPath + "/" + mediaInfo.ContentFileName
-	if _, err := os.Stat(mediaInfo.AbsoluteContentSourcePath); err == nil {
-		// path/to/whatever exists
-		// log.Println("Manifet file and conten file a exit!")
-	} else {
-		log.Println("File not exist: ", mediaInfo.AbsoluteContentSourcePath)
-	}
-
 }
