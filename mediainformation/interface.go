@@ -7,7 +7,7 @@ type mediainformation interface {
 	CreateEmptyManifestFile()
 
 	GenerateSingleCatFileTree(string) // TODO
-	GenerateFileTree()
+	// GenerateFileTree()             // TODO / REFACTORING
 	GenerateNonCatFileTree()
 
 	ReadingManifestFile()
