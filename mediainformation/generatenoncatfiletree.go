@@ -9,8 +9,9 @@ import (
 func (mediaInfo *MediaInformation) GenerateNonCatFileTree() {
 
 	mediaInfo.SetAbsoluteContentLinkDirPath("00-no-cats")
+	mediaInfo.SetAbsoluteManifestLinkDirPath("00-no-cats")
 
-	katPath := mediaInfo.AbsoluteLinkDirPath + "/00-no-cats/"
+	katPath := mediaInfo.AbsoluteLinkDirPath + "/00-no-cats/" + "/.comments"
 	if _, err := os.Stat(katPath); os.IsNotExist(err) {
 		err := os.MkdirAll(katPath, 0770)
 		if err != nil {
@@ -22,6 +23,18 @@ func (mediaInfo *MediaInformation) GenerateNonCatFileTree() {
 	if err != nil {
 		// log.Fatal("Create symlink: ", err)
 		log.Println("Create symlink: ", err)
-		return
 	}
+
+	if _, err := os.Stat("mediaInfo.AbsoluteManifestSourcePath"); os.IsNotExist(err) {
+		log.Println("+++++++++++++++++++ CREAT MANIFEST +++++++++++++++++++++")
+		log.Println(err, mediaInfo.AbsoluteManifestSourcePath)
+		mediaInfo.CreateEmptyManifestFile()
+	}
+
+	err = os.Symlink(mediaInfo.AbsoluteManifestSourcePath, mediaInfo.AbsoluteManifestLinkDirPath)
+	if err != nil {
+		// log.Fatal("Create symlink: ", err)
+		log.Println("Create symlink: ", err)
+	}
+
 }

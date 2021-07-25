@@ -10,9 +10,10 @@ func (mediaInfo *MediaInformation) GenerateFileTree() {
 
 	for i := 0; i < len(mediaInfo.Categories); i++ {
 		mediaInfo.SetAbsoluteContentLinkDirPath(mediaInfo.Categories[i])
+		mediaInfo.SetAbsoluteManifestLinkDirPath(mediaInfo.Categories[i])
 
 		log.Println("mediaInfo.AbsoluteLinkDirPath: ", mediaInfo.AbsoluteLinkDirPath)
-		katPath := mediaInfo.AbsoluteLinkDirPath + "/" + mediaInfo.Categories[i]
+		katPath := mediaInfo.AbsoluteLinkDirPath + "/" + mediaInfo.Categories[i] + "/.comments"
 		if _, err := os.Stat(katPath); os.IsNotExist(err) {
 			err := os.MkdirAll(katPath, 0770)
 			if err != nil {
@@ -24,7 +25,18 @@ func (mediaInfo *MediaInformation) GenerateFileTree() {
 		if err != nil {
 			// log.Fatal("Create symlink: ", err)
 			log.Println("Create symlink: ", err)
-			return
+		}
+
+		if _, err := os.Stat(mediaInfo.AbsoluteManifestSourcePath); os.IsNotExist(err) {
+			log.Println("+++++++++++++++++++ CREAT MANIFEST +++++++++++++++++++++")
+			log.Println(err, mediaInfo.AbsoluteManifestSourcePath)
+			mediaInfo.CreateEmptyManifestFile()
+		}
+
+		err = os.Symlink(mediaInfo.AbsoluteManifestSourcePath, mediaInfo.AbsoluteManifestLinkDirPath)
+		if err != nil {
+			// log.Fatal("Create symlink: ", err)
+			log.Println("Create symlink: ", err)
 		}
 	}
 }

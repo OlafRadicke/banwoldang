@@ -22,9 +22,13 @@ func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err e
 
 			log.Println("===========================================")
 			log.Println("searchPath: ", searchPath)
-			mediaInfo.ManifestFilePath = searchPath
+			absolutSearchPath, err2 := filepath.Abs(searchPath)
+			if err2 != nil {
+				log.Fatal(err2)
+			}
+			mediaInfo.AbsoluteManifestSourcePath = absolutSearchPath
 			log.Println("Manifest file: ", searchPath)
-			log.Println("mediaInfo.ManifestFilePath: ", mediaInfo.ManifestFilePath)
+			log.Println("mediaInfo.AbsoluteManifestSourcePath: ", mediaInfo.AbsoluteManifestSourcePath)
 			log.Println("===========================================")
 
 			mediaInfo.SetAbsoluteLinkDirPath(fileTree.LinkDir)
@@ -35,13 +39,13 @@ func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err e
 		} else {
 			log.Println("-------------------------------------------")
 			log.Println("searchPath: ", searchPath)
-			absolutLinkSource, err2 := filepath.Abs(searchPath)
+			contentSourcePath, err2 := filepath.Abs(searchPath)
 			if err2 != nil {
 				log.Fatal(err2)
 			}
 
-			log.Println("absolutLinkSource: ", absolutLinkSource)
-			mediaInfo.AbsoluteContentSourcePath = absolutLinkSource
+			log.Println("contentSourcePath: ", contentSourcePath)
+			mediaInfo.AbsoluteContentSourcePath = contentSourcePath
 
 			log.Println("--------------------------------------------")
 			// log.Println("reconstructManifestFile:", searchPath)

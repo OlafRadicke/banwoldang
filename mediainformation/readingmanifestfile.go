@@ -9,7 +9,7 @@ import (
 )
 
 func (mediaInfo *MediaInformation) ReadingManifestFile() {
-	xmlFile, err := os.Open(mediaInfo.ManifestFilePath)
+	xmlFile, err := os.Open(mediaInfo.AbsoluteManifestSourcePath)
 	if err != nil {
 		log.Println(err)
 	}

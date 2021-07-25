@@ -13,13 +13,13 @@ func (mediaInfo *MediaInformation) ReconstructManifestFile() {
 	mediaInfo.ContentFileName = pathParts[len(pathParts)-1]
 	baseDir := filepath.Dir(mediaInfo.AbsoluteContentSourcePath)
 	mediaInfo.Extension = filepath.Ext(mediaInfo.ContentFileName)
-	mediaInfo.ManifestFilePath = baseDir + ".comments/" + mediaInfo.ContentFileName + ".xml"
+	mediaInfo.AbsoluteManifestSourcePath = baseDir + "/.comments/" + mediaInfo.ContentFileName + ".xml"
 
 	if _, err := os.Stat(mediaInfo.AbsoluteContentSourcePath); err == nil {
 		// path/to/whatever exists
 		// log.Println("Manifet file and conten file a exit!")
 	} else {
-		log.Println("Manifest file not exist: ", mediaInfo.ManifestFilePath)
+		log.Println("Manifest file not exist: ", mediaInfo.AbsoluteManifestSourcePath)
 	}
 
 }
