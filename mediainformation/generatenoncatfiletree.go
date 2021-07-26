@@ -26,7 +26,7 @@ func (mediaInfo *MediaInformation) GenerateNonCatFileTree() {
 	}
 
 	log.Println("Chek: ", mediaInfo.AbsoluteManifestSourcePath)
-	_, err := os.Stat(mediaInfo.AbsoluteManifestSourcePath)
+	_, err = os.Stat(mediaInfo.AbsoluteManifestSourcePath)
 	if os.IsNotExist(err) {
 		log.Println("+++++++++++++++++++ CREAT MANIFEST +++++++++++++++++++++")
 		log.Println(err, mediaInfo.AbsoluteManifestSourcePath)
