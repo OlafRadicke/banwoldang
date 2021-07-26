@@ -32,7 +32,10 @@ func (mediaInfo *MediaInformation) GenerateFileTree() {
 				log.Println("Create symlink: ", err)
 			}
 
-			if _, err := os.Stat(mediaInfo.AbsoluteManifestSourcePath); os.IsNotExist(err) {
+			log.Println("Chek: ", mediaInfo.AbsoluteManifestSourcePath)
+			_, err = os.Stat(mediaInfo.AbsoluteManifestSourcePath)
+			log.Println(err)
+			if os.IsNotExist(err) {
 				log.Println("+++++++++++++++++++ CREAT MANIFEST +++++++++++++++++++++")
 				log.Println(err, mediaInfo.AbsoluteManifestSourcePath)
 				mediaInfo.CreateEmptyManifestFile()
@@ -63,7 +66,10 @@ func (mediaInfo *MediaInformation) GenerateFileTree() {
 			log.Println("Create symlink: ", err)
 		}
 
-		if _, err := os.Stat(mediaInfo.AbsoluteManifestSourcePath); os.IsNotExist(err) {
+		log.Println("Chek: ", mediaInfo.AbsoluteManifestSourcePath)
+		_, err = os.Stat(mediaInfo.AbsoluteManifestSourcePath)
+		log.Println(err)
+		if os.IsNotExist(err) {
 			log.Println("+++++++++++++++++++ CREAT MANIFEST +++++++++++++++++++++")
 			log.Println(err, mediaInfo.AbsoluteManifestSourcePath)
 			mediaInfo.CreateEmptyManifestFile()

@@ -25,7 +25,9 @@ func (mediaInfo *MediaInformation) GenerateNonCatFileTree() {
 		log.Println("Create symlink: ", err)
 	}
 
-	if _, err := os.Stat("mediaInfo.AbsoluteManifestSourcePath"); os.IsNotExist(err) {
+	log.Println("Chek: ", mediaInfo.AbsoluteManifestSourcePath)
+	_, err := os.Stat(mediaInfo.AbsoluteManifestSourcePath)
+	if os.IsNotExist(err) {
 		log.Println("+++++++++++++++++++ CREAT MANIFEST +++++++++++++++++++++")
 		log.Println(err, mediaInfo.AbsoluteManifestSourcePath)
 		mediaInfo.CreateEmptyManifestFile()
