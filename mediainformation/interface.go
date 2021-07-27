@@ -3,8 +3,8 @@ package mediainformation
 type mediainformation interface {
 	CreateMediaFileHash()
 
-	// Create an empty manifest file
-	CreateEmptyManifestFile()
+	CreateNewEmptyManifestFile()
+	CreateLinkDirSubDir(string)
 
 	GenerateSingleCatFileTree(string) // TODO
 	// GenerateFileTree()             // TODO / REFACTORING

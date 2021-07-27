@@ -16,15 +16,7 @@ func (mediaInfo *MediaInformation) GenerateFileTree() {
 
 			mediaInfo.SetAbsoluteContentLinkDirPath("00-single-cats")
 			mediaInfo.SetAbsoluteManifestLinkDirPath("00-single-cats")
-
-			log.Println("mediaInfo.AbsoluteLinkDirPath: ", mediaInfo.AbsoluteLinkDirPath)
-			katPath := mediaInfo.AbsoluteLinkDirPath + "/00-single-cats/.comments"
-			if _, err := os.Stat(katPath); os.IsNotExist(err) {
-				err := os.MkdirAll(katPath, 0770)
-				if err != nil {
-					log.Fatal(err)
-				}
-			}
+			mediaInfo.CreateLinkDirSubDir("00-single-cats")
 
 			err := os.Symlink(mediaInfo.AbsoluteContentSourcePath, mediaInfo.AbsoluteContentLinkDirPath)
 			if err != nil {
@@ -32,14 +24,7 @@ func (mediaInfo *MediaInformation) GenerateFileTree() {
 				log.Println("Create symlink: ", err)
 			}
 
-			log.Println("Chek: ", mediaInfo.AbsoluteManifestSourcePath)
-			_, err = os.Stat(mediaInfo.AbsoluteManifestSourcePath)
-			log.Println(err)
-			if os.IsNotExist(err) {
-				log.Println("+++++++++++++++++++ CREAT MANIFEST +++++++++++++++++++++")
-				log.Println(err, mediaInfo.AbsoluteManifestSourcePath)
-				mediaInfo.CreateEmptyManifestFile()
-			}
+			mediaInfo.CreateNewEmptyManifestFile()
 
 			err = os.Symlink(mediaInfo.AbsoluteManifestSourcePath, mediaInfo.AbsoluteManifestLinkDirPath)
 			if err != nil {
@@ -50,15 +35,7 @@ func (mediaInfo *MediaInformation) GenerateFileTree() {
 		}
 		mediaInfo.SetAbsoluteContentLinkDirPath(mediaInfo.Categories[i])
 		mediaInfo.SetAbsoluteManifestLinkDirPath(mediaInfo.Categories[i])
-
-		log.Println("mediaInfo.AbsoluteLinkDirPath: ", mediaInfo.AbsoluteLinkDirPath)
-		katPath := mediaInfo.AbsoluteLinkDirPath + "/" + mediaInfo.Categories[i] + "/.comments"
-		if _, err := os.Stat(katPath); os.IsNotExist(err) {
-			err := os.MkdirAll(katPath, 0770)
-			if err != nil {
-				log.Fatal(err)
-			}
-		}
+		mediaInfo.CreateLinkDirSubDir(mediaInfo.Categories[i])
 
 		err := os.Symlink(mediaInfo.AbsoluteContentSourcePath, mediaInfo.AbsoluteContentLinkDirPath)
 		if err != nil {
@@ -66,14 +43,7 @@ func (mediaInfo *MediaInformation) GenerateFileTree() {
 			log.Println("Create symlink: ", err)
 		}
 
-		log.Println("Chek: ", mediaInfo.AbsoluteManifestSourcePath)
-		_, err = os.Stat(mediaInfo.AbsoluteManifestSourcePath)
-		log.Println(err)
-		if os.IsNotExist(err) {
-			log.Println("+++++++++++++++++++ CREAT MANIFEST +++++++++++++++++++++")
-			log.Println(err, mediaInfo.AbsoluteManifestSourcePath)
-			mediaInfo.CreateEmptyManifestFile()
-		}
+		mediaInfo.CreateNewEmptyManifestFile()
 
 		err = os.Symlink(mediaInfo.AbsoluteManifestSourcePath, mediaInfo.AbsoluteManifestLinkDirPath)
 		if err != nil {
