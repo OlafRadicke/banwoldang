@@ -19,6 +19,9 @@ type mediainformation interface {
 	SetAbsoluteContentLinkDirPath(string)
 	SetAbsoluteLinkDirPath(string)
 	SetAbsoluteManifestLinkDirPath(string)
+
+	SetAbsoluteContentSourcePath(string)
+	SetAbsoluteManifestSourcePath(string)
 }
 
 type MediaInformation struct {

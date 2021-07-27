@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 )
 
-// Create the absolute link path of the contnet file for the link directory tree.
+// Set or create the absolute link path of the contnet file for the link directory tree.
 // @subDir param is the name of a sub directory for link directory tree.
 func (mediaInfo *MediaInformation) SetAbsoluteContentLinkDirPath(subDir string) {
 	genFilePath := mediaInfo.AbsoluteLinkDirPath + "/" + subDir + "/" + mediaInfo.HashValue + mediaInfo.Extension
@@ -13,6 +13,5 @@ func (mediaInfo *MediaInformation) SetAbsoluteContentLinkDirPath(subDir string) 
 	if err1 != nil {
 		log.Fatal(err1)
 	}
-	log.Println("absolutLinkTarget: ", absolutLinkTarget)
 	mediaInfo.AbsoluteContentLinkDirPath = absolutLinkTarget
 }

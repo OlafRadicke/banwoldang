@@ -17,16 +17,15 @@ func (mediaInfo *MediaInformation) GenerateFileTree() {
 			mediaInfo.SetAbsoluteManifestLinkDirPath("00-single-cats")
 			mediaInfo.CreateLinkDirSubDir("00-single-cats")
 			mediaInfo.CreateContentLink()
-
 			mediaInfo.CreateNewEmptyManifestFile()
 			mediaInfo.CreateManifestLink()
 
 		}
+		
 		mediaInfo.SetAbsoluteContentLinkDirPath(mediaInfo.Categories[i])
 		mediaInfo.SetAbsoluteManifestLinkDirPath(mediaInfo.Categories[i])
 		mediaInfo.CreateLinkDirSubDir(mediaInfo.Categories[i])
 		mediaInfo.CreateContentLink()
-
 		mediaInfo.CreateNewEmptyManifestFile()
 		mediaInfo.CreateManifestLink()
 
