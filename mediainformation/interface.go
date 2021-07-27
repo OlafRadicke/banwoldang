@@ -5,10 +5,10 @@ type mediainformation interface {
 	CreateLinkDirSubDir(string)
 	CreateManifestLink()
 	CreateMediaFileHash()
-	CreateNewEmptyManifestFile() // TODO remove commant
+	CreateNewEmptyManifestFile()
 
-	GenerateSingleCatFileTree(string) // TODO
-	// GenerateLinkDirTree()             // TODO / REFACTORING
+	GenerateSingleCatFileTree(string) // TODO (REMOVE)
+	// GenerateLinkDirTree()             // TODO / REFACTORING (REMOVE)
 	GenerateLinkDirTreeWithoutManifests()
 
 	ReadingManifestFile()
