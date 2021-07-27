@@ -1,10 +1,11 @@
 package mediainformation
 
 type mediainformation interface {
-	CreateMediaFileHash()
-
-	CreateNewEmptyManifestFile()
+	CreateContentLink()
 	CreateLinkDirSubDir(string)
+	CreateManifestLink()
+	CreateMediaFileHash()
+	CreateNewEmptyManifestFile() // TODO remove commant
 
 	GenerateSingleCatFileTree(string) // TODO
 	// GenerateFileTree()             // TODO / REFACTORING
