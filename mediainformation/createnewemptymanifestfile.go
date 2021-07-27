@@ -12,14 +12,16 @@ func (mediaInfo *MediaInformation) CreateNewEmptyManifestFile() {
 	_, err := os.Stat(mediaInfo.AbsoluteManifestSourcePath)
 	log.Println(err)
 	if os.IsNotExist(err) {
+		log.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 		log.Println("+++++++++++++++++++ CREAT MANIFEST +++++++++++++++++++++")
+		log.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 		log.Println(err, mediaInfo.AbsoluteManifestSourcePath)
 
-		// openFile, err := os.Create(mediaInfo.AbsoluteManifestSourcePath)
-		// if err != nil {
-		// 	log.Fatal(err)
-		// }
-		// defer openFile.Close()
+		openFile, err := os.Create(mediaInfo.AbsoluteManifestSourcePath)
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer openFile.Close()
 		rawtext := `<?xml version="1.0" encoding="UTF-8"?>
 <comment version="3.0">
 	<caption/>
@@ -30,11 +32,11 @@ func (mediaInfo *MediaInformation) CreateNewEmptyManifestFile() {
 	</categories>
 </comment>`
 		log.Println(rawtext)
-		// _, err2 := openFile.WriteString(rawtext)
+		_, err2 := openFile.WriteString(rawtext)
 
-		// if err2 != nil {
-		// 	log.Fatal(err2)
-		// }
+		if err2 != nil {
+			log.Fatal(err2)
+		}
 	}
 
 }
