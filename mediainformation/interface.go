@@ -8,8 +8,8 @@ type mediainformation interface {
 	CreateNewEmptyManifestFile() // TODO remove commant
 
 	GenerateSingleCatFileTree(string) // TODO
-	// GenerateFileTree()             // TODO / REFACTORING
-	GenerateNonCatFileTree()
+	// GenerateLinkDirTree()             // TODO / REFACTORING
+	GenerateLinkDirTreeWithoutManifests()
 
 	ReadingManifestFile()
 

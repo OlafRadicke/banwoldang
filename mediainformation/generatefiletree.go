@@ -5,7 +5,13 @@ import (
 )
 
 // Generate directory tree with symlinks of file with categories.
-func (mediaInfo *MediaInformation) GenerateFileTree() {
+func (mediaInfo *MediaInformation) GenerateLinkDirTree() {
+
+	if len(mediaInfo.Categories) > 1 {
+		log.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+		log.Println("+++++++++++++++++++ this file has ", len(mediaInfo.Categories), " categories ++++++++++++++++++++++")
+		log.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+	}
 
 	for i := 0; i < len(mediaInfo.Categories); i++ {
 		if len(mediaInfo.Categories) == 1 {
@@ -21,7 +27,7 @@ func (mediaInfo *MediaInformation) GenerateFileTree() {
 			mediaInfo.CreateManifestLink()
 
 		}
-		
+
 		mediaInfo.SetAbsoluteContentLinkDirPath(mediaInfo.Categories[i])
 		mediaInfo.SetAbsoluteManifestLinkDirPath(mediaInfo.Categories[i])
 		mediaInfo.CreateLinkDirSubDir(mediaInfo.Categories[i])
@@ -30,4 +36,5 @@ func (mediaInfo *MediaInformation) GenerateFileTree() {
 		mediaInfo.CreateManifestLink()
 
 	}
+
 }

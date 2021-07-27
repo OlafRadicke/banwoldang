@@ -13,6 +13,5 @@ func (mediaInfo *MediaInformation) SetAbsoluteManifestLinkDirPath(subDir string)
 	if err1 != nil {
 		log.Fatal(err1)
 	}
-	log.Println("SetAbsoluteManifestLinkDirPath: ", absolutLinkTarget)
 	mediaInfo.AbsoluteManifestLinkDirPath = absolutLinkTarget
 }

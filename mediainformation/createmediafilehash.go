@@ -29,7 +29,6 @@ func (mediaInfo *MediaInformation) CreateMediaFileHash() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		log.Println("UUID: ", uuid)
 		mediaInfo.HashValue = base64.URLEncoding.EncodeToString(uuid)
 		log.Println("UUID base64: ", mediaInfo.HashValue)
 	} else {

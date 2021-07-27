@@ -10,9 +10,7 @@ import (
 // Reconstruct the source path of the conten file based on the path of a
 // manifest file.
 func (mediaInfo *MediaInformation) ReconstructContenSourceFile() {
-	log.Println("mediaInfo.AbsoluteManifestSourcePath: ", mediaInfo.AbsoluteManifestSourcePath)
 	pathParts := strings.Split(mediaInfo.AbsoluteManifestSourcePath, "/")
-	log.Println("pathParts: ", pathParts)
 	onsUpLevel := len(pathParts) - 2
 	mediaInfo.OnsUpPath = strings.Join(pathParts[0:onsUpLevel], "/")
 
@@ -26,7 +24,7 @@ func (mediaInfo *MediaInformation) ReconstructContenSourceFile() {
 		// path/to/whatever exists
 		// log.Println("Manifet file and conten file a exit!")
 	} else {
-		log.Println("File not exist: ", mediaInfo.AbsoluteContentSourcePath)
+		log.Println("conten file not exist: ", mediaInfo.AbsoluteContentSourcePath)
 	}
 
 }

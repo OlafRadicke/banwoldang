@@ -8,9 +8,7 @@ import (
 // Create an new empty manifest file it is not exist
 func (mediaInfo *MediaInformation) CreateNewEmptyManifestFile() {
 
-	log.Println("Chek: ", mediaInfo.AbsoluteManifestSourcePath)
 	_, err := os.Stat(mediaInfo.AbsoluteManifestSourcePath)
-	log.Println(err)
 	if os.IsNotExist(err) {
 		log.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 		log.Println("+++++++++++++++++++ CREAT MANIFEST +++++++++++++++++++++")

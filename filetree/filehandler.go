@@ -25,12 +25,12 @@ func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err e
 			mediaInfo.ReconstructContenSourceFile()
 			mediaInfo.ReadingManifestFile()
 			mediaInfo.CreateMediaFileHash()
-			mediaInfo.GenerateFileTree()
+			mediaInfo.GenerateLinkDirTree()
 		} else {
 			mediaInfo.SetAbsoluteContentSourcePath(searchPath)
 			mediaInfo.ReconstructManifestFile()
 			mediaInfo.CreateMediaFileHash()
-			mediaInfo.GenerateNonCatFileTree()
+			mediaInfo.GenerateLinkDirTreeWithoutManifests()
 		}
 		return nil
 	}

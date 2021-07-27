@@ -47,13 +47,8 @@ func checkInput() *ProgArguments {
 	if givenArguments < progArguments.MinimumArguments {
 		log.Fatal("To less arguments! ", progArguments.MinimumArguments, " needed and ", givenArguments, "given ")
 	} else {
-		// programName := os.Args[0]
 		progArguments.MediaDir = os.Args[1]
 		progArguments.LinkDir = os.Args[2]
-
-		// startPasth = os.Args[1]
-		// log.Println("Arg numbers: ", givenArguments)
-		// log.Println("Starting the application: ", programName)
 	}
 
 	return &progArguments

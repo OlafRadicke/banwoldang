@@ -9,8 +9,6 @@ import (
 // sub directory for the manifests (.comments)
 // @subDir sing with the mane of the new sub directory.
 func (mediaInfo *MediaInformation) CreateLinkDirSubDir(subDir string) {
-
-	log.Println("mediaInfo.AbsoluteLinkDirPath: ", mediaInfo.AbsoluteLinkDirPath)
 	katPath := mediaInfo.AbsoluteLinkDirPath + "/" + subDir + "/.comments"
 	_, err := os.Stat(katPath)
 	if os.IsNotExist(err) {
