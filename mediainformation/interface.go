@@ -7,9 +7,11 @@ type mediainformation interface {
 	CreateMediaFileHash()
 	CreateNewEmptyManifestFile()
 
+	ExtractFileNameParts()
+
 	GenerateSingleCatFileTree(string) // TODO (REMOVE)
 	// GenerateLinkDirTree()             // TODO / REFACTORING (REMOVE)
-	GenerateLinkDirTreeWithoutManifests()
+	GenerateLinkDirTreeWithoutManifests() // TODO
 
 	ReadingManifestFile()
 

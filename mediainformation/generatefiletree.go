@@ -7,6 +7,18 @@ import (
 // Generate directory tree with symlinks of file with categories.
 func (mediaInfo *MediaInformation) GenerateLinkDirTree() {
 
+	listOfParts := mediaInfo.ExtractFileNameParts()
+	log.Println("listOfParts (", len(listOfParts), "): ", listOfParts)
+	for i := 0; i < len(listOfParts); i++ {
+
+		mediaInfo.SetAbsoluteContentLinkDirPath("00-olad-name-part/" + listOfParts[i])
+		mediaInfo.SetAbsoluteManifestLinkDirPath("00-olad-name-part/" + listOfParts[i])
+		mediaInfo.CreateLinkDirSubDir("00-olad-name-part/" + listOfParts[i])
+		mediaInfo.CreateContentLink()
+		mediaInfo.CreateNewEmptyManifestFile()
+		mediaInfo.CreateManifestLink()
+	}
+
 	if len(mediaInfo.Categories) > 1 {
 		log.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 		log.Println("+++++++++++++++++++ this file has ", len(mediaInfo.Categories), " categories ++++++++++++++++++++++")
