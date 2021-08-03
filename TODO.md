@@ -1,5 +1,6 @@
-- Checksum-tree
-  - By file name
+- Checksum-tree (with sub directories)
+- Using file name as alternative (quicker)
+- Link tree by file name
 - Renaming source file (checksum) 
 - Generate category template in /home/<user>/.config/gthumb/tags.xml
 - Logfile with errors and duplicates
@@ -13,7 +14,6 @@ if e != nil {
     log.Fatal(e)
 }
 ```
-
 
 
 ```xml

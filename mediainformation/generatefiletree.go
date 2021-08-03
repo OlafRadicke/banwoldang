@@ -16,20 +16,9 @@ func (mediaInfo *MediaInformation) GenerateLinkDirTree() {
 	}
 
 	for i := 0; i < len(mediaInfo.Categories); i++ {
-		if len(mediaInfo.Categories) < 4 {
+		if len(mediaInfo.Categories) < 5 {
 
 			mediaInfo.GenerateCategoryCountLinkTree()
-
-			// log.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-			// log.Println("++++++++++++++++++++++++ has only one category! ++++++++++++++++++++++")
-			// log.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-
-			// mediaInfo.SetAbsoluteContentLinkDirPath("00-single-cats")
-			// mediaInfo.SetAbsoluteManifestLinkDirPath("00-single-cats")
-			// mediaInfo.CreateLinkDirSubDir("00-single-cats")
-			// mediaInfo.CreateContentLink()
-			// mediaInfo.CreateNewEmptyManifestFile()
-			// mediaInfo.CreateManifestLink()
 		}
 
 		mediaInfo.SetAbsoluteContentLinkDirPath(mediaInfo.Categories[i])
