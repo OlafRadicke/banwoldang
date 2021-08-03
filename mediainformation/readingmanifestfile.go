@@ -2,7 +2,6 @@ package mediainformation
 
 import (
 	"encoding/xml"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
@@ -24,8 +23,5 @@ func (mediaInfo *MediaInformation) ReadingManifestFile() {
 		// fmt.Println("cat value: " + comment.Categories.CategoryList[i].Value)
 		mediaInfo.Categories = append(mediaInfo.Categories, comment.Categories.CategoryList[i].Value)
 	}
-
-	fmt.Println("cat len: ", len(mediaInfo.Categories))
 	defer xmlFile.Close()
-
 }

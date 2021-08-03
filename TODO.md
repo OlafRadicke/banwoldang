@@ -1,11 +1,13 @@
 - Checksum-tree
   - By file name
-  - By category count
 - Renaming source file (checksum) 
 - Generate category template in /home/<user>/.config/gthumb/tags.xml
+- Logfile with errors and duplicates
+- Better flag parsing "--foo=bar" 
 
 
 ```golang
+// rename
 e := os.Rename(Original_Path, New_Path)
 if e != nil {
     log.Fatal(e)

@@ -13,7 +13,6 @@ func (mediaInfo *MediaInformation) GenerateOldNamePartLinkTree() {
 
 		log.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 		log.Println("++++++++++++++++++++++++ create old name category ++++++++++++++++++++")
-		log.Println("++++++++++++++++++++++++ ", listOfParts[i], "+++++++++++++++++++++")
 		log.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
 		mediaInfo.SetAbsoluteContentLinkDirPath("00-olad-name-part/" + listOfParts[i])

@@ -9,7 +9,7 @@ type mediainformation interface {
 
 	ExtractFileNameParts()
 
-	GenerateCategoryCountLinkTree(int)
+	GenerateCategoryCountLinkTree()
 	GenerateSingleCatFileTree(string)     // TODO (REMOVE)
 	GenerateLinkDirTree()                 // TODO / REFACTORING (REMOVE)
 	GenerateLinkDirTreeWithoutManifests() // TODO

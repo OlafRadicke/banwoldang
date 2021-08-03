@@ -8,10 +8,10 @@ import (
 // Generate directory with symlinks of file without categories.
 func (mediaInfo *MediaInformation) GenerateLinkDirTreeWithoutManifests() {
 
-	mediaInfo.SetAbsoluteContentLinkDirPath("00-no-cats")
-	mediaInfo.SetAbsoluteManifestLinkDirPath("00-no-cats")
+	mediaInfo.SetAbsoluteContentLinkDirPath("00-no-manifest")
+	mediaInfo.SetAbsoluteManifestLinkDirPath("00-no-manifest")
 
-	katPath := mediaInfo.AbsoluteLinkDirPath + "/00-no-cats/" + "/.comments"
+	katPath := mediaInfo.AbsoluteLinkDirPath + "/00-no-manifest/" + "/.comments"
 	if _, err := os.Stat(katPath); os.IsNotExist(err) {
 		err := os.MkdirAll(katPath, 0770)
 		if err != nil {

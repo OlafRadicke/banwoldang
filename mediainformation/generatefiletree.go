@@ -9,21 +9,6 @@ func (mediaInfo *MediaInformation) GenerateLinkDirTree() {
 
 	mediaInfo.GenerateOldNamePartLinkTree()
 
-	// listOfParts := mediaInfo.ExtractFileNameParts()
-	// for i := 0; i < len(listOfParts); i++ {
-
-	// 	log.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-	// 	log.Println("++++++++++++++++++++++++ create old name category+++++++++++++++++++++")
-	// 	log.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-
-	// 	mediaInfo.SetAbsoluteContentLinkDirPath("00-olad-name-part/" + listOfParts[i])
-	// 	mediaInfo.SetAbsoluteManifestLinkDirPath("00-olad-name-part/" + listOfParts[i])
-	// 	mediaInfo.CreateLinkDirSubDir("00-olad-name-part/" + listOfParts[i])
-	// 	mediaInfo.CreateContentLink()
-	// 	mediaInfo.CreateNewEmptyManifestFile()
-	// 	mediaInfo.CreateManifestLink()
-	// }
-
 	if len(mediaInfo.Categories) > 1 {
 		log.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 		log.Println("+++++++++++++++++++ this file has ", len(mediaInfo.Categories), " categories ++++++++++++++++++++++")
@@ -31,9 +16,10 @@ func (mediaInfo *MediaInformation) GenerateLinkDirTree() {
 	}
 
 	for i := 0; i < len(mediaInfo.Categories); i++ {
-		if len(mediaInfo.Categories) == 1 {
+		if len(mediaInfo.Categories) < 4 {
 
-			mediaInfo.GenerateCategoryCountLinkTree(4)
+			mediaInfo.GenerateCategoryCountLinkTree()
+
 			// log.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 			// log.Println("++++++++++++++++++++++++ has only one category! ++++++++++++++++++++++")
 			// log.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
@@ -44,7 +30,6 @@ func (mediaInfo *MediaInformation) GenerateLinkDirTree() {
 			// mediaInfo.CreateContentLink()
 			// mediaInfo.CreateNewEmptyManifestFile()
 			// mediaInfo.CreateManifestLink()
-
 		}
 
 		mediaInfo.SetAbsoluteContentLinkDirPath(mediaInfo.Categories[i])
