@@ -8,8 +8,11 @@ import (
 func (mediaInfo *MediaInformation) GenerateLinkDirTree() {
 
 	listOfParts := mediaInfo.ExtractFileNameParts()
-	log.Println("listOfParts (", len(listOfParts), "): ", listOfParts)
 	for i := 0; i < len(listOfParts); i++ {
+
+		log.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+		log.Println("++++++++++++++++++++++++ create old name category+++++++++++++++++++++")
+		log.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
 		mediaInfo.SetAbsoluteContentLinkDirPath("00-olad-name-part/" + listOfParts[i])
 		mediaInfo.SetAbsoluteManifestLinkDirPath("00-olad-name-part/" + listOfParts[i])
