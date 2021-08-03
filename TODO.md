@@ -1,7 +1,17 @@
 - Checksum-tree
   - By file name
   - By category count
+- Renaming source file (checksum) 
 - Generate category template in /home/<user>/.config/gthumb/tags.xml
+
+
+```golang
+e := os.Rename(Original_Path, New_Path)
+if e != nil {
+    log.Fatal(e)
+}
+```
+
 
 
 ```xml

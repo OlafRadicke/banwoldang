@@ -9,9 +9,11 @@ type mediainformation interface {
 
 	ExtractFileNameParts()
 
-	GenerateSingleCatFileTree(string) // TODO (REMOVE)
-	// GenerateLinkDirTree()             // TODO / REFACTORING (REMOVE)
+	GenerateCategoryCountLinkTree(int)
+	GenerateSingleCatFileTree(string)     // TODO (REMOVE)
+	GenerateLinkDirTree()                 // TODO / REFACTORING (REMOVE)
 	GenerateLinkDirTreeWithoutManifests() // TODO
+	GenerateOldNamePartLinkTree()
 
 	ReadingManifestFile()
 

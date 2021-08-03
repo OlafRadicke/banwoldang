@@ -21,14 +21,17 @@ func (mediaInfo *MediaInformation) ExtractFileNameParts() []string {
 	listOfParts = strings.Split(cleanString, "_")
 	for i := 0; i < len(listOfParts); i++ {
 		if len(listOfParts[i]) < 4 {
+			// no small words like "and"
 			continue
 		}
 		_, err := strconv.Atoi(listOfParts[i])
 		if err == nil {
+			// No numbers
 			continue
 		}
-
-		finaListOfParts = append(finaListOfParts, listOfParts[i])
+		// no duplicats by upper strings
+		upperString := strings.ToUpper(listOfParts[i])
+		finaListOfParts = append(finaListOfParts, upperString)
 	}
 	return finaListOfParts
 }
