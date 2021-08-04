@@ -3,6 +3,7 @@ package mediainformation
 import (
 	"log"
 	"os"
+	"path/filepath"
 )
 
 // Create an new empty manifest file it is not exist
@@ -15,9 +16,15 @@ func (mediaInfo *MediaInformation) CreateNewEmptyManifestFile() {
 		log.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 		log.Println(err, mediaInfo.AbsoluteManifestSourcePath)
 
+		manifestBaseDir := filepath.Dir(mediaInfo.AbsoluteManifestSourcePath)
+		err := os.MkdirAll(manifestBaseDir, 0770)
+		if err != nil {
+			log.Fatal("[202108040831]", err)
+		}
+
 		openFile, err := os.Create(mediaInfo.AbsoluteManifestSourcePath)
 		if err != nil {
-			log.Fatal(err)
+			log.Fatal("[202108040825]", err)
 		}
 		defer openFile.Close()
 		rawtext := `<?xml version="1.0" encoding="UTF-8"?>
@@ -33,7 +40,7 @@ func (mediaInfo *MediaInformation) CreateNewEmptyManifestFile() {
 		_, err2 := openFile.WriteString(rawtext)
 
 		if err2 != nil {
-			log.Fatal(err2)
+			log.Fatal("[202108040824]", err2)
 		}
 	}
 
