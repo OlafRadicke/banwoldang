@@ -5,6 +5,8 @@
 - Generate category template in /home/<user>/.config/gthumb/tags.xml
 - Logfile with errors and duplicates
 - Better flag parsing "--foo=bar" 
+- flag for creating empty manifests
+- flag for creating checksums
 
 
 ```golang

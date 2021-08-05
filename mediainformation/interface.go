@@ -61,4 +61,7 @@ type MediaInformation struct {
 
 	// The list with the categories of a media file
 	Categories []string
+	
+	// Is the value true, than it will be create checksums as file names (for the links)
+	UseChecksum bool
 }

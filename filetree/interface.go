@@ -17,4 +17,6 @@ type FileTree struct {
 	LinkDir string
 	// The number of founded manifest Files
 	Findings int
+	// Is the value true, than it will be create checksums as file names (for the links)
+	UseChecksum bool
 }

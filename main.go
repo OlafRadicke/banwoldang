@@ -9,7 +9,7 @@ import (
 	filetree "github.com/OlafRadicke/banwoldang/filetree"
 )
 
-// Struct with command line arguments
+// ProgArguments struct with command line arguments
 type ProgArguments struct {
 	// Location with the media files
 	MediaDir string
@@ -17,6 +17,18 @@ type ProgArguments struct {
 	LinkDir string
 	// The minimum of needed params
 	MinimumArguments int
+	// Is the value true, than it will be create checksums as file names (for the links)
+	UseChecksum bool
+}
+
+// NewProgArguments create new instance of ProgArguments
+func NewProgArguments() ProgArguments {
+	progArguments := ProgArguments{}
+	progArguments.MediaDir = ""
+	progArguments.LinkDir = ""
+	progArguments.MinimumArguments = 3
+	progArguments.UseChecksum = false
+	return progArguments
 }
 
 func main() {
@@ -27,7 +39,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Println("absolutStartPath: ", absolutStartPath)
 	fileTree.StartPath = absolutStartPath
 	absoluteLinkDir, err := filepath.Abs(progArguments.LinkDir)
 	if err != nil {
@@ -41,10 +52,10 @@ func main() {
 	log.Println("Findings: ", fileTree.Findings)
 }
 
+// ProgArguments read the programme arguments
 func checkInput() *ProgArguments {
-	progArguments := ProgArguments{}
+	progArguments := NewProgArguments()
 	givenArguments := len(os.Args)
-	progArguments.MinimumArguments = 3
 	if givenArguments < progArguments.MinimumArguments {
 		log.Fatal("To less arguments! ", progArguments.MinimumArguments, " needed and ", givenArguments, "given ")
 	}
@@ -59,18 +70,20 @@ func checkInput() *ProgArguments {
 
 		switch argParts[0] {
 		case "--source-dir":
-			log.Println("set source-dir")
 			progArguments.MediaDir = argParts[1]
 		case "--link-dir":
-			log.Println("set link-dir")
 			progArguments.LinkDir = argParts[1]
+		case "--checksum":
+			if argParts[1] == "true" {
+				progArguments.UseChecksum = true
+			} else {
+				progArguments.UseChecksum = false
+			}
 		default:
 			log.Fatal("Unknown parameter: ", argParts[0])
 		}
 
+		log.Println("UseChecksum is: ", progArguments.UseChecksum)
 	}
-	// log.Println("progArguments: ", progArguments)
-	// progArguments.MediaDir = os.Args[1]
-	// progArguments.LinkDir = os.Args[2]
 	return &progArguments
 }
