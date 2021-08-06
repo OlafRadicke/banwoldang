@@ -11,7 +11,7 @@ import (
 // ProgArguments struct with command line arguments
 type ProgArguments struct {
 	// Location with the media files
-	MediaDir string
+	SourceDir string
 	// Location for the link directory
 	LinkDir string
 	// The minimum of needed params
@@ -23,7 +23,7 @@ type ProgArguments struct {
 // NewProgArguments create new instance of ProgArguments
 func NewProgArguments() ProgArguments {
 	progArguments := ProgArguments{}
-	progArguments.MediaDir = ""
+	progArguments.SourceDir = ""
 	progArguments.LinkDir = ""
 	progArguments.MinimumArguments = 3
 	progArguments.UseChecksum = false
@@ -53,17 +53,17 @@ func init() {
 
 func main() {
 
-	InfoLogger.Println("der neue Info-Logger")
-	ErrorLogger.Println("der neue Error-Logger")
-	ErrorLogger.Fatal("der neue Error-Logger mit hartem Ende...")
+	// InfoLogger.Println("der neue Info-Logger")
+	// ErrorLogger.Println("der neue Error-Logger")
+	// ErrorLogger.Fatal("der neue Error-Logger mit hartem Ende...")
 
 	progArguments := checkInput()
 
 	fileTree := filetree.FileTree{}
-	fileTree.SetAbsoluteStartPath(progArguments.MediaDir)
+	fileTree.SetAbsoluteSourcePath(progArguments.SourceDir)
 	fileTree.SetAbsoluteLinkDir(progArguments.LinkDir)
 	log.Println("absoluteLinkDir: ", fileTree.LinkDir)
-	log.Println("Search in: ", fileTree.StartPath)
+	log.Println("Search in: ", fileTree.SourcePath)
 
 	fileTree.GoThroughCollection()
 	log.Println("Count of founded files: ", fileTree.Findings)
@@ -87,7 +87,7 @@ func checkInput() *ProgArguments {
 
 		switch argParts[0] {
 		case "--source-dir":
-			progArguments.MediaDir = argParts[1]
+			progArguments.SourceDir = argParts[1]
 		case "--link-dir":
 			progArguments.LinkDir = argParts[1]
 		case "--checksum":

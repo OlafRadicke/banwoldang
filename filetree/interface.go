@@ -9,13 +9,13 @@ type filetree interface {
 	PrintAll()
 	fileHandler(path string, info os.FileInfo, err error) error
 
-	SetAbsoluteStartPath(string)
+	SetAbsoluteSourcePath(string)
 	SetAbsoluteLinkDir(string)
 }
 
 type FileTree struct {
 	// The start path for searching media files
-	StartPath string
+	SourcePath string
 	// Location for the link directory
 	LinkDir string
 	// The number of founded manifest Files

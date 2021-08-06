@@ -6,7 +6,7 @@ import (
 )
 
 func (fileTree *FileTree) GoThroughCollection() {
-	err := filepath.Walk(fileTree.StartPath, fileTree.fileHandler)
+	err := filepath.Walk(fileTree.SourcePath, fileTree.fileHandler)
 	if err != nil {
 		log.Println(err)
 	}
