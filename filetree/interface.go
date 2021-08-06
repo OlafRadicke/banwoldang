@@ -8,6 +8,9 @@ type filetree interface {
 	GoThroughCollection()
 	PrintAll()
 	fileHandler(path string, info os.FileInfo, err error) error
+
+	SetAbsoluteStartPath(string)
+	SetAbsoluteLinkDir(string)
 }
 
 type FileTree struct {

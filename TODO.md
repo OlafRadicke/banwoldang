@@ -1,4 +1,4 @@
-- Checksum-tree (with sub directories)
+- Checksum-tree (with sub directories): mediaInfo.HashValue[1]
 - Using file name as alternative (quicker)
 - Link tree by file name
 - Renaming source file (checksum) 

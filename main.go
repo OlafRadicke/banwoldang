@@ -3,7 +3,6 @@ package main
 import (
 	"log"
 	"os"
-	"path/filepath"
 	"strings"
 
 	filetree "github.com/OlafRadicke/banwoldang/filetree"
@@ -35,24 +34,16 @@ func main() {
 	progArguments := checkInput()
 
 	fileTree := filetree.FileTree{}
-	absolutStartPath, err := filepath.Abs(progArguments.MediaDir)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fileTree.StartPath = absolutStartPath
-	absoluteLinkDir, err := filepath.Abs(progArguments.LinkDir)
-	if err != nil {
-		log.Fatal(err)
-	}
-	log.Println("absoluteLinkDir: ", absoluteLinkDir)
-	fileTree.LinkDir = absoluteLinkDir
+	fileTree.SetAbsoluteStartPath(progArguments.MediaDir)
+	fileTree.SetAbsoluteLinkDir(progArguments.LinkDir)
+	log.Println("absoluteLinkDir: ", fileTree.LinkDir)
 	log.Println("Search in: ", fileTree.StartPath)
 
 	fileTree.GoThroughCollection()
-	log.Println("Findings: ", fileTree.Findings)
+	log.Println("Count of founded files: ", fileTree.Findings)
 }
 
-// ProgArguments read the programme arguments
+// checkInput read the programme arguments
 func checkInput() *ProgArguments {
 	progArguments := NewProgArguments()
 	givenArguments := len(os.Args)
