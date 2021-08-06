@@ -25,7 +25,7 @@ func (mediaInfo *MediaInformation) ReconstructContenSourceFile() {
 		// path/to/whatever exists
 		// cl.InfoLogger.Println("Manifet file and conten file a exit!")
 	} else {
-		cl.InfoLogger.Println("conten file not exist: ", mediaInfo.AbsoluteContentSourcePath)
+		cl.ErrorLogger.Println("Conten file of manifest file not exist: ", mediaInfo.AbsoluteContentSourcePath)
 	}
 
 }

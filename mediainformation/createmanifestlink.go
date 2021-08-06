@@ -11,7 +11,6 @@ func (mediaInfo *MediaInformation) CreateManifestLink() {
 
 	err := os.Symlink(mediaInfo.AbsoluteManifestSourcePath, mediaInfo.AbsoluteManifestLinkDirPath)
 	if err != nil {
-		// cl.ErrorLogger.Fatal("Create symlink: ", err)
 		cl.ErrorLogger.Println("Can't create symlink: ", err)
 	}
 

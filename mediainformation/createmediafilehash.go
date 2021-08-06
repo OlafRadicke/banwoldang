@@ -14,7 +14,7 @@ func (mediaInfo *MediaInformation) CreateMediaFileHash() {
 	openFile, err := os.Open(mediaInfo.AbsoluteContentSourcePath)
 	if err != nil {
 		// cl.ErrorLogger.Fatal(err)
-		cl.InfoLogger.Println("Open file for hashing: ", err)
+		cl.ErrorLogger.Println("Open file for hashing: ", err)
 		defer openFile.Close()
 		return
 	}

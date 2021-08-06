@@ -11,7 +11,7 @@ import (
 func (mediaInfo *MediaInformation) ReadingManifestFile() {
 	xmlFile, err := os.Open(mediaInfo.AbsoluteManifestSourcePath)
 	if err != nil {
-		cl.InfoLogger.Println(err)
+		cl.ErrorLogger.Println("Can't read manifest fil: ", err)
 	}
 
 	byteValue, _ := ioutil.ReadAll(xmlFile)
@@ -21,7 +21,6 @@ func (mediaInfo *MediaInformation) ReadingManifestFile() {
 	}
 
 	for i := 0; i < len(comment.Categories.CategoryList); i++ {
-		// fmt.Println("cat value: " + comment.Categories.CategoryList[i].Value)
 		mediaInfo.Categories = append(mediaInfo.Categories, comment.Categories.CategoryList[i].Value)
 	}
 	defer xmlFile.Close()

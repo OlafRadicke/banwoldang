@@ -15,7 +15,6 @@ func (mediaInfo *MediaInformation) GenerateLinkDirTree() {
 
 	for i := 0; i < len(mediaInfo.Categories); i++ {
 		if len(mediaInfo.Categories) < 5 {
-
 			mediaInfo.GenerateCategoryCountLinkTree()
 		}
 
