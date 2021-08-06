@@ -2,8 +2,8 @@ package mediainformation
 
 import cl "github.com/OlafRadicke/banwoldang/customlogger"
 
-// Creates a directory tree with links based on the parts of the conten source
-// file.
+// GenerateOldNamePartLinkTree Creates a directory tree with links based on the
+// parts of the conten source file.
 func (mediaInfo *MediaInformation) GenerateOldNamePartLinkTree() {
 
 	listOfParts := mediaInfo.ExtractFileNameParts()

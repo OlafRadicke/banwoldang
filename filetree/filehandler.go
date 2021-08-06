@@ -7,6 +7,7 @@ import (
 	"github.com/OlafRadicke/banwoldang/mediainformation"
 )
 
+// fileHandler This function handel and prosessing the file operations.
 func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err error) error {
 	if err != nil {
 		return err

@@ -6,7 +6,7 @@ import (
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
-// Create a manifest file link in the link directory.
+// CreateManifestLink Create a manifest file link in the link directory.
 func (mediaInfo *MediaInformation) CreateManifestLink() {
 
 	err := os.Symlink(mediaInfo.AbsoluteManifestSourcePath, mediaInfo.AbsoluteManifestLinkDirPath)

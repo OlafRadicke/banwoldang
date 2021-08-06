@@ -10,6 +10,8 @@ import (
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
+// CreateMediaFileHash Create a hash sum of the mediafile for the
+// authenticating and to use als target link name.
 func (mediaInfo *MediaInformation) CreateMediaFileHash() {
 	openFile, err := os.Open(mediaInfo.AbsoluteContentSourcePath)
 	if err != nil {

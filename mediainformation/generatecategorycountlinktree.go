@@ -6,7 +6,8 @@ import (
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
-// Generate directory tree with symlinks of file depend of categories counts.
+// GenerateCategoryCountLinkTree Generate directory tree with symlinks of file
+// depend of categories counts.
 func (mediaInfo *MediaInformation) GenerateCategoryCountLinkTree() {
 
 	cl.InfoLogger.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")

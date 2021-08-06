@@ -4,6 +4,7 @@ import (
 	"os"
 )
 
+// filetree The inteface of the feletree struckt
 type filetree interface {
 	GoThroughCollection()
 	PrintAll()
@@ -13,6 +14,7 @@ type filetree interface {
 	SetAbsoluteLinkDir(string)
 }
 
+// FileTree This struct represent the information about the tree
 type FileTree struct {
 	// The start path for searching media files
 	SourcePath string

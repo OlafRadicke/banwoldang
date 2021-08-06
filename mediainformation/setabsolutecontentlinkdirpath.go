@@ -6,7 +6,8 @@ import (
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
-// Set or create the absolute link path of the contnet file for the link directory tree.
+// SetAbsoluteContentLinkDirPath Set or create the absolute link path of the
+// contnet file for the link directory tree.
 // @subDir param is the name of a sub directory for link directory tree.
 func (mediaInfo *MediaInformation) SetAbsoluteContentLinkDirPath(subDir string) {
 	genFilePath := mediaInfo.AbsoluteLinkDirPath + "/" + subDir + "/" + mediaInfo.HashValue + mediaInfo.Extension

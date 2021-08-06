@@ -6,7 +6,7 @@ import (
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
-// Set the absolute source path of the conten file.
+// SetAbsoluteContentSourcePath Set the absolute source path of the conten file.
 // @relativePath param is maybe the the relative path.
 func (mediaInfo *MediaInformation) SetAbsoluteContentSourcePath(relativePath string) {
 

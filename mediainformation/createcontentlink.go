@@ -6,7 +6,7 @@ import (
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
-// Create a content file link in the link directory.
+// CreateContentLink Create a content file link in the link directory.
 func (mediaInfo *MediaInformation) CreateContentLink() {
 
 	err := os.Symlink(mediaInfo.AbsoluteContentSourcePath, mediaInfo.AbsoluteContentLinkDirPath)

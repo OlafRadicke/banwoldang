@@ -6,7 +6,8 @@ import (
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
-// Create the absolute link to the directory with the link tree.
+// SetAbsoluteLinkDirPath Create the absolute link to the directory with the
+// link tree.
 // @linkDir param is the value with an relative path to the link tree directory.
 func (mediaInfo *MediaInformation) SetAbsoluteLinkDirPath(linkDir string) {
 	prefix := "/link-tree"

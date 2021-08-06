@@ -8,8 +8,8 @@ import (
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
-// Reconstruct the source path of the conten file based on the path of a
-// manifest file.
+// ReconstructContenSourceFile Reconstruct the source path of the conten file
+// based on the path of a manifest file.
 func (mediaInfo *MediaInformation) ReconstructContenSourceFile() {
 	pathParts := strings.Split(mediaInfo.AbsoluteManifestSourcePath, "/")
 	onsUpLevel := len(pathParts) - 2

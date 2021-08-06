@@ -1,5 +1,6 @@
 package mediainformation
 
+// mediainformation the interface of MediaInformation
 type mediainformation interface {
 	CreateContentLink()
 	CreateLinkDirSubDir(string)
@@ -28,6 +29,8 @@ type mediainformation interface {
 	SetAbsoluteManifestSourcePath(string)
 }
 
+// MediaInformation Represent information about a single Media with his
+// Manifest file and data
 type MediaInformation struct {
 
 	// Absolute path for the target link in the link directory from the conten
@@ -61,7 +64,7 @@ type MediaInformation struct {
 
 	// The list with the categories of a media file
 	Categories []string
-	
+
 	// Is the value true, than it will be create checksums as file names (for the links)
 	UseChecksum bool
 }

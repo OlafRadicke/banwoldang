@@ -8,6 +8,7 @@ import (
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
+// ReadingManifestFile Read and pars the manifest file
 func (mediaInfo *MediaInformation) ReadingManifestFile() {
 	xmlFile, err := os.Open(mediaInfo.AbsoluteManifestSourcePath)
 	if err != nil {

@@ -6,7 +6,8 @@ import (
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
-// Create the absolute link path of the manifest file for the link directory tree.
+// SetAbsoluteManifestLinkDirPath Create the absolute link path of the manifest
+// file for the link directory tree.
 // @subDir param is the name of a sub directory for link directory tree.
 func (mediaInfo *MediaInformation) SetAbsoluteManifestLinkDirPath(subDir string) {
 	genFilePath := mediaInfo.AbsoluteLinkDirPath + "/" + subDir + "/.comments/" + mediaInfo.HashValue + mediaInfo.Extension + ".xml"

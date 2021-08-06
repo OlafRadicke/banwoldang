@@ -6,7 +6,7 @@ import (
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
-// Set the absolute source path of the Manifest file.
+// SetAbsoluteManifestSourcePath Set the absolute source path of the Manifest file.
 // @relativePath param is maybe the the relative path.
 func (mediaInfo *MediaInformation) SetAbsoluteManifestSourcePath(relativePath string) {
 

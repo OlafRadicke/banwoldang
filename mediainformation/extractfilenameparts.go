@@ -9,6 +9,8 @@ import (
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
+// ExtractFileNameParts split the name of the media file in parts and get this
+// beck as string list.
 func (mediaInfo *MediaInformation) ExtractFileNameParts() []string {
 	var listOfParts []string
 	var finaListOfParts []string

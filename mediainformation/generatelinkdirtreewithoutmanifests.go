@@ -6,7 +6,7 @@ import (
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
-// Generate directory with symlinks of file without categories.
+// GenerateLinkDirTreeWithoutManifests Generate directory with symlinks of file without categories.
 func (mediaInfo *MediaInformation) GenerateLinkDirTreeWithoutManifests() {
 
 	mediaInfo.SetAbsoluteContentLinkDirPath("00-no-manifest")

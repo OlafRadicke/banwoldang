@@ -7,7 +7,7 @@ import (
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
-// Create an new empty manifest file it is not exist
+// CreateNewEmptyManifestFile Create an new empty manifest file it is not exist
 func (mediaInfo *MediaInformation) CreateNewEmptyManifestFile() {
 
 	_, err := os.Stat(mediaInfo.AbsoluteManifestSourcePath)
