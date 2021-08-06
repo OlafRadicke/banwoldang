@@ -30,7 +30,33 @@ func NewProgArguments() ProgArguments {
 	return progArguments
 }
 
+var (
+	WarningLogger *log.Logger
+	InfoLogger    *log.Logger
+	ErrorLogger   *log.Logger
+)
+
+func init() {
+	infoFile, err := os.OpenFile("info.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	errorFile, err := os.OpenFile("error.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	InfoLogger = log.New(infoFile, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile)
+	ErrorLogger = log.New(errorFile, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile)
+}
+
 func main() {
+
+	InfoLogger.Println("der neue Info-Logger")
+	ErrorLogger.Println("der neue Error-Logger")
+	ErrorLogger.Fatal("der neue Error-Logger mit hartem Ende...")
+
 	progArguments := checkInput()
 
 	fileTree := filetree.FileTree{}
