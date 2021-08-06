@@ -1,8 +1,9 @@
 package mediainformation
 
 import (
-	"log"
 	"os"
+
+	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
 // Create a sub directory in the link tree directory. Include the
@@ -14,7 +15,7 @@ func (mediaInfo *MediaInformation) CreateLinkDirSubDir(subDir string) {
 	if os.IsNotExist(err) {
 		err := os.MkdirAll(katPath, 0770)
 		if err != nil {
-			log.Fatal(err)
+			cl.ErrorLogger.Fatal(err)
 		}
 	}
 

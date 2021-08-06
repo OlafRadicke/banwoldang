@@ -1,10 +1,11 @@
 package mediainformation
 
 import (
-	"log"
 	"os"
 	"path/filepath"
 	"strings"
+
+	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
 //  Reconstruct the path of the conten file from the path of a manifest file.
@@ -17,9 +18,9 @@ func (mediaInfo *MediaInformation) ReconstructManifestFile() {
 
 	if _, err := os.Stat(mediaInfo.AbsoluteContentSourcePath); err == nil {
 		// path/to/whatever exists
-		// log.Println("Manifet file and conten file a exit!")
+		// cl.InfoLogger.Println("Manifet file and conten file a exit!")
 	} else {
-		log.Println("Manifest file not exist: ", mediaInfo.AbsoluteManifestSourcePath)
+		cl.InfoLogger.Println("Manifest file not exist: ", mediaInfo.AbsoluteManifestSourcePath)
 	}
 
 }

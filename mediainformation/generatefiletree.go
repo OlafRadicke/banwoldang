@@ -1,8 +1,6 @@
 package mediainformation
 
-import (
-	"log"
-)
+import cl "github.com/OlafRadicke/banwoldang/customlogger"
 
 // Generate directory tree with symlinks of file with categories.
 func (mediaInfo *MediaInformation) GenerateLinkDirTree() {
@@ -10,9 +8,9 @@ func (mediaInfo *MediaInformation) GenerateLinkDirTree() {
 	mediaInfo.GenerateOldNamePartLinkTree()
 
 	if len(mediaInfo.Categories) > 1 {
-		log.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-		log.Println("+++++++++++++++++++ this file has ", len(mediaInfo.Categories), " categories ++++++++++++++++++++++")
-		log.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+		cl.InfoLogger.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+		cl.InfoLogger.Println("+++++++++++++++++++ this file has ", len(mediaInfo.Categories), " categories ++++++++++++++++++++++")
+		cl.InfoLogger.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 	}
 
 	for i := 0; i < len(mediaInfo.Categories); i++ {

@@ -1,8 +1,9 @@
 package mediainformation
 
 import (
-	"log"
 	"path/filepath"
+
+	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
 // Set the absolute source path of the conten file.
@@ -11,7 +12,7 @@ func (mediaInfo *MediaInformation) SetAbsoluteContentSourcePath(relativePath str
 
 	absoluteContentSourcePath, err2 := filepath.Abs(relativePath)
 	if err2 != nil {
-		log.Fatal(err2)
+		cl.ErrorLogger.Fatal(err2)
 	}
 	mediaInfo.AbsoluteContentSourcePath = absoluteContentSourcePath
 }

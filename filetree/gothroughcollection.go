@@ -1,13 +1,14 @@
 package filetree
 
 import (
-	"log"
 	"path/filepath"
+
+	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
 func (fileTree *FileTree) GoThroughCollection() {
 	err := filepath.Walk(fileTree.SourcePath, fileTree.fileHandler)
 	if err != nil {
-		log.Println(err)
+		cl.InfoLogger.Println(err)
 	}
 }

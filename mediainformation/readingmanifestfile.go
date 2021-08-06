@@ -3,20 +3,21 @@ package mediainformation
 import (
 	"encoding/xml"
 	"io/ioutil"
-	"log"
 	"os"
+
+	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
 func (mediaInfo *MediaInformation) ReadingManifestFile() {
 	xmlFile, err := os.Open(mediaInfo.AbsoluteManifestSourcePath)
 	if err != nil {
-		log.Println(err)
+		cl.InfoLogger.Println(err)
 	}
 
 	byteValue, _ := ioutil.ReadAll(xmlFile)
 	var comment XMLComment
 	if err := xml.Unmarshal(byteValue, &comment); err != nil {
-		log.Fatal(err)
+		cl.ErrorLogger.Fatal(err)
 	}
 
 	for i := 0; i < len(comment.Categories.CategoryList); i++ {

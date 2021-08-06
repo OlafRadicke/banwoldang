@@ -4,16 +4,17 @@ import (
 	"crypto/sha256"
 	"encoding/base64"
 	"io"
-	"log"
 	"os"
 	"os/exec"
+
+	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
 func (mediaInfo *MediaInformation) CreateMediaFileHash() {
 	openFile, err := os.Open(mediaInfo.AbsoluteContentSourcePath)
 	if err != nil {
-		// log.Fatal(err)
-		log.Println("Open file for hashing: ", err)
+		// cl.ErrorLogger.Fatal(err)
+		cl.InfoLogger.Println("Open file for hashing: ", err)
 		defer openFile.Close()
 		return
 	}
@@ -21,19 +22,19 @@ func (mediaInfo *MediaInformation) CreateMediaFileHash() {
 
 	hasher := sha256.New()
 	if _, err := io.Copy(hasher, openFile); err != nil {
-		log.Fatal(err)
+		cl.ErrorLogger.Fatal(err)
 	}
 	ifTest := false
 	if ifTest {
 		uuid, err := exec.Command("uuidgen").Output()
 		if err != nil {
-			log.Fatal(err)
+			cl.ErrorLogger.Fatal(err)
 		}
 		mediaInfo.HashValue = base64.URLEncoding.EncodeToString(uuid)
-		log.Println("UUID base64: ", mediaInfo.HashValue)
+		cl.InfoLogger.Println("UUID base64: ", mediaInfo.HashValue)
 	} else {
 		mediaInfo.HashValue = base64.URLEncoding.EncodeToString(hasher.Sum(nil))
-		log.Println("hash: ", mediaInfo.HashValue)
+		cl.InfoLogger.Println("hash: ", mediaInfo.HashValue)
 	}
-	// log.Println("Hash: ", mediaInfo.HashValue)
+	// cl.InfoLogger.Println("Hash: ", mediaInfo.HashValue)
 }

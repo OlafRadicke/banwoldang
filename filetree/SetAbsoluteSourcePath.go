@@ -1,15 +1,16 @@
 package filetree
 
 import (
-	"log"
 	"path/filepath"
+
+	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
 // SetAbsoluteSourcePath set the absolute start path from the source directory
 func (fileTree *FileTree) SetAbsoluteSourcePath(path string) {
 	absolutePath, err := filepath.Abs(path)
 	if err != nil {
-		log.Fatal(err)
+		cl.ErrorLogger.Fatal(err)
 	}
 	fileTree.SourcePath = absolutePath
 }

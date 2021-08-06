@@ -1,16 +1,17 @@
 package mediainformation
 
 import (
-	"log"
 	"strconv"
+
+	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
 // Generate directory tree with symlinks of file depend of categories counts.
 func (mediaInfo *MediaInformation) GenerateCategoryCountLinkTree() {
 
-	log.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-	log.Println("++++++++++++++++++++++ has only ", len(mediaInfo.Categories), " category! ++++++++++++++++++++++")
-	log.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+	cl.InfoLogger.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+	cl.InfoLogger.Println("++++++++++++++++++++++ has only ", len(mediaInfo.Categories), " category! ++++++++++++++++++++++")
+	cl.InfoLogger.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
 	catCountAsString := strconv.Itoa(len(mediaInfo.Categories))
 	catSubDirectoryName := "00-cat-count/" + catCountAsString

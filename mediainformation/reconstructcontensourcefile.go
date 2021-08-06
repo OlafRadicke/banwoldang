@@ -1,10 +1,11 @@
 package mediainformation
 
 import (
-	"log"
 	"os"
 	"path/filepath"
 	"strings"
+
+	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
 // Reconstruct the source path of the conten file based on the path of a
@@ -22,9 +23,9 @@ func (mediaInfo *MediaInformation) ReconstructContenSourceFile() {
 	mediaInfo.AbsoluteContentSourcePath = mediaInfo.OnsUpPath + "/" + mediaInfo.ContentFileName
 	if _, err := os.Stat(mediaInfo.AbsoluteContentSourcePath); err == nil {
 		// path/to/whatever exists
-		// log.Println("Manifet file and conten file a exit!")
+		// cl.InfoLogger.Println("Manifet file and conten file a exit!")
 	} else {
-		log.Println("conten file not exist: ", mediaInfo.AbsoluteContentSourcePath)
+		cl.InfoLogger.Println("conten file not exist: ", mediaInfo.AbsoluteContentSourcePath)
 	}
 
 }

@@ -1,10 +1,10 @@
 package main
 
 import (
-	"log"
 	"os"
 	"strings"
 
+	cl "github.com/OlafRadicke/banwoldang/customlogger"
 	filetree "github.com/OlafRadicke/banwoldang/filetree"
 )
 
@@ -30,43 +30,25 @@ func NewProgArguments() ProgArguments {
 	return progArguments
 }
 
-var (
-	WarningLogger *log.Logger
-	InfoLogger    *log.Logger
-	ErrorLogger   *log.Logger
-)
-
-func init() {
-	infoFile, err := os.OpenFile("info.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	errorFile, err := os.OpenFile("error.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	InfoLogger = log.New(infoFile, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile)
-	ErrorLogger = log.New(errorFile, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile)
-}
-
 func main() {
 
-	// InfoLogger.Println("der neue Info-Logger")
-	// ErrorLogger.Println("der neue Error-Logger")
-	// ErrorLogger.Fatal("der neue Error-Logger mit hartem Ende...")
+	cl.InfoLogger.Println("================================= PROGRAMM START ==============================")
+	cl.ErrorLogger.Println("================================ PROGRAMM START ==============================")
+
+	// cl.InfoLogger.Println("PROGRAMM START")
+	// cl.ErrorLogger.Println("PROGRAMM START", 1, "test")
+	// cl.ErrorLogger.Fatal("der neue Error-Logger mit hartem Ende...")
 
 	progArguments := checkInput()
 
 	fileTree := filetree.FileTree{}
 	fileTree.SetAbsoluteSourcePath(progArguments.SourceDir)
 	fileTree.SetAbsoluteLinkDir(progArguments.LinkDir)
-	log.Println("absoluteLinkDir: ", fileTree.LinkDir)
-	log.Println("Search in: ", fileTree.SourcePath)
+	cl.InfoLogger.Println("absoluteLinkDir: ", fileTree.LinkDir)
+	cl.InfoLogger.Println("Search in: ", fileTree.SourcePath)
 
 	fileTree.GoThroughCollection()
-	log.Println("Count of founded files: ", fileTree.Findings)
+	cl.InfoLogger.Println("Count of founded files: ", fileTree.Findings)
 }
 
 // checkInput read the programme arguments
@@ -74,16 +56,16 @@ func checkInput() *ProgArguments {
 	progArguments := NewProgArguments()
 	givenArguments := len(os.Args)
 	if givenArguments < progArguments.MinimumArguments {
-		log.Fatal("To less arguments! ", progArguments.MinimumArguments, " needed and ", givenArguments, "given ")
+		cl.ErrorLogger.Fatal("To less arguments! ", progArguments.MinimumArguments, " needed and ", givenArguments, "given ")
 	}
 
 	for i := 1; i < len(os.Args); i++ {
 		argParts := strings.Split(os.Args[i], "=")
 		if len(argParts) != 2 {
-			log.Fatal("Argument is wrong: ", os.Args[i])
+			cl.ErrorLogger.Fatal("Argument is wrong: ", os.Args[i])
 		}
-		log.Println("name: ", argParts[0])
-		log.Println("volume: ", argParts[1])
+		cl.InfoLogger.Println("name: ", argParts[0])
+		cl.InfoLogger.Println("volume: ", argParts[1])
 
 		switch argParts[0] {
 		case "--source-dir":
@@ -97,10 +79,10 @@ func checkInput() *ProgArguments {
 				progArguments.UseChecksum = false
 			}
 		default:
-			log.Fatal("Unknown parameter: ", argParts[0])
+			cl.ErrorLogger.Fatal("Unknown parameter: ", argParts[0])
 		}
 
-		log.Println("UseChecksum is: ", progArguments.UseChecksum)
+		cl.InfoLogger.Println("UseChecksum is: ", progArguments.UseChecksum)
 	}
 	return &progArguments
 }

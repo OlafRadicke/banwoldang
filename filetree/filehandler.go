@@ -13,7 +13,7 @@ func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err e
 	}
 
 	if info.IsDir() {
-		// log.Println("Just a directory")
+		// cl.InfoLogger.Println("Just a directory")
 		return nil
 	} else {
 		fileTree.Findings++

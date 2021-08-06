@@ -1,8 +1,9 @@
 package mediainformation
 
 import (
-	"log"
 	"path/filepath"
+
+	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
 // Create the absolute link path of the manifest file for the link directory tree.
@@ -11,7 +12,7 @@ func (mediaInfo *MediaInformation) SetAbsoluteManifestLinkDirPath(subDir string)
 	genFilePath := mediaInfo.AbsoluteLinkDirPath + "/" + subDir + "/.comments/" + mediaInfo.HashValue + mediaInfo.Extension + ".xml"
 	absolutLinkTarget, err1 := filepath.Abs(genFilePath)
 	if err1 != nil {
-		log.Fatal(err1)
+		cl.ErrorLogger.Fatal(err1)
 	}
 	mediaInfo.AbsoluteManifestLinkDirPath = absolutLinkTarget
 }

@@ -13,7 +13,7 @@
 // rename
 e := os.Rename(Original_Path, New_Path)
 if e != nil {
-    log.Fatal(e)
+    cl.ErrorLogger.Fatal(e)
 }
 ```
 

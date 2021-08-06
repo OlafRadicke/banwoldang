@@ -1,8 +1,9 @@
 package mediainformation
 
 import (
-	"log"
 	"os"
+
+	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
 // Create a content file link in the link directory.
@@ -10,8 +11,8 @@ func (mediaInfo *MediaInformation) CreateContentLink() {
 
 	err := os.Symlink(mediaInfo.AbsoluteContentSourcePath, mediaInfo.AbsoluteContentLinkDirPath)
 	if err != nil {
-		// log.Fatal("Create symlink: ", err)
-		log.Println("Create symlink: ", err)
+		// cl.ErrorLogger.Fatal("Create symlink: ", err)
+		cl.ErrorLogger.Println("Can't create symlink: ", err)
 	}
 
 }

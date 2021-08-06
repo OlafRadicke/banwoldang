@@ -1,8 +1,9 @@
 package mediainformation
 
 import (
-	"log"
 	"path/filepath"
+
+	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
 // Set the absolute source path of the Manifest file.
@@ -11,7 +12,7 @@ func (mediaInfo *MediaInformation) SetAbsoluteManifestSourcePath(relativePath st
 
 	absoluteManifestSourcePath, err2 := filepath.Abs(relativePath)
 	if err2 != nil {
-		log.Fatal(err2)
+		cl.ErrorLogger.Fatal(err2)
 	}
 	mediaInfo.AbsoluteManifestSourcePath = absoluteManifestSourcePath
 

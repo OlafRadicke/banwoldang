@@ -1,8 +1,9 @@
 package mediainformation
 
 import (
-	"log"
 	"os"
+
+	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
 // Generate directory with symlinks of file without categories.
@@ -15,22 +16,22 @@ func (mediaInfo *MediaInformation) GenerateLinkDirTreeWithoutManifests() {
 	if _, err := os.Stat(katPath); os.IsNotExist(err) {
 		err := os.MkdirAll(katPath, 0770)
 		if err != nil {
-			log.Fatal(err)
+			cl.ErrorLogger.Fatal(err)
 		}
 	}
 
 	err := os.Symlink(mediaInfo.AbsoluteContentSourcePath, mediaInfo.AbsoluteContentLinkDirPath)
 	if err != nil {
-		// log.Fatal("Create symlink: ", err)
-		log.Println("Create symlink: ", err)
+		// cl.ErrorLogger.Fatal("Create symlink: ", err)
+		cl.InfoLogger.Println("Create symlink: ", err)
 	}
 
 	mediaInfo.CreateNewEmptyManifestFile()
 
 	err = os.Symlink(mediaInfo.AbsoluteManifestSourcePath, mediaInfo.AbsoluteManifestLinkDirPath)
 	if err != nil {
-		// log.Fatal("Create symlink: ", err)
-		log.Println("Create symlink: ", err)
+		// cl.ErrorLogger.Fatal("Create symlink: ", err)
+		cl.InfoLogger.Println("Create symlink: ", err)
 	}
 
 }
