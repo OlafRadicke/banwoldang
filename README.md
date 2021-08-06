@@ -24,6 +24,11 @@ or
 
 ```
 
+### Flags
+
+* ***-checksum=true*** Creates checksums from the media fils CONTENT and us it as file name for the destination links. This ist god to find duplicates. 
+* ***-checksum=false*** Creates checksums from the media fils NAMES and us it as file name for the destination links.
+
 Test
 ----
 

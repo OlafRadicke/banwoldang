@@ -44,6 +44,7 @@ func main() {
 	fileTree := filetree.FileTree{}
 	fileTree.SetAbsoluteSourcePath(progArguments.SourceDir)
 	fileTree.SetAbsoluteLinkDir(progArguments.LinkDir)
+	fileTree.UseChecksum = progArguments.UseChecksum
 	cl.InfoLogger.Println("absoluteLinkDir: ", fileTree.LinkDir)
 	cl.InfoLogger.Println("Search in: ", fileTree.SourcePath)
 
