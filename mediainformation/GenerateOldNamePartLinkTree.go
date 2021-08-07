@@ -7,12 +7,14 @@ import cl "github.com/OlafRadicke/banwoldang/customlogger"
 func (mediaInfo *MediaInformation) GenerateOldNamePartLinkTree() {
 
 	listOfParts := mediaInfo.ExtractFileNameParts()
-	for i := 0; i < len(listOfParts); i++ {
 
+	if len(listOfParts) > 0 {
 		cl.InfoLogger.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 		cl.InfoLogger.Println("++++++++++++++++++++++++ create old name category ++++++++++++++++++++")
 		cl.InfoLogger.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+	}
 
+	for i := 0; i < len(listOfParts); i++ {
 		mediaInfo.SetAbsoluteContentLinkDirPath("00-old-name-parts/" + listOfParts[i])
 		mediaInfo.SetAbsoluteManifestLinkDirPath("00-old-name-parts/" + listOfParts[i])
 		mediaInfo.CreateLinkDirSubDir("00-old-name-parts/" + listOfParts[i])
