@@ -14,7 +14,7 @@ type mediainformation interface {
 	GenerateSingleCatFileTree(string)     // TODO (REMOVE)
 	GenerateLinkDirTree()                 // TODO / REFACTORING (REMOVE)
 	GenerateLinkDirTreeWithoutManifests() // TODO
-	GenerateOldNamePartLinkTree()
+	GenerateLinkDirTreeOfOldNameParts()
 
 	ReadingManifestFile()
 
