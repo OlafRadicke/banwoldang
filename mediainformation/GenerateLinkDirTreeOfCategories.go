@@ -14,7 +14,7 @@ func (mediaInfo *MediaInformation) GenerateLinkDirTreeOfCategories() {
 
 	for i := 0; i < len(mediaInfo.Categories); i++ {
 		if len(mediaInfo.Categories) < 6 {
-			mediaInfo.GenerateCategoryCountLinkTree()
+			mediaInfo.GenerateLinkDirTreeOfCategoryCount()
 		}
 
 		mediaInfo.SetAbsoluteContentLinkDirPath("categories/" + mediaInfo.Categories[i])
