@@ -1,12 +1,7 @@
-- Checksum-tree (with sub directories): mediaInfo.HashValue[1]
-- Using file name as alternative (quicker)
-- Link tree by file name
+
 - Renaming source file (checksum) 
 - Generate category template in /home/<user>/.config/gthumb/tags.xml
-- Logfile with errors and duplicates
-- Better flag parsing "--foo=bar" 
 - flag for creating empty manifests
-- flag for creating checksums
 
 
 ```golang

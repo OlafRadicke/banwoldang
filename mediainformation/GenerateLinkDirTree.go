@@ -5,5 +5,6 @@ func (mediaInfo *MediaInformation) GenerateLinkDirTree() {
 
 	mediaInfo.GenerateLinkDirTreeOfOldNameParts()
 	mediaInfo.GenerateLinkDirTreeOfCategories()
+	mediaInfo.GenerateLinkDirTreeOfChecksum()
 
 }
