@@ -18,7 +18,7 @@ func (mediaInfo *MediaInformation) CreateMediaFileHash() {
 		openFile, err := os.Open(mediaInfo.AbsoluteContentSourcePath)
 		if err != nil {
 			// cl.ErrorLogger.Fatal(err)
-			cl.ErrorLogger.Println("Can't open file for hashing: ", err)
+			cl.ErrorLogger.Fatal("Can't open file for hashing: ", err)
 			defer openFile.Close()
 			return
 		}
@@ -29,13 +29,14 @@ func (mediaInfo *MediaInformation) CreateMediaFileHash() {
 			cl.ErrorLogger.Fatal(err)
 		}
 
-		mediaInfo.HashValue = base64.URLEncoding.EncodeToString(hasher.Sum(nil))
+		mediaInfo.SetHashValue(base64.URLEncoding.EncodeToString(hasher.Sum(nil)))
+
 		cl.InfoLogger.Println("REAL HASH: ", mediaInfo.HashValue)
 
 	} else {
 		pseutoHash := sha256.Sum256([]byte(mediaInfo.AbsoluteContentSourcePath))
 		cl.InfoLogger.Println("PSEUDO HASH: ", hex.EncodeToString(pseutoHash[:]))
-		mediaInfo.HashValue = hex.EncodeToString(pseutoHash[:])
+		mediaInfo.SetHashValue(hex.EncodeToString(pseutoHash[:]))
 
 		// uuid, err := exec.Command("uuidgen").Output()
 		// if err != nil {

@@ -6,12 +6,18 @@ import (
 )
 
 var (
-	InfoLogger  *log.Logger
-	ErrorLogger *log.Logger
+	InfoLogger      *log.Logger
+	DuplicateLogger *log.Logger
+	ErrorLogger     *log.Logger
 )
 
 func init() {
 	infoFile, err := os.OpenFile("info.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	duplicateFile, err := os.OpenFile("duplicates.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -22,5 +28,6 @@ func init() {
 	}
 
 	InfoLogger = log.New(infoFile, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile)
+	DuplicateLogger = log.New(duplicateFile, "DUPLICATE: ", log.Ldate|log.Ltime|log.Lshortfile)
 	ErrorLogger = log.New(errorFile, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile)
 }

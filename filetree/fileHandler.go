@@ -4,6 +4,7 @@ import (
 	"os"
 	"path/filepath"
 
+	cl "github.com/OlafRadicke/banwoldang/customlogger"
 	"github.com/OlafRadicke/banwoldang/mediainformation"
 )
 
@@ -24,7 +25,11 @@ func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err e
 
 		if filepath.Ext(info.Name()) == ".xml" {
 			mediaInfo.SetAbsoluteManifestSourcePath(searchPath)
-			mediaInfo.ReconstructContenSourceFile()
+			err := mediaInfo.ReconstructContenSourceFile()
+			if err != nil {
+				cl.ErrorLogger.Println("This manifest file has no media file: ", mediaInfo.AbsoluteManifestSourcePath)
+				return nil
+			}
 			mediaInfo.ReadingManifestFile()
 			mediaInfo.CreateMediaFileHash()
 			mediaInfo.GenerateLinkDirTree()

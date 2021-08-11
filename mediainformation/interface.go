@@ -2,7 +2,7 @@ package mediainformation
 
 // mediainformation the interface of MediaInformation
 type mediainformation interface {
-	CreateContentLink()
+	CreateContentLink() error
 	CreateLinkDirSubDir(string)
 	CreateManifestLink()
 	CreateMediaFileHash()
@@ -18,7 +18,7 @@ type mediainformation interface {
 
 	ReadingManifestFile()
 
-	ReconstructContenSourceFile()
+	ReconstructContenSourceFile() error
 	ReconstructManifestFile()
 
 	SetAbsoluteContentLinkDirPath(string)
@@ -27,6 +27,7 @@ type mediainformation interface {
 
 	SetAbsoluteContentSourcePath(string)
 	SetAbsoluteManifestSourcePath(string)
+	SetHashValue(string)
 }
 
 // MediaInformation Represent information about a single Media with his
