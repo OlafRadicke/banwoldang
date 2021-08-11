@@ -12,6 +12,12 @@ func (mediaInfo *MediaInformation) GenerateLinkDirTreeWithoutManifests() {
 	mediaInfo.SetAbsoluteContentLinkDirPath("00-no-manifest")
 	mediaInfo.SetAbsoluteManifestLinkDirPath("00-no-manifest")
 
+	if _, err := os.Stat(mediaInfo.AbsoluteManifestSourcePath); os.IsNotExist(err) {
+		// path/to/whatever does not exist
+		cl.InfoLogger.Println("Manifest file is exist. Skip media file handling.")
+		return
+	}
+
 	katPath := mediaInfo.AbsoluteLinkDirPath + "/00-no-manifest/" + "/.comments"
 	if _, err := os.Stat(katPath); os.IsNotExist(err) {
 		err := os.MkdirAll(katPath, 0770)
