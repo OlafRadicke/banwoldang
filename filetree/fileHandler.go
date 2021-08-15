@@ -39,6 +39,15 @@ func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err e
 			mediaInfo.CreateMediaFileHash()
 			mediaInfo.GenerateLinkDirTreeWithoutManifests()
 		}
+		for _, cat := range mediaInfo.Categories {
+			if count, ok := fileTree.AllUsedCategories[cat]; ok {
+				cl.InfoLogger.Println("The category ", cat, " is allready added (", count, "). Count up...")
+				fileTree.AllUsedCategories[cat]++
+			} else {
+				cl.InfoLogger.Println("The category ", cat, " (", count, ") is new.")
+				fileTree.AllUsedCategories[cat] = 1
+			}
+		}
 		return nil
 	}
 }

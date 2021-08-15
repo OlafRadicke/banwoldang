@@ -41,7 +41,8 @@ func main() {
 
 	progArguments := checkInput()
 
-	fileTree := filetree.FileTree{}
+	// fileTree := filetree.FileTree{}
+	fileTree := filetree.NewFileTree()
 	fileTree.SetAbsoluteSourcePath(progArguments.SourceDir)
 	fileTree.SetAbsoluteLinkDir(progArguments.LinkDir)
 	fileTree.UseChecksum = progArguments.UseChecksum
@@ -50,6 +51,10 @@ func main() {
 
 	fileTree.GoThroughCollection()
 	cl.InfoLogger.Println("Count of founded files: ", fileTree.Findings)
+	cl.InfoLogger.Println("Count of founded categories: ", len(fileTree.AllUsedCategories))
+	for key, value := range fileTree.AllUsedCategories {
+		cl.InfoLogger.Println("=> ", key, " (", value, ")")
+	}
 }
 
 // checkInput read the programme arguments
