@@ -13,6 +13,8 @@ if e != nil {
 ```
 
 
+/home/<user>/.config/gthumb/tags.xml
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <tags version="1.0">
