@@ -52,9 +52,7 @@ func main() {
 	fileTree.GoThroughCollection()
 	cl.InfoLogger.Println("Count of founded files: ", fileTree.Findings)
 	cl.InfoLogger.Println("Count of founded categories: ", len(fileTree.AllUsedCategories))
-	for key, value := range fileTree.AllUsedCategories {
-		cl.InfoLogger.Println("=> ", key, " (", value, ")")
-	}
+	fileTree.CreateTagsXmlFile()
 }
 
 // checkInput read the programme arguments

@@ -1,7 +1,8 @@
 
 - Renaming source file (checksum) 
-- Generate category template in /home/<user>/.config/gthumb/tags.xml
 - flag for creating empty manifests
+- Flag for creating xml config file
+- Tag statistics
 
 
 ```golang
@@ -13,15 +14,3 @@ if e != nil {
 ```
 
 
-/home/<user>/.config/gthumb/tags.xml
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<tags version="1.0">
-  <tag value="example-01"/>
-  <tag value="example-02"/>
-  <tag value="example-03"/>  
-  <tag value="example-04"/>
-</tags>
-
-```

@@ -15,6 +15,7 @@ type filetree interface {
 	SetAbsoluteSourcePath(string)
 	SetAbsoluteLinkDir(string)
 	JoinAllUsedCategories(Categories []string)
+	CreateTagsXmlFile()
 }
 
 // FileTree This struct represent the information about the tree
