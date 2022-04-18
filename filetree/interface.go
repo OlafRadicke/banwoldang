@@ -32,6 +32,9 @@ type FileTree struct {
 	// UseChecksum Is the value true, than it will be create checksums as file names (for the links)
 	UseChecksum bool
 
+	// UseHardLink Is the value true, than it will be try to use hard links (for the link tree directory)
+	UseHardLink bool
+
 	// AllUsedCategories A map with all used categories.
 	AllUsedCategories map[string]int
 }
@@ -44,6 +47,7 @@ func NewFileTree() FileTree {
 	fileTree.LinkDir = ""
 	fileTree.Findings = 0
 	fileTree.UseChecksum = false
+	fileTree.UseHardLink = false
 	fileTree.AllUsedCategories = make(map[string]int)
 	return fileTree
 }

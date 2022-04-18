@@ -18,6 +18,8 @@ type ProgArguments struct {
 	MinimumArguments int
 	// Is the value true, than it will be create checksums as file names (for the links)
 	UseChecksum bool
+	// Is the value true, than it will be try to create hard links.
+	UseHardLink bool
 }
 
 // NewProgArguments create new instance of ProgArguments
@@ -27,6 +29,7 @@ func NewProgArguments() ProgArguments {
 	progArguments.LinkDir = ""
 	progArguments.MinimumArguments = 3
 	progArguments.UseChecksum = false
+	progArguments.UseHardLink = false
 	return progArguments
 }
 
@@ -46,6 +49,7 @@ func main() {
 	fileTree.SetAbsoluteSourcePath(progArguments.SourceDir)
 	fileTree.SetAbsoluteLinkDir(progArguments.LinkDir)
 	fileTree.UseChecksum = progArguments.UseChecksum
+	fileTree.UseHardLink = progArguments.UseHardLink
 	cl.InfoLogger.Println("absoluteLinkDir: ", fileTree.LinkDir)
 	cl.InfoLogger.Println("Search in: ", fileTree.SourcePath)
 
@@ -82,10 +86,17 @@ func checkInput() *ProgArguments {
 			} else {
 				progArguments.UseChecksum = false
 			}
+		case "--hardlinks":
+			if argParts[1] == "true" {
+				progArguments.UseHardLink = true
+			} else {
+				progArguments.UseHardLink = false
+			}
 		default:
 			cl.ErrorLogger.Fatal("Unknown parameter: ", argParts[0])
 		}
 
+		cl.InfoLogger.Println("UseHardLink is: ", progArguments.UseHardLink)
 		cl.InfoLogger.Println("UseChecksum is: ", progArguments.UseChecksum)
 	}
 	return &progArguments

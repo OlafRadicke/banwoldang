@@ -68,4 +68,7 @@ type MediaInformation struct {
 
 	// Is the value true, than it will be create checksums as file names (for the links)
 	UseChecksum bool
+
+	// Is the value true, than it will be try to create hard links (for the link tree directories)
+	UseHardLink bool
 }

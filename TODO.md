@@ -1,8 +1,6 @@
-
-- Renaming source file (checksum) 
-- flag for creating empty manifests
-- Flag for creating xml config file
-- Tag statistics
+- support hard links
+- Join categories doublet files
+- Add doublet category
 
 
 ```golang
