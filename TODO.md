@@ -3,7 +3,7 @@
 - support hard links
 - Join categories doublet files
 - Add doublet category
-- Remove specal cheracters in file names
+- Remove special characters in file names
 - read out information with https://github.com/vansante/go-ffprobe/blob/v2/probedata.go and
   - Sort by Width and Height
   - Sort by Duration
