@@ -35,6 +35,16 @@ Configuration
 
 You find an example in [example/config.yaml](example/config.yaml)
 
+ffmpeg support
+--------------
+
+For ffmpeg support, install ffmpeg and add in your configuration:
+
+```yaml
+ffmpeg_support: true
+
+```
+
 Helpful links
 -------------
 
