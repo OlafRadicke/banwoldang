@@ -12,17 +12,23 @@ var (
 )
 
 func init() {
-	infoFile, err := os.OpenFile("info.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	if _, err := os.Stat("./logs/"); os.IsNotExist(err) {
+		if err := os.Mkdir("./logs/", os.ModePerm); err != nil {
+			log.Fatal(err)
+		}
+	}
+
+	infoFile, err := os.OpenFile("./logs/info.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	duplicateFile, err := os.OpenFile("duplicates.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	duplicateFile, err := os.OpenFile("./logs/duplicates.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	errorFile, err := os.OpenFile("error.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	errorFile, err := os.OpenFile("./logs/error.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		log.Fatal(err)
 	}
