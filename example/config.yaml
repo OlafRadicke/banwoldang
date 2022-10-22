@@ -1,0 +1,17 @@
+---
+
+# Directory of the media fils
+source_dir: /run/media
+# This direktoy will be createt with an tree of (soft) links
+link_dir: /pic-link-dir/2022-10-22
+# real_checksum: true 
+# Creates checksums from the media fils CONTENT and us it 
+# as file name for the destination links. This ist god to 
+# find duplicates (but slowly). 
+# real_checksum: false 
+# Creates checksums from the media fils NAMES and us it as 
+# file name for the destination links.
+real_checksum: false
+# Use hard links for the target link directory. 
+hard_links: false
+

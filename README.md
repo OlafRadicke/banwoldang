@@ -15,21 +15,28 @@ Run
 ---
 
 ```bash
-go run ./main.go  --source-dir=/your/dir  --link-dir=/dir/for/link-tree
+go run ./main.go  -f example/config.yaml
 ```
 
 or
 
 ```bash
-./banwoldang  --source-dir=/your/dir  --link-dir=/dir/for/link-tree
+./banwoldang  -f  example/config.yaml
 
 ```
 
-### Flags
+Flags
+-----
 
-* ***--checksum=true*** Creates checksums from the media fils CONTENT and us it as file name for the destination links. This ist god to find duplicates. 
-* ***--checksum=false*** Creates checksums from the media fils NAMES and us it as file name for the destination links.
-* ***--hardlinks=true*** Use hard links for the target link directory. 
+* ***-f <filename>*** The path of the configuration file
+
+Configuration
+-------------
+
+You find an example in [example/config.yaml](example/config.yaml)
+
+Helpful links
+-------------
 
 
 - [rename files](https://www.geeksforgeeks.org/how-to-rename-and-move-a-file-in-golang/)
