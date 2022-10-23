@@ -71,4 +71,7 @@ type MediaInformation struct {
 
 	// Is the value true, than it will be try to create hard links (for the link tree directories)
 	UseHardLink bool
+
+	// Is the value true, than ffmpeg support try to create links about media facts
+	UseFfmpeg bool
 }

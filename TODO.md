@@ -1,5 +1,5 @@
 
-
+- Create a file with statistic information
 - support hard links
 - Join categories doublet files
 - Add doublet category

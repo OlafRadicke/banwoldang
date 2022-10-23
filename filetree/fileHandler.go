@@ -22,6 +22,8 @@ func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err e
 		mediaInfo := mediainformation.MediaInformation{}
 		mediaInfo.UseChecksum = fileTree.UseChecksum
 		mediaInfo.UseHardLink = fileTree.UseHardLink
+		mediaInfo.UseFfmpeg = fileTree.UseFfmpeg
+
 		mediaInfo.SetAbsoluteLinkDirPath(fileTree.LinkDir)
 
 		if filepath.Ext(info.Name()) == ".xml" {

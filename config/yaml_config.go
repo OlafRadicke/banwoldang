@@ -9,4 +9,6 @@ type YamlConfig struct {
 	UseChecksum bool `yaml:"real_checksum"`
 	// Is the value true, than it will be try to create hard links.
 	UseHardLink bool `yaml:"hard_links"`
+	// Is the value true, than ffmpeg support try to create links about media facts
+	UseFfmpeg bool `yaml:"ffmpeg_support"`
 }

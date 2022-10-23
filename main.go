@@ -43,6 +43,8 @@ func main() {
 	fileTree.SetAbsoluteLinkDir(progConfig.LinkDir)
 	fileTree.UseChecksum = progConfig.UseChecksum
 	fileTree.UseHardLink = progConfig.UseHardLink
+	fileTree.UseFfmpeg = progConfig.UseFfmpeg
+	cl.InfoLogger.Println("absoluteLinkDir: ", fileTree.LinkDir)
 	cl.InfoLogger.Println("absoluteLinkDir: ", fileTree.LinkDir)
 	cl.InfoLogger.Println("Search in: ", fileTree.SourcePath)
 

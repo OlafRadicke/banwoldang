@@ -35,6 +35,9 @@ type FileTree struct {
 	// UseHardLink Is the value true, than it will be try to use hard links (for the link tree directory)
 	UseHardLink bool
 
+	// Is the value true, than ffmpeg support try to create links about media facts
+	UseFfmpeg bool
+
 	// AllUsedCategories A map with all used categories.
 	AllUsedCategories map[string]int
 }
