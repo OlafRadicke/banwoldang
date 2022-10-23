@@ -6,7 +6,7 @@
 - Join categories doublet files
 - Add doublet category
 - Remove special characters in file names
-
+- Make in ***mediainformation/ExtractFileNameParts.go**** the ***"if len(listOfParts[i]) < 4 {"*** mor flexible over configuration.
 
 ```golang
 // rename
