@@ -2,11 +2,11 @@ package mediainformation
 
 import (
 	"context"
-	"fmt"
 	"os"
 	"strconv"
 	"time"
 
+	cl "github.com/OlafRadicke/banwoldang/customlogger"
 	"gopkg.in/vansante/go-ffprobe.v2"
 )
 
@@ -18,45 +18,49 @@ func (mediaInfo *MediaInformation) GenerateLinkDirTreeOfMovieFacts() {
 	var resolution_height string
 	var resolution_width string
 
+	cl.InfoLogger.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+	cl.InfoLogger.Println("++++++++++++++++++++++ create movie facts category +++++++++++++++++++")
+	cl.InfoLogger.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+
 	ctx, cancelFn := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancelFn()
 
 	reader, err := os.Open(mediaInfo.AbsoluteContentSourcePath)
 	if err != nil {
-		fmt.Println(err)
+		cl.ErrorLogger.Println(err)
 		return
 	}
 	defer reader.Close()
 
 	data, err := ffprobe.ProbeReader(ctx, reader)
 	if err != nil {
-		fmt.Println("Error getting data: ", err)
-		fmt.Println("no media file")
+		cl.ErrorLogger.Println("Error getting data: ", err)
+		cl.ErrorLogger.Println("no media file")
 		return
 	}
 	if len(data.Streams) == 0 {
+		cl.ErrorLogger.Println("File has no streams: ", mediaInfo.AbsoluteContentSourcePath)
 		return
 	}
-	fmt.Println("CodecType ", data.Streams[0].CodecType)
-	fmt.Println("Height ", data.Streams[0].Height)
+	cl.InfoLogger.Println("CodecType ", data.Streams[0].CodecType)
+	cl.InfoLogger.Println("Height ", data.Streams[0].Height)
 	resolution_height = strconv.Itoa(data.Streams[0].Height)
-	fmt.Println("Width ", data.Streams[0].Width)
+	cl.InfoLogger.Println("Width ", data.Streams[0].Width)
 	resolution_width = strconv.Itoa(data.Streams[0].Width)
-	// fmt.Println("Duration ", data.Streams[0].Duration)
 	seconds := data.Streams[0].Duration
 	int_seconds, err := strconv.ParseFloat(seconds, 64)
 	if err != nil {
 		// ... handle error
-		fmt.Println(err)
+		cl.ErrorLogger.Println(err)
 		return
 	}
 	minutes := int(int_seconds / 60)
-	fmt.Println("minutes ", minutes)
+	cl.InfoLogger.Println("minutes ", minutes)
 	if minutes == 0 {
+		cl.ErrorLogger.Println("duration is 0 minutes")
 		return
 	}
 	minutes_duration = strconv.Itoa(minutes)
-	fmt.Println("-----------------------------------------")
 
 	// Links for duration in minutes
 	mediaInfo.SetAbsoluteContentLinkDirPath("duration/" + minutes_duration)
