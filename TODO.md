@@ -11,6 +11,7 @@ TODOs
 - Remove special characters in file names
 - Make in ***mediainformation/ExtractFileNameParts.go**** the ***"if len(listOfParts[i]) < 4 {"*** mor flexible over configuration.
 - Add more statistic
+- Godoc
 
 ```golang
 // rename

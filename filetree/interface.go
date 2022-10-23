@@ -2,6 +2,8 @@ package filetree
 
 import (
 	"os"
+
+	"github.com/OlafRadicke/banwoldang/statistics"
 )
 
 // filetree The inteface of the feletree struckt
@@ -26,9 +28,6 @@ type FileTree struct {
 	// LinkDir Location for the link directory
 	LinkDir string
 
-	// Findings The number of founded manifest Files
-	Findings int
-
 	// UseChecksum Is the value true, than it will be create checksums as file names (for the links)
 	UseChecksum bool
 
@@ -38,8 +37,8 @@ type FileTree struct {
 	// Is the value true, than ffmpeg support try to create links about media facts
 	UseFfmpeg bool
 
-	// AllUsedCategories A map with all used categories.
-	AllUsedCategories map[string]int
+	//  A helper obect for statistic analyses
+	Statistic statistics.Statistics
 }
 
 // NewProgArguments create new instance of FileTree and get it back.
@@ -48,9 +47,9 @@ func NewFileTree() FileTree {
 
 	fileTree.SourcePath = ""
 	fileTree.LinkDir = ""
-	fileTree.Findings = 0
+	// fileTree.Findings = 0
 	fileTree.UseChecksum = false
 	fileTree.UseHardLink = false
-	fileTree.AllUsedCategories = make(map[string]int)
+	fileTree.Statistic = statistics.NewStatistics()
 	return fileTree
 }

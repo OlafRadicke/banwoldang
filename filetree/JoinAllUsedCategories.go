@@ -8,12 +8,12 @@ import (
 func (fileTree *FileTree) JoinAllUsedCategories(categories []string) {
 
 	for _, cat := range categories {
-		if count, ok := fileTree.AllUsedCategories[cat]; ok {
+		if count, ok := fileTree.Statistic.UsedTags[cat]; ok {
 			cl.InfoLogger.Println("The category ", cat, " is allready added (", count, "). Count up...")
-			fileTree.AllUsedCategories[cat]++
+			fileTree.Statistic.UsedTags[cat]++
 		} else {
 			cl.InfoLogger.Println("The category ", cat, " (", count, ") is new.")
-			fileTree.AllUsedCategories[cat] = 1
+			fileTree.Statistic.UsedTags[cat] = 1
 		}
 	}
 

@@ -13,7 +13,7 @@ func (fileTree *FileTree) CreateTagsXmlFile() {
 
 	xmlContent := "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 	xmlContent += "<tags version=\"1.0\">\n"
-	for key, value := range fileTree.AllUsedCategories {
+	for key, value := range fileTree.Statistic.UsedTags {
 		cl.InfoLogger.Println("=> ", key, " (", value, ")")
 		xmlContent += "\t <tag value=\"" + key + "\"/>\n"
 	}

@@ -18,7 +18,7 @@ func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err e
 		// cl.InfoLogger.Println("Just a directory")
 		return nil
 	} else {
-		fileTree.Findings++
+		fileTree.Statistic.FoundedFiles++
 		mediaInfo := mediainformation.MediaInformation{}
 		mediaInfo.UseChecksum = fileTree.UseChecksum
 		mediaInfo.UseHardLink = fileTree.UseHardLink
