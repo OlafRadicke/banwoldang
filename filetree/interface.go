@@ -37,8 +37,8 @@ type FileTree struct {
 	// Is the value true, than ffmpeg support try to create links about media facts
 	UseFfmpeg bool
 
-	//  A helper obect for statistic analyses
-	Statistic statistics.Statistics
+	//  A helper object for statistic analyses
+	Statistic *statistics.Statistics
 }
 
 // NewProgArguments create new instance of FileTree and get it back.

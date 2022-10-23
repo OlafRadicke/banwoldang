@@ -1,5 +1,7 @@
 package mediainformation
 
+import "github.com/OlafRadicke/banwoldang/statistics"
+
 // mediainformation the interface of MediaInformation
 type mediainformation interface {
 	CreateContentLink() error
@@ -74,4 +76,7 @@ type MediaInformation struct {
 
 	// Is the value true, than ffmpeg support try to create links about media facts
 	UseFfmpeg bool
+
+	// A helper object for statistic analyses
+	Statistics *statistics.Statistics
 }

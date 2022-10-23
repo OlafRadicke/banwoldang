@@ -21,6 +21,7 @@ func (mediaInfo *MediaInformation) GenerateLinkDirTreeOfOldNameParts() {
 		mediaInfo.CreateContentLink()
 		mediaInfo.CreateNewEmptyManifestFile()
 		mediaInfo.CreateManifestLink()
+		mediaInfo.Statistics.ContPartsOfNames(listOfParts[i])
 	}
 
 }
