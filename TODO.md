@@ -1,4 +1,7 @@
+TODOs
+-----
 
+- Refactoring Configuration Object and his using
 - Logging cleanup
 - Log level
 - Create a file with statistic information
@@ -7,6 +10,7 @@
 - Add doublet category
 - Remove special characters in file names
 - Make in ***mediainformation/ExtractFileNameParts.go**** the ***"if len(listOfParts[i]) < 4 {"*** mor flexible over configuration.
+- Add more statistic
 
 ```golang
 // rename
