@@ -39,7 +39,7 @@ func main() {
 	progConfig := checkArguments()
 	fmt.Println("SourceDir: ", progConfig.SourceDir)
 
-	statistic := statistics.NewStatistics()
+	statistic := statistics.NewStatistics(progConfig.LinkDir)
 	fileTree := filetree.NewFileTree(statistic)
 	fileTree.SetAbsoluteSourcePath(progConfig.SourceDir)
 	fileTree.SetAbsoluteLinkDir(progConfig.LinkDir)
@@ -51,7 +51,7 @@ func main() {
 	cl.InfoLogger.Println("Search in: ", fileTree.SourcePath)
 	fileTree.GoThroughCollection()
 	fileTree.CreateTagsXmlFile()
-	fileTree.Statistic.WriteStatistic(progConfig.LinkDir)
+	fileTree.Statistic.WriteStatistic()
 }
 
 func checkArguments() *config.YamlConfig {
