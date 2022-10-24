@@ -19,7 +19,8 @@ func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err e
 		return nil
 	} else {
 		fileTree.Statistic.FoundedFiles++
-		mediaInfo := mediainformation.MediaInformation{}
+		mediaInfo := mediainformation.NewMediaInformation(fileTree.Statistic)
+		// mediaInfo := mediainformation.MediaInformation{}
 		mediaInfo.UseChecksum = fileTree.UseChecksum
 		mediaInfo.UseHardLink = fileTree.UseHardLink
 		mediaInfo.UseFfmpeg = fileTree.UseFfmpeg

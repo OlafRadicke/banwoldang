@@ -42,7 +42,7 @@ type FileTree struct {
 }
 
 // NewProgArguments create new instance of FileTree and get it back.
-func NewFileTree() FileTree {
+func NewFileTree(statistics *statistics.Statistics) FileTree {
 	fileTree := FileTree{}
 
 	fileTree.SourcePath = ""
@@ -50,6 +50,6 @@ func NewFileTree() FileTree {
 	// fileTree.Findings = 0
 	fileTree.UseChecksum = false
 	fileTree.UseHardLink = false
-	fileTree.Statistic = statistics.NewStatistics()
+	fileTree.Statistic = statistics
 	return fileTree
 }

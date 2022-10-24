@@ -4,9 +4,6 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
-	"log"
-	"os"
-	"strconv"
 
 	"gopkg.in/yaml.v2"
 
@@ -42,8 +39,8 @@ func main() {
 	progConfig := checkArguments()
 	fmt.Println("SourceDir: ", progConfig.SourceDir)
 
-	// statistic := statistics.NewStatistics()
-	fileTree := filetree.NewFileTree()
+	statistic := statistics.NewStatistics()
+	fileTree := filetree.NewFileTree(statistic)
 	fileTree.SetAbsoluteSourcePath(progConfig.SourceDir)
 	fileTree.SetAbsoluteLinkDir(progConfig.LinkDir)
 	fileTree.UseChecksum = progConfig.UseChecksum
@@ -52,44 +49,9 @@ func main() {
 
 	cl.InfoLogger.Println("absoluteLinkDir: ", fileTree.LinkDir)
 	cl.InfoLogger.Println("Search in: ", fileTree.SourcePath)
-	fileTree.Statistic = statistics.NewStatistics()
 	fileTree.GoThroughCollection()
 	fileTree.CreateTagsXmlFile()
-	writeStatistic(fileTree.Statistic)
-}
-
-func writeStatistic(statistic *statistics.Statistics) {
-	f, err := os.Create("./statistics.csv")
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	defer f.Close()
-
-	var key string
-	var value int
-	for key, value = range statistic.UsedTags {
-		textline := "\"" + key + "\";\"" + strconv.Itoa(value) + "\"\n"
-		_, err = f.WriteString(textline)
-		if err != nil {
-			cl.ErrorLogger.Println(err)
-			return
-		}
-	}
-	textline := "Count of founded files: " + strconv.Itoa(statistic.FoundedFiles) + "\n"
-	_, err = f.WriteString(textline)
-	if err != nil {
-		cl.ErrorLogger.Println(err)
-		return
-	}
-	textline = "Count of founded categories: " + strconv.Itoa(len(statistic.UsedTags)) + "\n"
-	_, err = f.WriteString(textline)
-	if err != nil {
-		cl.ErrorLogger.Println(err)
-		return
-	}
-
+	fileTree.Statistic.WriteStatistic(progConfig.LinkDir)
 }
 
 func checkArguments() *config.YamlConfig {

@@ -80,3 +80,10 @@ type MediaInformation struct {
 	// A helper object for statistic analyses
 	Statistics *statistics.Statistics
 }
+
+// NewProgArguments create new instance of FileTree and get it back.
+func NewMediaInformation(statistics *statistics.Statistics) MediaInformation {
+	mediaInformation := MediaInformation{}
+	mediaInformation.Statistics = statistics
+	return mediaInformation
+}
