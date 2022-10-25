@@ -11,6 +11,7 @@ import (
 func (statistic *Statistics) WriteDurationStatistic() {
 	var key int
 	var value int
+	var textline string
 
 	durationPath := statistic.StatisticDir + "/statistics_duration.csv"
 	durationFile, err := os.Create(durationPath)
@@ -20,8 +21,15 @@ func (statistic *Statistics) WriteDurationStatistic() {
 	}
 	defer durationFile.Close()
 
+	textline = "\"minutes\";\"count\"\n"
+	_, err = durationFile.WriteString(textline)
+	if err != nil {
+		cl.ErrorLogger.Println(err)
+		return
+	}
+
 	for key, value = range statistic.Duration {
-		textline := "\"" + strconv.Itoa(key) + "\";\"" + strconv.Itoa(value) + "\"\n"
+		textline = "\"" + strconv.Itoa(key) + "\";\"" + strconv.Itoa(value) + "\"\n"
 		_, err = durationFile.WriteString(textline)
 		if err != nil {
 			cl.ErrorLogger.Println(err)
@@ -36,6 +44,7 @@ func (statistic *Statistics) WriteDurationStatistic() {
 func (statistic *Statistics) WriteResolutionHeightStatistic() {
 	var key int
 	var value int
+	var textline string
 
 	resolutionPath := statistic.StatisticDir + "/statistics_resolution_height.csv"
 	resolutionFile, err := os.Create(resolutionPath)
@@ -45,8 +54,15 @@ func (statistic *Statistics) WriteResolutionHeightStatistic() {
 	}
 	defer resolutionFile.Close()
 
+	textline = "\"pixel height\";\"count\"\n"
+	_, err = resolutionFile.WriteString(textline)
+	if err != nil {
+		cl.ErrorLogger.Println(err)
+		return
+	}
+
 	for key, value = range statistic.ResolutionHeight {
-		textline := "\"" + strconv.Itoa(key) + "\";\"" + strconv.Itoa(value) + "\"\n"
+		textline = "\"" + strconv.Itoa(key) + "\";\"" + strconv.Itoa(value) + "\"\n"
 		_, err = resolutionFile.WriteString(textline)
 		if err != nil {
 			cl.ErrorLogger.Println(err)
@@ -61,6 +77,7 @@ func (statistic *Statistics) WriteResolutionHeightStatistic() {
 func (statistic *Statistics) WriteResolutionWidthStatistic() {
 	var key int
 	var value int
+	var textline string
 
 	resolutionPath := statistic.StatisticDir + "/statistics_resolution_width.csv"
 	resolutionFile, err := os.Create(resolutionPath)
@@ -70,8 +87,14 @@ func (statistic *Statistics) WriteResolutionWidthStatistic() {
 	}
 	defer resolutionFile.Close()
 
+	textline = "\"pixel width\";\"count\"\n"
+	_, err = resolutionFile.WriteString(textline)
+	if err != nil {
+		cl.ErrorLogger.Println(err)
+		return
+	}
 	for key, value = range statistic.ResolutionWidth {
-		textline := "\"" + strconv.Itoa(key) + "\";\"" + strconv.Itoa(value) + "\"\n"
+		textline = "\"" + strconv.Itoa(key) + "\";\"" + strconv.Itoa(value) + "\"\n"
 		_, err = resolutionFile.WriteString(textline)
 		if err != nil {
 			cl.ErrorLogger.Println(err)
@@ -85,6 +108,7 @@ func (statistic *Statistics) WriteResolutionWidthStatistic() {
 func (statistic *Statistics) WriteTagStatistic() {
 	var key string
 	var value int
+	var textline string
 
 	csvPath := statistic.StatisticDir + "/statistics_tag.csv"
 	csvFile, err := os.Create(csvPath)
@@ -94,8 +118,14 @@ func (statistic *Statistics) WriteTagStatistic() {
 	}
 	defer csvFile.Close()
 
+	textline = "\"tag\";\"count\"\n"
+	_, err = csvFile.WriteString(textline)
+	if err != nil {
+		cl.ErrorLogger.Println(err)
+		return
+	}
 	for key, value = range statistic.UsedTags {
-		textline := "\"" + key + "\";\"" + strconv.Itoa(value) + "\"\n"
+		textline = "\"" + key + "\";\"" + strconv.Itoa(value) + "\"\n"
 		_, err = csvFile.WriteString(textline)
 		if err != nil {
 			cl.ErrorLogger.Println(err)
@@ -110,14 +140,24 @@ func (statistic *Statistics) WriteTagStatistic() {
 func (statistic *Statistics) WriteNamePartStatistic() {
 	csvPartsPath := statistic.StatisticDir + "/statistics_name-parts.csv"
 	csvPartsFile, err := os.Create(csvPartsPath)
+	var key string
+	var value int
+	var textline string
+
 	if err != nil {
 		cl.ErrorLogger.Println(err)
 		return
 	}
 	defer csvPartsFile.Close()
 
-	for key, value := range statistic.PartsOfNames {
-		textline := "\"" + key + "\";\"" + strconv.Itoa(value) + "\"\n"
+	textline = "\"name part\";\"count\"\n"
+	_, err = csvPartsFile.WriteString(textline)
+	if err != nil {
+		cl.ErrorLogger.Println(err)
+		return
+	}
+	for key, value = range statistic.PartsOfNames {
+		textline = "\"" + key + "\";\"" + strconv.Itoa(value) + "\"\n"
 		_, err = csvPartsFile.WriteString(textline)
 		if err != nil {
 			cl.ErrorLogger.Println(err)
@@ -130,6 +170,7 @@ func (statistic *Statistics) WriteNamePartStatistic() {
 func (statistic *Statistics) WriteStatisticMarkdown() {
 	mdPath := statistic.StatisticDir + "/statistics.md"
 	mdFile, err := os.Create(mdPath)
+
 	if err != nil {
 		cl.ErrorLogger.Println(err)
 		return
@@ -137,10 +178,10 @@ func (statistic *Statistics) WriteStatisticMarkdown() {
 	defer mdFile.Close()
 	textline := "Count of founded files: " + strconv.Itoa(statistic.FoundedFiles) + "\n"
 	textline = textline + "Count of founded categories: " + strconv.Itoa(len(statistic.UsedTags)) + "\n"
-	textline = textline + "Count of name parts: " + strconv.Itoa(len(statistic.PartsOfNames)) + "\n"
-	textline = textline + "Count of Duration: " + strconv.Itoa(len(statistic.Duration)) + "\n"
-	textline = textline + "Count of Height: " + strconv.Itoa(len(statistic.ResolutionHeight)) + "\n"
-	textline = textline + "Count of Width: " + strconv.Itoa(len(statistic.ResolutionWidth)) + "\n"
+	textline = textline + "Count of different name parts: " + strconv.Itoa(len(statistic.PartsOfNames)) + "\n"
+	textline = textline + "Count of different Duration: " + strconv.Itoa(len(statistic.Duration)) + "\n"
+	textline = textline + "Count of different Height: " + strconv.Itoa(len(statistic.ResolutionHeight)) + "\n"
+	textline = textline + "Count of different Width: " + strconv.Itoa(len(statistic.ResolutionWidth)) + "\n"
 	_, err = mdFile.WriteString(textline)
 	if err != nil {
 		cl.ErrorLogger.Println(err)
@@ -162,6 +203,7 @@ func (statistic *Statistics) WriteStatistic() {
 	statistic.WriteDurationStatistic()
 	statistic.WriteNamePartStatistic()
 	statistic.WriteResolutionHeightStatistic()
+	statistic.WriteResolutionWidthStatistic()
 	statistic.WriteStatisticMarkdown()
 	statistic.WriteTagStatistic()
 

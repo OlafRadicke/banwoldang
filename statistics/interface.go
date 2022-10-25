@@ -1,12 +1,11 @@
 package statistics
 
-import (
-	cl "github.com/OlafRadicke/banwoldang/customlogger"
-)
-
 // statistics The inteface of the feletree struckt
 type statistics interface {
+	ContDuration(int)
 	ContPartsOfNames(string)
+	ContResolutionHeight(int)
+	ContResolutionWidth(int)
 	GoThroughCollection()
 	WriteDurationStatistic()
 	WriteNamePartStatistic()
@@ -18,13 +17,20 @@ type statistics interface {
 }
 
 type Statistics struct {
-	StatisticDir     string
-	UsedTags         map[string]int
-	PartsOfNames     map[string]int
-	Duration         map[int]int
+	// Count how often files has a duration (in minutes).
+	Duration map[int]int
+	// Count of fonded media files
+	FoundedFiles int
+	// Count how often file name parts is in using
+	PartsOfNames map[string]int
+	// Count how often height of resolution is in using
 	ResolutionHeight map[int]int
-	ResolutionWidth  map[int]int
-	FoundedFiles     int
+	// Count how often width of resolution is in using
+	ResolutionWidth map[int]int
+	// The direktory of the statistic files
+	StatisticDir string
+	// Count how often tags is in using
+	UsedTags map[string]int
 }
 
 // NewStatistics create new instance of Statistics and get it back.
@@ -38,15 +44,4 @@ func NewStatistics(statisticDir string) *Statistics {
 	statistic.ResolutionHeight = make(map[int]int)
 	statistic.ResolutionWidth = make(map[int]int)
 	return &statistic
-}
-
-// ContPartsOfNames count part of file names.
-func (statistic *Statistics) ContPartsOfNames(namePart string) {
-	if count, ok := statistic.PartsOfNames[namePart]; ok {
-		cl.InfoLogger.Println("The name part ", namePart, " is allready added (", count, "). Count up...")
-		statistic.PartsOfNames[namePart]++
-	} else {
-		cl.InfoLogger.Println("The name part ", namePart, " (", count, ") is new.")
-		statistic.PartsOfNames[namePart] = 1
-	}
 }
