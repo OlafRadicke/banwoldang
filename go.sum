@@ -1,4 +1,5 @@
 9fans.net/go v0.0.0-20181112161441-237454027057/go.mod h1:diCsxrliIURU9xsYtjCp5AbpQKqdhKmf0ujWDUSkfoY=
+github.com/OlafRadicke/go-gthumb v0.0.2 h1:fAWrS59hwN8K9NUvJzIhQ6Uy+psEkdqi8spNp7/8KEY=
 github.com/OlafRadicke/go-gthumb v0.0.2/go.mod h1:yftmFXBs//FovZPY9ZZFoKEkqxAZcrboMsMoNapOx+I=
 github.com/ramya-rao-a/go-outline v0.0.0-20210608161538-9736a4bde949/go.mod h1:9V3eNbj9Z53yO7cKB6cSX9f0O7rYdIiuGBhjA1YsQuw=
 github.com/rogpeppe/godef v1.1.2/go.mod h1:WtY9A/ovuQ+UakAJ1/CEqwwulX/WJjb2kgkokCHi/GY=

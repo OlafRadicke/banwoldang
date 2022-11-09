@@ -11,6 +11,7 @@ import (
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
 	filetree "github.com/OlafRadicke/banwoldang/filetree"
 	"github.com/OlafRadicke/banwoldang/statistics"
+	gt "github.com/OlafRadicke/go-gthumb"
 )
 
 // ProgArguments struct with command line arguments
@@ -49,6 +50,8 @@ func main() {
 
 	cl.InfoLogger.Println("absoluteLinkDir: ", fileTree.LinkDir)
 	cl.InfoLogger.Println("Search in: ", fileTree.SourcePath)
+
+	useNewLib(progConfig)
 	fileTree.GoThroughCollection()
 	fileTree.CreateTagsXmlFile()
 	fileTree.Statistic.WriteStatistic()
@@ -75,4 +78,23 @@ func readConfig(configPath string) *config.YamlConfig {
 		cl.ErrorLogger.Fatal(err)
 	}
 	return &yamlConf
+}
+
+func useNewLib(progConfig *config.YamlConfig){
+	// Read xml...
+
+	fmt.Println("Start walk in %s", progConfig.SourceDir)
+
+	fileTree := gt.NewFileTree(progConfig.SourceDir)
+	fileTree.GoThroughCollection()
+
+	// for index, Item := range fileTree.ListOfCommentFiles {
+	// 	fmt.Println("Comment files (%d): %s\n", index, Item)
+	// }
+
+	// for index, Item := range fileTree.ListOfMediaFiles {
+	// 	fmt.Println("Media files (%d): %s\n", index, Item)
+	// }
+	fmt.Println("Media files: ", len(fileTree.ListOfMediaFiles), "\n")
+	fmt.Println("Comment files: ", len(fileTree.ListOfCommentFiles), "\n")
 }
