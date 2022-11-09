@@ -15,12 +15,15 @@ func (mediaInfo *MediaInformation) GenerateLinkDirTreeOfOldNameParts() {
 	}
 
 	for i := 0; i < len(listOfParts); i++ {
+		var namePart string
 		mediaInfo.SetAbsoluteContentLinkDirPath("00-old-name-parts/" + listOfParts[i])
 		mediaInfo.SetAbsoluteManifestLinkDirPath("00-old-name-parts/" + listOfParts[i])
 		mediaInfo.CreateLinkDirSubDir("00-old-name-parts/" + listOfParts[i])
 		mediaInfo.CreateContentLink()
 		mediaInfo.CreateNewEmptyManifestFile()
 		mediaInfo.CreateManifestLink()
+		namePart = listOfParts[i]
+		mediaInfo.Statistics.ContPartsOfNames(namePart)
 	}
 
 }

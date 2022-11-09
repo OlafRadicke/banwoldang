@@ -1,5 +1,7 @@
 package mediainformation
 
+import "github.com/OlafRadicke/banwoldang/statistics"
+
 // mediainformation the interface of MediaInformation
 type mediainformation interface {
 	CreateContentLink() error
@@ -71,4 +73,17 @@ type MediaInformation struct {
 
 	// Is the value true, than it will be try to create hard links (for the link tree directories)
 	UseHardLink bool
+
+	// Is the value true, than ffmpeg support try to create links about media facts
+	UseFfmpeg bool
+
+	// A helper object for statistic analyses
+	Statistics *statistics.Statistics
+}
+
+// NewProgArguments create new instance of FileTree and get it back.
+func NewMediaInformation(statistics *statistics.Statistics) MediaInformation {
+	mediaInformation := MediaInformation{}
+	mediaInformation.Statistics = statistics
+	return mediaInformation
 }

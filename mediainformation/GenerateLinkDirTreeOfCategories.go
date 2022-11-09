@@ -1,6 +1,8 @@
 package mediainformation
 
-import cl "github.com/OlafRadicke/banwoldang/customlogger"
+import (
+	cl "github.com/OlafRadicke/banwoldang/customlogger"
+)
 
 // GenerateLinkDirTreeOfCategories Creates a directory tree with links based on the
 // categories in the xml manifest files.
@@ -25,5 +27,4 @@ func (mediaInfo *MediaInformation) GenerateLinkDirTreeOfCategories() {
 		mediaInfo.CreateManifestLink()
 
 	}
-
 }

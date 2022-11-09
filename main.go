@@ -1,11 +1,16 @@
 package main
 
 import (
-	"os"
-	"strings"
+	"flag"
+	"fmt"
+	"io/ioutil"
 
+	"gopkg.in/yaml.v2"
+
+	"github.com/OlafRadicke/banwoldang/config"
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
 	filetree "github.com/OlafRadicke/banwoldang/filetree"
+	"github.com/OlafRadicke/banwoldang/statistics"
 )
 
 // ProgArguments struct with command line arguments
@@ -22,17 +27,6 @@ type ProgArguments struct {
 	UseHardLink bool
 }
 
-// NewProgArguments create new instance of ProgArguments
-func NewProgArguments() ProgArguments {
-	progArguments := ProgArguments{}
-	progArguments.SourceDir = ""
-	progArguments.LinkDir = ""
-	progArguments.MinimumArguments = 3
-	progArguments.UseChecksum = false
-	progArguments.UseHardLink = false
-	return progArguments
-}
-
 func main() {
 
 	cl.InfoLogger.Println("================================= PROGRAMM START ==============================")
@@ -42,62 +36,43 @@ func main() {
 	// cl.ErrorLogger.Println("PROGRAMM START", 1, "test")
 	// cl.ErrorLogger.Fatal("der neue Error-Logger mit hartem Ende...")
 
-	progArguments := checkInput()
+	progConfig := checkArguments()
+	fmt.Println("SourceDir: ", progConfig.SourceDir)
 
-	// fileTree := filetree.FileTree{}
-	fileTree := filetree.NewFileTree()
-	fileTree.SetAbsoluteSourcePath(progArguments.SourceDir)
-	fileTree.SetAbsoluteLinkDir(progArguments.LinkDir)
-	fileTree.UseChecksum = progArguments.UseChecksum
-	fileTree.UseHardLink = progArguments.UseHardLink
+	statistic := statistics.NewStatistics(progConfig.LinkDir)
+	fileTree := filetree.NewFileTree(statistic)
+	fileTree.SetAbsoluteSourcePath(progConfig.SourceDir)
+	fileTree.SetAbsoluteLinkDir(progConfig.LinkDir)
+	fileTree.UseChecksum = progConfig.UseChecksum
+	fileTree.UseHardLink = progConfig.UseHardLink
+	fileTree.UseFfmpeg = progConfig.UseFfmpeg
+
 	cl.InfoLogger.Println("absoluteLinkDir: ", fileTree.LinkDir)
 	cl.InfoLogger.Println("Search in: ", fileTree.SourcePath)
-
 	fileTree.GoThroughCollection()
-	cl.InfoLogger.Println("Count of founded files: ", fileTree.Findings)
-	cl.InfoLogger.Println("Count of founded categories: ", len(fileTree.AllUsedCategories))
 	fileTree.CreateTagsXmlFile()
+	fileTree.Statistic.WriteStatistic()
 }
 
-// checkInput read the programme arguments
-func checkInput() *ProgArguments {
-	progArguments := NewProgArguments()
-	givenArguments := len(os.Args)
-	if givenArguments < progArguments.MinimumArguments {
-		cl.ErrorLogger.Fatal("To less arguments! ", progArguments.MinimumArguments, " needed and ", givenArguments, "given ")
+func checkArguments() *config.YamlConfig {
+	configPath := flag.String("f", "banwoldang.yaml", "configuration file")
+	flag.Parse()
+
+	yamlConf := readConfig(*configPath)
+	return yamlConf
+}
+
+func readConfig(configPath string) *config.YamlConfig {
+	var yamlConf config.YamlConfig
+
+	configContent, err := ioutil.ReadFile(configPath)
+	if err != nil {
+		cl.ErrorLogger.Fatal(err)
 	}
 
-	for i := 1; i < len(os.Args); i++ {
-		argParts := strings.Split(os.Args[i], "=")
-		if len(argParts) != 2 {
-			cl.ErrorLogger.Fatal("Argument is wrong: ", os.Args[i])
-		}
-		cl.InfoLogger.Println("name: ", argParts[0])
-		cl.InfoLogger.Println("volume: ", argParts[1])
-
-		switch argParts[0] {
-		case "--source-dir":
-			progArguments.SourceDir = argParts[1]
-		case "--link-dir":
-			progArguments.LinkDir = argParts[1]
-		case "--checksum":
-			if argParts[1] == "true" {
-				progArguments.UseChecksum = true
-			} else {
-				progArguments.UseChecksum = false
-			}
-		case "--hardlinks":
-			if argParts[1] == "true" {
-				progArguments.UseHardLink = true
-			} else {
-				progArguments.UseHardLink = false
-			}
-		default:
-			cl.ErrorLogger.Fatal("Unknown parameter: ", argParts[0])
-		}
-
-		cl.InfoLogger.Println("UseHardLink is: ", progArguments.UseHardLink)
-		cl.InfoLogger.Println("UseChecksum is: ", progArguments.UseChecksum)
+	err = yaml.Unmarshal([]byte(configContent), &yamlConf)
+	if err != nil {
+		cl.ErrorLogger.Fatal(err)
 	}
-	return &progArguments
+	return &yamlConf
 }

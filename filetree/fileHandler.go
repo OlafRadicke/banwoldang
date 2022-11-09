@@ -18,10 +18,13 @@ func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err e
 		// cl.InfoLogger.Println("Just a directory")
 		return nil
 	} else {
-		fileTree.Findings++
-		mediaInfo := mediainformation.MediaInformation{}
+		fileTree.Statistic.FoundedFiles++
+		mediaInfo := mediainformation.NewMediaInformation(fileTree.Statistic)
+		// mediaInfo := mediainformation.MediaInformation{}
 		mediaInfo.UseChecksum = fileTree.UseChecksum
 		mediaInfo.UseHardLink = fileTree.UseHardLink
+		mediaInfo.UseFfmpeg = fileTree.UseFfmpeg
+
 		mediaInfo.SetAbsoluteLinkDirPath(fileTree.LinkDir)
 
 		if filepath.Ext(info.Name()) == ".xml" {
