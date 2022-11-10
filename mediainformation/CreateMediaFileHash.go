@@ -14,7 +14,7 @@ import (
 // authenticating and to use als target link name.
 func (mediaInfo *MediaInformation) CreateMediaFileHash() {
 
-	if mediaInfo.UseChecksum {
+	if mediaInfo.progConfig.UseChecksum {
 		openFile, err := os.Open(mediaInfo.AbsoluteContentSourcePath)
 		if err != nil {
 			// cl.ErrorLogger.Fatal(err)

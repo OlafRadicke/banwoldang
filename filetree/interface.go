@@ -4,6 +4,7 @@ import (
 	"os"
 
 	"github.com/OlafRadicke/banwoldang/statistics"
+	"github.com/OlafRadicke/banwoldang/config"
 )
 
 // filetree The inteface of the feletree struckt
@@ -39,10 +40,13 @@ type FileTree struct {
 
 	//  A helper object for statistic analyses
 	Statistic *statistics.Statistics
+
+	// Application configuration
+	progConfig *config.YamlConfig
 }
 
 // NewProgArguments create new instance of FileTree and get it back.
-func NewFileTree(statistics *statistics.Statistics) FileTree {
+func NewFileTree(progConfig *config.YamlConfig, statistics *statistics.Statistics) FileTree {
 	fileTree := FileTree{}
 
 	fileTree.SourcePath = ""
@@ -50,6 +54,7 @@ func NewFileTree(statistics *statistics.Statistics) FileTree {
 	// fileTree.Findings = 0
 	fileTree.UseChecksum = false
 	fileTree.UseHardLink = false
+	fileTree.progConfig = progConfig
 	fileTree.Statistic = statistics
 	return fileTree
 }

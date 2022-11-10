@@ -9,7 +9,7 @@ import (
 // CreateManifestLink Create a manifest file link in the link directory.
 func (mediaInfo *MediaInformation) CreateManifestLink() {
 
-	if mediaInfo.UseHardLink == true {
+	if mediaInfo.progConfig.UseHardLink == true {
 		err := os.Link(mediaInfo.AbsoluteManifestSourcePath, mediaInfo.AbsoluteManifestLinkDirPath)
 		if err != nil {
 			cl.ErrorLogger.Println("Can't create link: ", err)

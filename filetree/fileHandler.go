@@ -19,15 +19,9 @@ func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err e
 		return nil
 	} else {
 		fileTree.Statistic.FoundedFiles++
-		mediaInfo := mediainformation.NewMediaInformation(fileTree.Statistic)
-		// mediaInfo := mediainformation.MediaInformation{}
-		mediaInfo.UseChecksum = fileTree.UseChecksum
-		mediaInfo.UseHardLink = fileTree.UseHardLink
-		mediaInfo.UseFfmpeg = fileTree.UseFfmpeg
-
-		mediaInfo.SetAbsoluteLinkDirPath(fileTree.LinkDir)
 
 		if filepath.Ext(info.Name()) == ".xml" {
+			mediaInfo := mediainformation.NewMediaInformationByManifest(fileTree.progConfig, fileTree.Statistic, searchPath)
 			mediaInfo.SetAbsoluteManifestSourcePath(searchPath)
 			err := mediaInfo.ReconstructContenSourceFile()
 			if err != nil {
@@ -37,13 +31,15 @@ func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err e
 			mediaInfo.ReadingManifestFile()
 			mediaInfo.CreateMediaFileHash()
 			mediaInfo.GenerateLinkDirTree()
+			fileTree.JoinAllUsedCategories(mediaInfo.Categories)
 		} else {
+			mediaInfo := mediainformation.NewMediaInformation(fileTree.progConfig, fileTree.Statistic, searchPath)
 			mediaInfo.SetAbsoluteContentSourcePath(searchPath)
 			mediaInfo.ReconstructManifestFile()
-			mediaInfo.CreateMediaFileHash()
+			// mediaInfo.CreateMediaFileHash()
 			mediaInfo.GenerateLinkDirTreeWithoutManifests()
+			fileTree.JoinAllUsedCategories(mediaInfo.Categories)
 		}
-		fileTree.JoinAllUsedCategories(mediaInfo.Categories)
 		return nil
 	}
 }

@@ -9,7 +9,7 @@ import (
 // CreateContentLink Create a content file link in the link directory.
 func (mediaInfo *MediaInformation) CreateContentLink() error {
 
-	if mediaInfo.UseHardLink == true {
+	if mediaInfo.progConfig.UseHardLink == true {
 		err := os.Link(mediaInfo.AbsoluteContentSourcePath, mediaInfo.AbsoluteContentLinkDirPath)
 		if err != nil {
 			// cl.ErrorLogger.Fatal("Create symlink: ", err)

@@ -5,8 +5,8 @@ func (mediaInfo *MediaInformation) GenerateLinkDirTree() {
 
 	mediaInfo.GenerateLinkDirTreeOfOldNameParts()
 	mediaInfo.GenerateLinkDirTreeOfCategories()
-	mediaInfo.GenerateLinkDirTreeOfChecksum()
-	if mediaInfo.UseFfmpeg {
+	// mediaInfo.GenerateLinkDirTreeOfChecksum()
+	if mediaInfo.progConfig.UseFfmpeg {
 		mediaInfo.GenerateLinkDirTreeOfMovieFacts()
 	}
 }

@@ -12,6 +12,9 @@ import (
 	filetree "github.com/OlafRadicke/banwoldang/filetree"
 	"github.com/OlafRadicke/banwoldang/statistics"
 	gt "github.com/OlafRadicke/go-gthumb"
+	ld "github.com/OlafRadicke/banwoldang/linkdirectories"
+	"github.com/OlafRadicke/banwoldang/mediainformation"
+
 )
 
 // ProgArguments struct with command line arguments
@@ -41,18 +44,19 @@ func main() {
 	fmt.Println("SourceDir: ", progConfig.SourceDir)
 
 	statistic := statistics.NewStatistics(progConfig.LinkDir)
-	fileTree := filetree.NewFileTree(statistic)
+	fileTree := filetree.NewFileTree(progConfig, statistic)
 	fileTree.SetAbsoluteSourcePath(progConfig.SourceDir)
 	fileTree.SetAbsoluteLinkDir(progConfig.LinkDir)
-	fileTree.UseChecksum = progConfig.UseChecksum
-	fileTree.UseHardLink = progConfig.UseHardLink
-	fileTree.UseFfmpeg = progConfig.UseFfmpeg
+
+	// fileTree.UseChecksum = progConfig.UseChecksum
+	// fileTree.UseHardLink = progConfig.UseHardLink
+	// fileTree.UseFfmpeg = progConfig.UseFfmpeg
 
 	cl.InfoLogger.Println("absoluteLinkDir: ", fileTree.LinkDir)
 	cl.InfoLogger.Println("Search in: ", fileTree.SourcePath)
 
-	useNewLib(progConfig)
-	fileTree.GoThroughCollection()
+	useNewLib(progConfig, statistic)
+	// fileTree.GoThroughCollection()
 	fileTree.CreateTagsXmlFile()
 	fileTree.Statistic.WriteStatistic()
 }
@@ -80,7 +84,7 @@ func readConfig(configPath string) *config.YamlConfig {
 	return &yamlConf
 }
 
-func useNewLib(progConfig *config.YamlConfig){
+func useNewLib(progConfig *config.YamlConfig, statistic *statistics.Statistics){
 	// Read xml...
 
 	fmt.Println("Start walk in %s", progConfig.SourceDir)
@@ -92,9 +96,18 @@ func useNewLib(progConfig *config.YamlConfig){
 	// 	fmt.Println("Comment files (%d): %s\n", index, Item)
 	// }
 
-	// for index, Item := range fileTree.ListOfMediaFiles {
-	// 	fmt.Println("Media files (%d): %s\n", index, Item)
-	// }
+	for _, path := range fileTree.ListOfMediaFiles {
+		fmt.Println("Media files: ", path, "\n")
+		mediaInfo := mediainformation.NewMediaInformation(progConfig, statistic, path)
+
+		ld.GenerateLinkDirTreeOfChecksum(mediaInfo)
+		// mediaInfo.GenerateLinkDirTreeWithoutManifests()
+
+	}
+
+
 	fmt.Println("Media files: ", len(fileTree.ListOfMediaFiles), "\n")
 	fmt.Println("Comment files: ", len(fileTree.ListOfCommentFiles), "\n")
+
 }
+

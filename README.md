@@ -49,6 +49,10 @@ The creation of (real) checksums can be disabled in the configuration with:
 real_checksum: false
 ```
 
+### 00-checksum/duplicates
+
+Here a links to founded checksum dublicates.
+
 ### 00-old-name-parts
 
 The filenames of the media files are split into their parts and this is
