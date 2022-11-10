@@ -5,9 +5,11 @@ import (
 	"path/filepath"
 
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
+	gt "github.com/OlafRadicke/go-gthumb"
 )
 
 // CreateNewEmptyManifestFile Create an new empty manifest file it is not exist
+// TODO use Lib github.com/OlafRadicke/go-gthumb
 func (mediaInfo *MediaInformation) CreateNewEmptyManifestFile() {
 
 	_, err := os.Stat(mediaInfo.AbsoluteManifestSourcePath)
@@ -23,26 +25,39 @@ func (mediaInfo *MediaInformation) CreateNewEmptyManifestFile() {
 			cl.ErrorLogger.Fatal("[202108040831]", err)
 		}
 
-		openFile, err := os.Create(mediaInfo.AbsoluteManifestSourcePath)
+		comment, err := gt.NewCommentsFile(mediaInfo.AbsoluteManifestSourcePath)
 		if err != nil {
-			cl.ErrorLogger.Fatal("[202108040825]", err)
+			cl.ErrorLogger.Println("error to open comment file: ", err)
+			cl.ErrorLogger.Println("try later to create an new: ", mediaInfo.AbsoluteManifestSourcePath)
 		}
-		defer openFile.Close()
-		rawtext := `<?xml version="1.0" encoding="UTF-8"?>
-<comment version="3.0">
-	<caption/>
-	<note/>
-	<place/>
-	<categories>
-	<category value="00-script-create-manifest"/>
-	</categories>
-</comment>`
-		cl.InfoLogger.Println(rawtext)
-		_, err2 := openFile.WriteString(rawtext)
 
-		if err2 != nil {
-			cl.ErrorLogger.Fatal("[202108040824]", err2)
+		comment.AddCategory("00-script-create-manifest")
+
+		err = comment.Save()
+		if err != nil {
+			cl.ErrorLogger.Fatal("error writting comment file: %w", err)
 		}
+
+// 		openFile, err := os.Create(mediaInfo.AbsoluteManifestSourcePath)
+// 		if err != nil {
+// 			cl.ErrorLogger.Fatal("[202108040825]", err)
+// 		}
+// 		defer openFile.Close()
+// 		rawtext := `<?xml version="1.0" encoding="UTF-8"?>
+// <comment version="3.0">
+// 	<caption/>
+// 	<note/>
+// 	<place/>
+// 	<categories>
+// 	<category value="00-script-create-manifest"/>
+// 	</categories>
+// </comment>`
+// 		cl.InfoLogger.Println(rawtext)
+// 		_, err2 := openFile.WriteString(rawtext)
+
+// 		if err2 != nil {
+// 			cl.ErrorLogger.Fatal("[202108040824]", err2)
+// 		}
 	}
 
 }

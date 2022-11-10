@@ -87,27 +87,23 @@ func readConfig(configPath string) *config.YamlConfig {
 func useNewLib(progConfig *config.YamlConfig, statistic *statistics.Statistics){
 	// Read xml...
 
-	fmt.Println("Start walk in %s", progConfig.SourceDir)
+	fmt.Println("Start walk in ", progConfig.SourceDir)
 
 	fileTree := gt.NewFileTree(progConfig.SourceDir)
 	fileTree.GoThroughCollection()
 
-	// for index, Item := range fileTree.ListOfCommentFiles {
-	// 	fmt.Println("Comment files (%d): %s\n", index, Item)
-	// }
 
 	for _, path := range fileTree.ListOfMediaFiles {
-		fmt.Println("Media files: ", path, "\n")
 		mediaInfo := mediainformation.NewMediaInformation(progConfig, statistic, path)
-
 		ld.GenerateLinkDirTreeOfChecksum(mediaInfo)
-		// mediaInfo.GenerateLinkDirTreeWithoutManifests()
-
 	}
-
+	for _, path := range fileTree.ListOfCommentFiles {
+		mediaInfo := mediainformation.NewMediaInformationByManifest(progConfig, statistic, path)
+		ld.GenerateLinkDirTreeOfCategories(mediaInfo)
+		// mediaInfo.GenerateLinkDirTreeWithoutManifests()
+	}
 
 	fmt.Println("Media files: ", len(fileTree.ListOfMediaFiles), "\n")
 	fmt.Println("Comment files: ", len(fileTree.ListOfCommentFiles), "\n")
-
 }
 
