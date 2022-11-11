@@ -85,12 +85,15 @@ func useNewLib(progConfig *config.YamlConfig, statistic *statistics.Statistics, 
 	gtFileTree.GoThroughCollection()
 
 
-	for _, path := range gtFileTree.ListOfMediaFiles {
+	for index, path := range gtFileTree.ListOfMediaFiles {
+		fmt.Println("\rMedia files: ", index, "/", len(gtFileTree.ListOfMediaFiles))
 		mediaInfo := mediainformation.NewMediaInformation(progConfig, statistic, path)
 		linkdirectories := ld.NewLinkdirectories(mediaInfo)
 		linkdirectories.GenerateLinkDirTreeOfChecksum()
 	}
-	for _, path := range gtFileTree.ListOfCommentFiles {
+	for index, path := range gtFileTree.ListOfCommentFiles {
+		fmt.Println("\rComment files: ", index, len(gtFileTree.ListOfCommentFiles))
+
 		mediaInfo := mediainformation.NewMediaInformationByManifest(progConfig, statistic, path)
 		linkdirectories := ld.NewLinkdirectories(mediaInfo)
 		linkdirectories.GenerateLinkDirTreeOfCategories()
@@ -99,7 +102,5 @@ func useNewLib(progConfig *config.YamlConfig, statistic *statistics.Statistics, 
 		// mediaInfo.GenerateLinkDirTreeWithoutManifests()
 	}
 
-	fmt.Println("Media files: ", len(gtFileTree.ListOfMediaFiles), "\n")
-	fmt.Println("Comment files: ", len(gtFileTree.ListOfCommentFiles), "\n")
 }
 

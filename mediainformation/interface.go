@@ -3,38 +3,10 @@ package mediainformation
 import (
 	"github.com/OlafRadicke/banwoldang/statistics"
 	"github.com/OlafRadicke/banwoldang/config"
+	cl "github.com/OlafRadicke/banwoldang/customlogger"
 	gt "github.com/OlafRadicke/go-gthumb"
 )
 
-// // mediainformation the interface of MediaInformation
-// type mediainformation interface {
-// 	CreateContentLink() error
-// 	CreateLinkDirSubDir(string)
-// 	CreateManifestLink()
-// 	CreateMediaFileHash()
-// 	CreateNewEmptyManifestFile()
-
-// 	ExtractFileNameParts()
-
-// 	GenerateLinkDirTreeOfCategoryCount()
-// 	GenerateSingleCatFileTree(string)     // TODO (REMOVE)
-// 	GenerateLinkDirTree()                 // TODO / REFACTORING (REMOVE)
-// 	GenerateLinkDirTreeWithoutManifests() // TODO
-// 	GenerateLinkDirTreeOfOldNameParts()
-
-// 	ReadingManifestFile()
-
-// 	ReconstructContenSourceFile() error
-// 	ReconstructManifestFile()
-
-// 	SetAbsoluteContentLinkDirPath(string)
-// 	SetAbsoluteLinkDirPath(string)
-// 	SetAbsoluteManifestLinkDirPath(string)
-
-// 	SetAbsoluteContentSourcePath(string)
-// 	SetAbsoluteManifestSourcePath(string)
-// 	SetHashValue(string)
-// }
 
 // MediaInformation Represent information about a single Media with his
 // Manifest file and data
@@ -100,6 +72,7 @@ func NewMediaInformation(progConfig *config.YamlConfig, statistics *statistics.S
 	mediaInfo.SetAbsoluteLinkDirPath(progConfig.LinkDir)
 	mediaInfo.SetAbsoluteContentSourcePath(path)
 	mediaInfo.ReconstructManifestFile()
+
 	mediaInfo.CreateMediaFileHash()
 	return &mediaInfo
 }
@@ -108,9 +81,14 @@ func NewMediaInformation(progConfig *config.YamlConfig, statistics *statistics.S
 // NewProgArguments create new instance of MediaInformation and get it back.
 // @path Path of comment file.
 func NewMediaInformationByManifest(progConfig *config.YamlConfig, statistics *statistics.Statistics, path string) *MediaInformation {
+	var err error
 	mediaInfo := MediaInformation{}
 	mediaInfo.progConfig = progConfig
 	mediaInfo.Statistics = statistics
+	mediaInfo.Comments, err = gt.NewCommentsFile(path)
+	if err != nil {
+		cl.InfoLogger.Println("error to init object: ", err)
+	}
 	mediaInfo.SetAbsoluteLinkDirPath(progConfig.LinkDir)
 	mediaInfo.SetAbsoluteManifestSourcePath(path)
 	mediaInfo.CreateMediaFileHash()

@@ -33,7 +33,7 @@ func (mediaInfo *MediaInformation) GenerateLinkDirTreeWithoutManifests() {
 		cl.ErrorLogger.Println("Can't create symlink: ", err)
 	}
 
-	mediaInfo.CreateNewEmptyManifestFile()
+	// mediaInfo.CreateNewEmptyManifestFile()
 
 	err = os.Symlink(mediaInfo.AbsoluteManifestSourcePath, mediaInfo.AbsoluteManifestLinkDirPath)
 	if err != nil {

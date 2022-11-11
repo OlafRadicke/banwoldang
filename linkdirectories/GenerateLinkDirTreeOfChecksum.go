@@ -39,7 +39,7 @@ func (linkdirectories  *Linkdirectories) GenerateLinkDirTreeOfChecksum() {
 		linkdirectories.mediaInfo.SetAbsoluteManifestLinkDirPath(catSubDirectoryName)
 		linkdirectories.mediaInfo.CreateLinkDirSubDir(catSubDirectoryName)
 	}
-	linkdirectories.mediaInfo.CreateNewEmptyManifestFile()
+	// linkdirectories.mediaInfo.CreateNewEmptyManifestFile()
 	linkdirectories.mediaInfo.CreateManifestLink()
 
 }

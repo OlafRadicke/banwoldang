@@ -20,7 +20,7 @@ func (linkdirectories  *Linkdirectories) GenerateLinkDirTreeOfCategoryCount() {
 	linkdirectories.mediaInfo.SetAbsoluteManifestLinkDirPath(catSubDirectoryName)
 	linkdirectories.mediaInfo.CreateLinkDirSubDir(catSubDirectoryName)
 	linkdirectories.mediaInfo.CreateContentLink()
-	linkdirectories.mediaInfo.CreateNewEmptyManifestFile()
+	// linkdirectories.mediaInfo.CreateNewEmptyManifestFile()
 	linkdirectories.mediaInfo.CreateManifestLink()
 
 }

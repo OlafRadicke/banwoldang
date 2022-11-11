@@ -72,7 +72,7 @@ func (mediaInfo *MediaInformation) GenerateLinkDirTreeOfMovieFacts() {
 	mediaInfo.SetAbsoluteManifestLinkDirPath("duration/" + minutes_duration)
 	mediaInfo.CreateLinkDirSubDir("duration/" + minutes_duration)
 	mediaInfo.CreateContentLink()
-	mediaInfo.CreateNewEmptyManifestFile()
+	// mediaInfo.CreateNewEmptyManifestFile()
 	mediaInfo.CreateManifestLink()
 	mediaInfo.Statistics.ContDuration(minutes)
 
@@ -81,7 +81,7 @@ func (mediaInfo *MediaInformation) GenerateLinkDirTreeOfMovieFacts() {
 	mediaInfo.SetAbsoluteManifestLinkDirPath("resolution_height/" + resolution_height)
 	mediaInfo.CreateLinkDirSubDir("resolution_height/" + resolution_height)
 	mediaInfo.CreateContentLink()
-	mediaInfo.CreateNewEmptyManifestFile()
+	// mediaInfo.CreateNewEmptyManifestFile()
 	mediaInfo.CreateManifestLink()
 	mediaInfo.Statistics.ContResolutionHeight(data.Streams[0].Height)
 
@@ -90,7 +90,7 @@ func (mediaInfo *MediaInformation) GenerateLinkDirTreeOfMovieFacts() {
 	mediaInfo.SetAbsoluteManifestLinkDirPath("resolution_width/" + resolution_width)
 	mediaInfo.CreateLinkDirSubDir("resolution_width/" + resolution_width)
 	mediaInfo.CreateContentLink()
-	mediaInfo.CreateNewEmptyManifestFile()
+	// mediaInfo.CreateNewEmptyManifestFile()
 	mediaInfo.CreateManifestLink()
 	mediaInfo.Statistics.ContResolutionWidth(data.Streams[0].Width)
 }

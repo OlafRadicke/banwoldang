@@ -20,7 +20,7 @@ func (mediaInfo *MediaInformation) GenerateLinkDirTreeOfOldNameParts() {
 		mediaInfo.SetAbsoluteManifestLinkDirPath("00-old-name-parts/" + listOfParts[i])
 		mediaInfo.CreateLinkDirSubDir("00-old-name-parts/" + listOfParts[i])
 		mediaInfo.CreateContentLink()
-		mediaInfo.CreateNewEmptyManifestFile()
+		// mediaInfo.CreateNewEmptyManifestFile()
 		mediaInfo.CreateManifestLink()
 		namePart = listOfParts[i]
 		mediaInfo.Statistics.ContPartsOfNames(namePart)

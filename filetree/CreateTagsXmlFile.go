@@ -6,6 +6,7 @@ import (
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
+// TODO
 // fileHandler This function handel and prosessing the file operations.
 func (fileTree *FileTree) CreateTagsXmlFile() {
 	homePath := os.Getenv("HOME")
