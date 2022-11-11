@@ -3,6 +3,7 @@ package mediainformation
 import (
 	"github.com/OlafRadicke/banwoldang/statistics"
 	"github.com/OlafRadicke/banwoldang/config"
+	gt "github.com/OlafRadicke/go-gthumb"
 )
 
 // // mediainformation the interface of MediaInformation
@@ -69,7 +70,10 @@ type MediaInformation struct {
 	Extension string
 
 	// The list with the categories of a media file
-	Categories []string
+	// Categories []string
+
+	// This object represents the conten of the XML comment files
+	Comments *gt.CommentsFile
 
 	// // Is the value true, than it will be create checksums as file names (for the links)
 	// UseChecksum bool

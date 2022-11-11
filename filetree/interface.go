@@ -1,25 +1,23 @@
 package filetree
 
 import (
-	"os"
-
 	"github.com/OlafRadicke/banwoldang/statistics"
 	"github.com/OlafRadicke/banwoldang/config"
 )
 
 // filetree The inteface of the feletree struckt
-type filetree interface {
-	GoThroughCollection()
-	NewFileTree() FileTree
-	PrintAll()
+// type filetree interface {
+// 	GoThroughCollection()
+// 	NewFileTree() FileTree
+// 	PrintAll()
 
-	fileHandler(path string, info os.FileInfo, err error) error
+// 	fileHandler(path string, info os.FileInfo, err error) error
 
-	SetAbsoluteSourcePath(string)
-	SetAbsoluteLinkDir(string)
-	JoinAllUsedCategories(Categories []string)
-	CreateTagsXmlFile()
-}
+// 	SetAbsoluteSourcePath(string)
+// 	SetAbsoluteLinkDir(string)
+// 	JoinAllUsedCategories(Categories []string)
+// 	CreateTagsXmlFile()
+// }
 
 // FileTree This struct represent the information about the tree
 type FileTree struct {
@@ -46,7 +44,7 @@ type FileTree struct {
 }
 
 // NewProgArguments create new instance of FileTree and get it back.
-func NewFileTree(progConfig *config.YamlConfig, statistics *statistics.Statistics) FileTree {
+func NewFileTree(progConfig *config.YamlConfig, statistics *statistics.Statistics) *FileTree {
 	fileTree := FileTree{}
 
 	fileTree.SourcePath = ""
@@ -56,5 +54,5 @@ func NewFileTree(progConfig *config.YamlConfig, statistics *statistics.Statistic
 	fileTree.UseHardLink = false
 	fileTree.progConfig = progConfig
 	fileTree.Statistic = statistics
-	return fileTree
+	return &fileTree
 }

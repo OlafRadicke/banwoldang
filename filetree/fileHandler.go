@@ -31,14 +31,14 @@ func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err e
 			mediaInfo.ReadingManifestFile()
 			mediaInfo.CreateMediaFileHash()
 			mediaInfo.GenerateLinkDirTree()
-			fileTree.JoinAllUsedCategories(mediaInfo.Categories)
+
 		} else {
 			mediaInfo := mediainformation.NewMediaInformation(fileTree.progConfig, fileTree.Statistic, searchPath)
 			mediaInfo.SetAbsoluteContentSourcePath(searchPath)
 			mediaInfo.ReconstructManifestFile()
 			// mediaInfo.CreateMediaFileHash()
 			mediaInfo.GenerateLinkDirTreeWithoutManifests()
-			fileTree.JoinAllUsedCategories(mediaInfo.Categories)
+
 		}
 		return nil
 	}

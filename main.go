@@ -36,10 +36,6 @@ func main() {
 	cl.InfoLogger.Println("================================= PROGRAMM START ==============================")
 	cl.ErrorLogger.Println("================================ PROGRAMM START ==============================")
 
-	// cl.InfoLogger.Println("PROGRAMM START")
-	// cl.ErrorLogger.Println("PROGRAMM START", 1, "test")
-	// cl.ErrorLogger.Fatal("der neue Error-Logger mit hartem Ende...")
-
 	progConfig := checkArguments()
 	fmt.Println("SourceDir: ", progConfig.SourceDir)
 
@@ -48,14 +44,10 @@ func main() {
 	fileTree.SetAbsoluteSourcePath(progConfig.SourceDir)
 	fileTree.SetAbsoluteLinkDir(progConfig.LinkDir)
 
-	// fileTree.UseChecksum = progConfig.UseChecksum
-	// fileTree.UseHardLink = progConfig.UseHardLink
-	// fileTree.UseFfmpeg = progConfig.UseFfmpeg
-
 	cl.InfoLogger.Println("absoluteLinkDir: ", fileTree.LinkDir)
 	cl.InfoLogger.Println("Search in: ", fileTree.SourcePath)
 
-	useNewLib(progConfig, statistic)
+	useNewLib(progConfig, statistic, fileTree)
 	// fileTree.GoThroughCollection()
 	fileTree.CreateTagsXmlFile()
 	fileTree.Statistic.WriteStatistic()
@@ -84,26 +76,30 @@ func readConfig(configPath string) *config.YamlConfig {
 	return &yamlConf
 }
 
-func useNewLib(progConfig *config.YamlConfig, statistic *statistics.Statistics){
+func useNewLib(progConfig *config.YamlConfig, statistic *statistics.Statistics, fileTree  *filetree.FileTree){
 	// Read xml...
 
 	fmt.Println("Start walk in ", progConfig.SourceDir)
 
-	fileTree := gt.NewFileTree(progConfig.SourceDir)
-	fileTree.GoThroughCollection()
+	gtFileTree := gt.NewFileTree(progConfig.SourceDir)
+	gtFileTree.GoThroughCollection()
 
 
-	for _, path := range fileTree.ListOfMediaFiles {
+	for _, path := range gtFileTree.ListOfMediaFiles {
 		mediaInfo := mediainformation.NewMediaInformation(progConfig, statistic, path)
-		ld.GenerateLinkDirTreeOfChecksum(mediaInfo)
+		linkdirectories := ld.NewLinkdirectories(mediaInfo)
+		linkdirectories.GenerateLinkDirTreeOfChecksum()
 	}
-	for _, path := range fileTree.ListOfCommentFiles {
+	for _, path := range gtFileTree.ListOfCommentFiles {
 		mediaInfo := mediainformation.NewMediaInformationByManifest(progConfig, statistic, path)
-		ld.GenerateLinkDirTreeOfCategories(mediaInfo)
+		linkdirectories := ld.NewLinkdirectories(mediaInfo)
+		linkdirectories.GenerateLinkDirTreeOfCategories()
+
+		fileTree.JoinAllUsedCategories(mediaInfo.Comments.GetCategories())
 		// mediaInfo.GenerateLinkDirTreeWithoutManifests()
 	}
 
-	fmt.Println("Media files: ", len(fileTree.ListOfMediaFiles), "\n")
-	fmt.Println("Comment files: ", len(fileTree.ListOfCommentFiles), "\n")
+	fmt.Println("Media files: ", len(gtFileTree.ListOfMediaFiles), "\n")
+	fmt.Println("Comment files: ", len(gtFileTree.ListOfCommentFiles), "\n")
 }
 
