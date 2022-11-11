@@ -37,14 +37,6 @@ func (mediaInfo *MediaInformation) CreateMediaFileHash() {
 		pseutoHash := sha256.Sum256([]byte(mediaInfo.AbsoluteContentSourcePath))
 		cl.InfoLogger.Println("PSEUDO HASH: ", hex.EncodeToString(pseutoHash[:]))
 		mediaInfo.SetHashValue(hex.EncodeToString(pseutoHash[:]))
-
-		// uuid, err := exec.Command("uuidgen").Output()
-		// if err != nil {
-		// 	cl.ErrorLogger.Fatal(err)
-		// }
-		// mediaInfo.HashValue = base64.URLEncoding.EncodeToString(uuid)
-		// cl.InfoLogger.Println("UUID base64: ", mediaInfo.HashValue)
-
 	}
 	cl.InfoLogger.Println("Hash: ", mediaInfo.HashValue)
 }

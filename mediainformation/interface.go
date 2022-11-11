@@ -91,6 +91,7 @@ func NewMediaInformationByManifest(progConfig *config.YamlConfig, statistics *st
 	}
 	mediaInfo.SetAbsoluteLinkDirPath(progConfig.LinkDir)
 	mediaInfo.SetAbsoluteManifestSourcePath(path)
+	mediaInfo.ReconstructContenSourceFile()
 	mediaInfo.CreateMediaFileHash()
 	return &mediaInfo
 }

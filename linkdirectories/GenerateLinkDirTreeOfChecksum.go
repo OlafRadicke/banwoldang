@@ -11,6 +11,7 @@ func (linkdirectories  *Linkdirectories) GenerateLinkDirTreeOfChecksum() {
 
 	var (
 		firstChar string = ""
+		err error
 	)
 	cl.InfoLogger.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 	cl.InfoLogger.Println("++++++++++++++++++++++ Create checksum link ++++++++++++++++++++++")
@@ -29,7 +30,7 @@ func (linkdirectories  *Linkdirectories) GenerateLinkDirTreeOfChecksum() {
 	linkdirectories.mediaInfo.SetAbsoluteContentLinkDirPath(catSubDirectoryName)
 	linkdirectories.mediaInfo.SetAbsoluteManifestLinkDirPath(catSubDirectoryName)
 	linkdirectories.mediaInfo.CreateLinkDirSubDir(catSubDirectoryName)
-	err := linkdirectories.mediaInfo.CreateContentLink()
+	err = linkdirectories.mediaInfo.CreateContentLink()
 	if err != nil {
 		cl.ErrorLogger.Println("Switch from hash to file name: ", linkdirectories.mediaInfo.ContentFileName)
 		cl.DuplicateLogger.Println(err)
@@ -38,8 +39,16 @@ func (linkdirectories  *Linkdirectories) GenerateLinkDirTreeOfChecksum() {
 		linkdirectories.mediaInfo.SetAbsoluteContentLinkDirPath(catSubDirectoryName)
 		linkdirectories.mediaInfo.SetAbsoluteManifestLinkDirPath(catSubDirectoryName)
 		linkdirectories.mediaInfo.CreateLinkDirSubDir(catSubDirectoryName)
+		linkdirectories.mediaInfo.Comments.AddCategory("00-dublette")
+		linkdirectories.mediaInfo.Comments.Save()
+
 	}
-	// linkdirectories.mediaInfo.CreateNewEmptyManifestFile()
+
+
+	err = linkdirectories.mediaInfo.CreateContentLink()
+	if err != nil {
+		cl.DuplicateLogger.Println(err)
+	}
 	linkdirectories.mediaInfo.CreateManifestLink()
 
 }
