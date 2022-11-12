@@ -86,23 +86,19 @@ func useNewLib(progConfig *config.YamlConfig, statistic *statistics.Statistics, 
 
 
 	for index, path := range gtFileTree.ListOfMediaFiles {
-		// fmt.Printf("Media files %s \n: ", path)
-		// fmt.Printf("index: %i \n", index)
-		fmt.Printf("\rMedia files: %d/%d", index, len(gtFileTree.ListOfMediaFiles))
+		if progConfig.ShowProgress {
+			fmt.Printf("\rMedia files: %d/%d", index, len(gtFileTree.ListOfMediaFiles))
+		}
 		mediaInfo := mediainformation.NewMediaInformation(progConfig, statistic, path)
-		linkdirectories := ld.NewLinkdirectories(mediaInfo)
-		linkdirectories.GenerateLinkDirTreeOfChecksum()
+		ld.GenerateLinkDirTreeOfChecksum(mediaInfo)
 	}
 	fmt.Printf("\n")
-	// fmt.Printf("Media files: %d/%d \n", len(gtFileTree.ListOfMediaFiles), len(gtFileTree.ListOfMediaFiles))
 	for index, path := range gtFileTree.ListOfCommentFiles {
-		// fmt.Printf("Comment files %s \n: ", path)
-		// fmt.Printf("index: %i \n", index)
-		fmt.Printf("\rComment files: %d/%d", index, len(gtFileTree.ListOfCommentFiles))
-
+		if progConfig.ShowProgress {
+			fmt.Printf("\rComment files: %d/%d", index, len(gtFileTree.ListOfCommentFiles))
+		}
 		mediaInfo := mediainformation.NewMediaInformationByManifest(progConfig, statistic, path)
-		linkdirectories := ld.NewLinkdirectories(mediaInfo)
-		linkdirectories.GenerateLinkDirTreeOfCategories()
+		ld.GenerateLinkDirTreeOfCategories(mediaInfo)
 
 		fileTree.JoinAllUsedCategories(mediaInfo.Comments.GetCategories())
 		// mediaInfo.GenerateLinkDirTreeWithoutManifests()

@@ -11,4 +11,6 @@ type YamlConfig struct {
 	UseHardLink bool `yaml:"hard_links"`
 	// Is the value true, than ffmpeg support try to create links about media facts
 	UseFfmpeg bool `yaml:"ffmpeg_support"`
+	// Is the value true, than it will show the working progress
+	ShowProgress bool `yaml:"show_progress"`
 }

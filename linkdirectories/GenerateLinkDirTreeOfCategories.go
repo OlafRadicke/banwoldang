@@ -2,29 +2,30 @@ package linkdirectories
 
 import (
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
+	"github.com/OlafRadicke/banwoldang/mediainformation"
 )
 
 // GenerateLinkDirTreeOfCategories Creates a directory tree with links based on the
 // categories in the xml manifest files.
-func (linkdirectories  *Linkdirectories)GenerateLinkDirTreeOfCategories() {
-	if len(linkdirectories.getCategories()) > 0 {
+func GenerateLinkDirTreeOfCategories(mediaInfo *mediainformation.MediaInformation) {
+	if len(mediaInfo.Comments.GetCategories()) > 0 {
 		cl.InfoLogger.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-		cl.InfoLogger.Println("+++++++++++++++++++ create links for ", len(linkdirectories.getCategories()), " categories ++++++++++++++++++++")
+		cl.InfoLogger.Println("+++++++++++++++++++ create links for ", len(mediaInfo.Comments.GetCategories()), " categories ++++++++++++++++++++")
 		cl.InfoLogger.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 	}
 
-	for _, category := range linkdirectories.getCategories(){
+	for _, category := range mediaInfo.Comments.GetCategories(){
 
-		linkdirectories.mediaInfo.SetAbsoluteContentLinkDirPath("categories/" + category.Value)
-		linkdirectories.mediaInfo.SetAbsoluteManifestLinkDirPath("categories/" + category.Value)
-		linkdirectories.mediaInfo.CreateLinkDirSubDir("categories/" + category.Value)
-		linkdirectories.mediaInfo.CreateContentLink()
-		// linkdirectories.mediaInfo.CreateNewEmptyManifestFile()
-		linkdirectories.mediaInfo.CreateManifestLink()
+		mediaInfo.SetAbsoluteContentLinkDirPath("categories/" + category.Value)
+		mediaInfo.SetAbsoluteManifestLinkDirPath("categories/" + category.Value)
+		mediaInfo.CreateLinkDirSubDir("categories/" + category.Value)
+		mediaInfo.CreateContentLink()
+		// mediaInfo.CreateNewEmptyManifestFile()
+		mediaInfo.CreateManifestLink()
 
 	}
 
-	if len(linkdirectories.getCategories()) < 6 {
-		linkdirectories.GenerateLinkDirTreeOfCategoryCount()
+	if len(mediaInfo.Comments.GetCategories()) < 6 {
+		GenerateLinkDirTreeOfCategoryCount(mediaInfo)
 	}
 }

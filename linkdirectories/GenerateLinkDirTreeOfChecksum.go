@@ -2,12 +2,12 @@ package linkdirectories
 
 import (
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
-	// "github.com/OlafRadicke/banwoldang/mediainformation"
+	"github.com/OlafRadicke/banwoldang/mediainformation"
 )
 
 // GenerateLinkDirTreeOfChecksum Generate directory tree with symlinks to file
 // depend of his checksum.
-func (linkdirectories  *Linkdirectories) GenerateLinkDirTreeOfChecksum() {
+func GenerateLinkDirTreeOfChecksum(mediaInfo *mediainformation.MediaInformation) {
 
 	var (
 		firstChar string = ""
@@ -17,7 +17,7 @@ func (linkdirectories  *Linkdirectories) GenerateLinkDirTreeOfChecksum() {
 	cl.InfoLogger.Println("++++++++++++++++++++++ Create checksum link ++++++++++++++++++++++")
 	cl.InfoLogger.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
-	checksum := linkdirectories.mediaInfo.HashValue
+	checksum := mediaInfo.HashValue
 	if len(checksum) < 1 {
 		cl.ErrorLogger.Println("Is this checksum relay correct?: ", checksum)
 		firstChar = "unknow"
@@ -27,28 +27,28 @@ func (linkdirectories  *Linkdirectories) GenerateLinkDirTreeOfChecksum() {
 	catSubDirectoryName := "00-checksum/" + firstChar
 	cl.InfoLogger.Println("First char: ", firstChar, " of ", checksum)
 	cl.InfoLogger.Println("Use: ", catSubDirectoryName)
-	linkdirectories.mediaInfo.SetAbsoluteContentLinkDirPath(catSubDirectoryName)
-	linkdirectories.mediaInfo.SetAbsoluteManifestLinkDirPath(catSubDirectoryName)
-	linkdirectories.mediaInfo.CreateLinkDirSubDir(catSubDirectoryName)
-	err = linkdirectories.mediaInfo.CreateContentLink()
+	mediaInfo.SetAbsoluteContentLinkDirPath(catSubDirectoryName)
+	mediaInfo.SetAbsoluteManifestLinkDirPath(catSubDirectoryName)
+	mediaInfo.CreateLinkDirSubDir(catSubDirectoryName)
+	err = mediaInfo.CreateContentLink()
 	if err != nil {
-		cl.ErrorLogger.Println("Switch from hash to file name: ", linkdirectories.mediaInfo.ContentFileName)
+		cl.ErrorLogger.Println("Switch from hash to file name: ", mediaInfo.ContentFileName)
 		cl.DuplicateLogger.Println(err)
 		catSubDirectoryName := "00-checksum/duplicates"
-		linkdirectories.mediaInfo.SetHashValue(linkdirectories.mediaInfo.ContentFileName)
-		linkdirectories.mediaInfo.SetAbsoluteContentLinkDirPath(catSubDirectoryName)
-		linkdirectories.mediaInfo.SetAbsoluteManifestLinkDirPath(catSubDirectoryName)
-		linkdirectories.mediaInfo.CreateLinkDirSubDir(catSubDirectoryName)
-		linkdirectories.mediaInfo.Comments.AddCategory("00-dublette")
-		linkdirectories.mediaInfo.Comments.Save()
+		mediaInfo.SetHashValue(mediaInfo.ContentFileName)
+		mediaInfo.SetAbsoluteContentLinkDirPath(catSubDirectoryName)
+		mediaInfo.SetAbsoluteManifestLinkDirPath(catSubDirectoryName)
+		mediaInfo.CreateLinkDirSubDir(catSubDirectoryName)
+		mediaInfo.Comments.AddCategory("00-dublette")
+		mediaInfo.Comments.Save()
 
 	}
 
 
-	err = linkdirectories.mediaInfo.CreateContentLink()
+	err = mediaInfo.CreateContentLink()
 	if err != nil {
 		cl.DuplicateLogger.Println(err)
 	}
-	linkdirectories.mediaInfo.CreateManifestLink()
+	mediaInfo.CreateManifestLink()
 
 }
