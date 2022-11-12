@@ -14,6 +14,6 @@ func (mediaInfo *MediaInformation) SetAbsoluteManifestSourcePath(relativePath st
 	if err2 != nil {
 		cl.ErrorLogger.Fatal(err2)
 	}
-	mediaInfo.AbsoluteManifestSourcePath = absoluteManifestSourcePath
+	mediaInfo.Comments.FilePath = absoluteManifestSourcePath
 
 }

@@ -16,23 +16,20 @@ func (mediaInfo *MediaInformation) ReconstructManifestFile() {
 	mediaInfo.ContentFileName = pathParts[len(pathParts)-1]
 	baseDir := filepath.Dir(mediaInfo.AbsoluteContentSourcePath)
 	mediaInfo.Extension = filepath.Ext(mediaInfo.ContentFileName)
-	mediaInfo.AbsoluteManifestSourcePath = baseDir + "/.comments/" + mediaInfo.ContentFileName + ".xml"
+	cl.InfoLogger.Println("mediaInfo.ContentFileName: ", mediaInfo.ContentFileName)
+	cl.InfoLogger.Println("baseDir: ", baseDir)
+	reconstructedpath := baseDir + "/.comments/" + mediaInfo.ContentFileName + ".xml"
+	cl.InfoLogger.Println("reconstructedpath: ", reconstructedpath)
+	_, err = os.Stat(reconstructedpath)
+	if err != nil {
+		mediaInfo.Comments, err = gt.NewCommentsFile(reconstructedpath)
+		if err != nil {
+			cl.InfoLogger.Println("error to init object: ", err)
+		}
 
-	if _, err = os.Stat(mediaInfo.AbsoluteContentSourcePath); err == nil {
-		cl.InfoLogger.Println("Manifet file and conten file a exit!")
-		mediaInfo.Comments, err = gt.NewCommentsFile(mediaInfo.AbsoluteContentSourcePath)
-		if err != nil {
-			cl.InfoLogger.Println("error to init object: ", err)
-		}
-	} else {
-		cl.InfoLogger.Println("Manifest file not exist: ", mediaInfo.AbsoluteManifestSourcePath)
-		mediaInfo.Comments, err = gt.NewCommentsFile(mediaInfo.AbsoluteContentSourcePath)
-		if err != nil {
-			cl.InfoLogger.Println("error to init object: ", err)
-		}
+		cl.InfoLogger.Println("Comment file not found. Create new: ", reconstructedpath)
 		mediaInfo.Comments.AddCategory("00-script-create-manifest")
-		mediaInfo.Comments.Save()
+		mediaInfo.SaveManifestFile()
 	}
-
 
 }

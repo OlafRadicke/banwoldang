@@ -25,7 +25,7 @@ func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err e
 			mediaInfo.SetAbsoluteManifestSourcePath(searchPath)
 			err := mediaInfo.ReconstructContenSourceFile()
 			if err != nil {
-				cl.ErrorLogger.Println("This manifest file has no media file: ", mediaInfo.AbsoluteManifestSourcePath)
+				cl.ErrorLogger.Println("This manifest file has no media file: ", mediaInfo.Comments.FilePath)
 				return nil
 			}
 			mediaInfo.ReadingManifestFile()

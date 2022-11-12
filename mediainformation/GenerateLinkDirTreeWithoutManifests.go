@@ -12,12 +12,12 @@ func (mediaInfo *MediaInformation) GenerateLinkDirTreeWithoutManifests() {
 	mediaInfo.SetAbsoluteContentLinkDirPath("00-no-manifest")
 	mediaInfo.SetAbsoluteManifestLinkDirPath("00-no-manifest")
 
-	if _, err := os.Stat(mediaInfo.AbsoluteManifestSourcePath); !os.IsNotExist(err) {
+	if _, err := os.Stat(mediaInfo.Comments.FilePath); !os.IsNotExist(err) {
 		// path/to/whatever does not exist
-		cl.InfoLogger.Println("Manifest file is exist. Skip media file handling. ", mediaInfo.AbsoluteManifestSourcePath)
+		cl.InfoLogger.Println("Manifest file is exist. Skip media file handling. ", mediaInfo.Comments.FilePath)
 		return
 	}
-	cl.InfoLogger.Println("Manifest file is NOT exist. Skip media file handling.", mediaInfo.AbsoluteManifestSourcePath)
+	cl.InfoLogger.Println("Manifest file is NOT exist. Skip media file handling.", mediaInfo.Comments.FilePath)
 
 	katPath := mediaInfo.AbsoluteLinkDirPath + "/00-no-manifest/" + "/.comments"
 	if _, err := os.Stat(katPath); os.IsNotExist(err) {
@@ -35,7 +35,7 @@ func (mediaInfo *MediaInformation) GenerateLinkDirTreeWithoutManifests() {
 
 	// mediaInfo.CreateNewEmptyManifestFile()
 
-	err = os.Symlink(mediaInfo.AbsoluteManifestSourcePath, mediaInfo.AbsoluteManifestLinkDirPath)
+	err = os.Symlink(mediaInfo.Comments.FilePath, mediaInfo.AbsoluteManifestLinkDirPath)
 	if err != nil {
 		// cl.ErrorLogger.Fatal("Create symlink: ", err)
 		cl.ErrorLogger.Println("Can't create symlink: ", err)

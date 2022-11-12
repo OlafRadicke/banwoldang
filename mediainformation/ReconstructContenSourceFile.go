@@ -11,7 +11,7 @@ import (
 // ReconstructContenSourceFile Reconstruct the source path of the conten file
 // based on the path of a manifest file.
 func (mediaInfo *MediaInformation) ReconstructContenSourceFile() error {
-	pathParts := strings.Split(mediaInfo.AbsoluteManifestSourcePath, "/")
+	pathParts := strings.Split(mediaInfo.Comments.FilePath, "/")
 	onsUpLevel := len(pathParts) - 2
 	mediaInfo.OnsUpPath = strings.Join(pathParts[0:onsUpLevel], "/")
 

@@ -32,16 +32,13 @@ func GenerateLinkDirTreeOfChecksum(mediaInfo *mediainformation.MediaInformation)
 	mediaInfo.CreateLinkDirSubDir(catSubDirectoryName)
 	err = mediaInfo.CreateContentLink()
 	if err != nil {
-		cl.ErrorLogger.Println("Switch from hash to file name: ", mediaInfo.ContentFileName)
 		cl.DuplicateLogger.Println(err)
 		catSubDirectoryName := "00-checksum/duplicates"
-		mediaInfo.SetHashValue(mediaInfo.ContentFileName)
 		mediaInfo.SetAbsoluteContentLinkDirPath(catSubDirectoryName)
 		mediaInfo.SetAbsoluteManifestLinkDirPath(catSubDirectoryName)
 		mediaInfo.CreateLinkDirSubDir(catSubDirectoryName)
 		mediaInfo.Comments.AddCategory("00-dublette")
-		mediaInfo.Comments.Save()
-
+		mediaInfo.SaveManifestFile()
 	}
 
 

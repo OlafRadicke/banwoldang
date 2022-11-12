@@ -12,33 +12,31 @@ import (
 // TODO use Lib github.com/OlafRadicke/go-gthumb
 func (mediaInfo *MediaInformation) CreateNewEmptyManifestFile() {
 
-	_, err := os.Stat(mediaInfo.AbsoluteManifestSourcePath)
+	_, err := os.Stat(mediaInfo.Comments.FilePath)
 	if os.IsNotExist(err) {
 		cl.InfoLogger.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 		cl.InfoLogger.Println("+++++++++++++++++++ CREAT MANIFEST +++++++++++++++++++++")
 		cl.InfoLogger.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-		cl.InfoLogger.Println(err, mediaInfo.AbsoluteManifestSourcePath)
+		cl.InfoLogger.Println(err, mediaInfo.Comments.FilePath)
 
-		manifestBaseDir := filepath.Dir(mediaInfo.AbsoluteManifestSourcePath)
+		manifestBaseDir := filepath.Dir(mediaInfo.Comments.FilePath)
 		err := os.MkdirAll(manifestBaseDir, 0770)
 		if err != nil {
 			cl.ErrorLogger.Fatal("[202108040831]", err)
 		}
 
-		comment, err := gt.NewCommentsFile(mediaInfo.AbsoluteManifestSourcePath)
+		comment, err := gt.NewCommentsFile(mediaInfo.Comments.FilePath)
 		if err != nil {
 			cl.ErrorLogger.Println("error to open comment file: ", err)
-			cl.ErrorLogger.Println("try later to create an new: ", mediaInfo.AbsoluteManifestSourcePath)
+			cl.ErrorLogger.Println("try later to create an new: ", mediaInfo.Comments.FilePath)
 		}
 
 		comment.AddCategory("00-script-create-manifest")
 
-		err = comment.Save()
-		if err != nil {
-			cl.ErrorLogger.Fatal("error writting comment file: %w", err)
-		}
+		mediaInfo.SaveManifestFile()
 
-// 		openFile, err := os.Create(mediaInfo.AbsoluteManifestSourcePath)
+
+// 		openFile, err := os.Create(mediaInfo.Comments.FilePath)
 // 		if err != nil {
 // 			cl.ErrorLogger.Fatal("[202108040825]", err)
 // 		}

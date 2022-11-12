@@ -10,12 +10,12 @@ import (
 func (mediaInfo *MediaInformation) CreateManifestLink() {
 
 	if mediaInfo.progConfig.UseHardLink == true {
-		err := os.Link(mediaInfo.AbsoluteManifestSourcePath, mediaInfo.AbsoluteManifestLinkDirPath)
+		err := os.Link(mediaInfo.Comments.FilePath, mediaInfo.AbsoluteManifestLinkDirPath)
 		if err != nil {
 			cl.ErrorLogger.Println("Can't create link: ", err)
 		}
 	} else {
-		err := os.Symlink(mediaInfo.AbsoluteManifestSourcePath, mediaInfo.AbsoluteManifestLinkDirPath)
+		err := os.Symlink(mediaInfo.Comments.FilePath, mediaInfo.AbsoluteManifestLinkDirPath)
 		if err != nil {
 			cl.ErrorLogger.Println("Can't create symlink: ", err)
 		}
