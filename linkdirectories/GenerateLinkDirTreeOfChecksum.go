@@ -32,8 +32,8 @@ func GenerateLinkDirTreeOfChecksum(mediaInfo *mediainformation.MediaInformation)
 	mediaInfo.CreateLinkDirSubDir(catSubDirectoryName)
 	err = mediaInfo.CreateContentLink()
 	if err != nil {
-		cl.DuplicateLogger.Println(err)
-		catSubDirectoryName := "00-checksum/duplicates"
+		cl.DuplicateLogger.Println(mediaInfo.AbsoluteContentSourcePath)
+		catSubDirectoryName := "00-checksum/00-duplicates"
 		mediaInfo.SetAbsoluteContentLinkDirPath(catSubDirectoryName)
 		mediaInfo.SetAbsoluteManifestLinkDirPath(catSubDirectoryName)
 		mediaInfo.CreateLinkDirSubDir(catSubDirectoryName)

@@ -8,6 +8,7 @@ import (
 var (
 	InfoLogger      *log.Logger
 	DuplicateLogger *log.Logger
+	OrphanLogger    *log.Logger
 	ErrorLogger     *log.Logger
 )
 
@@ -28,12 +29,18 @@ func init() {
 		log.Fatal(err)
 	}
 
+	orphanFile, err := os.OpenFile("./logs/orphan-comments.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	errorFile, err := os.OpenFile("./logs/error.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	InfoLogger = log.New(infoFile, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile)
-	DuplicateLogger = log.New(duplicateFile, "DUPLICATE: ", log.Ldate|log.Ltime|log.Lshortfile)
+	DuplicateLogger = log.New(duplicateFile, "DUPLICATE: ", log.Lmsgprefix)
+	OrphanLogger = log.New(orphanFile, "OPRPHAN: ", log.Lmsgprefix)
 	ErrorLogger = log.New(errorFile, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile)
 }

@@ -21,15 +21,21 @@ func (fileTree *FileTree) fileHandler(searchPath string, info os.FileInfo, err e
 		fileTree.Statistic.FoundedFiles++
 
 		if filepath.Ext(info.Name()) == ".xml" {
+			var err error
 			mediaInfo := mediainformation.NewMediaInformationByManifest(fileTree.progConfig, fileTree.Statistic, searchPath)
 			mediaInfo.SetAbsoluteManifestSourcePath(searchPath)
-			err := mediaInfo.ReconstructContenSourceFile()
+			err = mediaInfo.ReconstructContenSourceFile()
+			if err != nil {
+				cl.ErrorLogger.Println("This manifest file has no media file: ", mediaInfo.Comments.FilePath)
+				cl.OrphanLogger.Println(mediaInfo.Comments.FilePath)
+				return nil
+			}
+			mediaInfo.ReadingManifestFile()
+			err = mediaInfo.CreateMediaFileHash()
 			if err != nil {
 				cl.ErrorLogger.Println("This manifest file has no media file: ", mediaInfo.Comments.FilePath)
 				return nil
 			}
-			mediaInfo.ReadingManifestFile()
-			mediaInfo.CreateMediaFileHash()
 			mediaInfo.GenerateLinkDirTree()
 
 		} else {

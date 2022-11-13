@@ -24,9 +24,11 @@ func (mediaInfo *MediaInformation) ReconstructContenSourceFile() error {
 	if _, err := os.Stat(mediaInfo.AbsoluteContentSourcePath); err == nil {
 		// path/to/whatever exists
 		// cl.InfoLogger.Println("Manifet file and conten file a exit!")
+		return nil
 	} else {
 		cl.ErrorLogger.Println("Conten file of manifest file not exist: ", mediaInfo.AbsoluteContentSourcePath)
+		cl.OrphanLogger.Println(mediaInfo.Comments.FilePath)
 		return err
 	}
-	return nil
+
 }
