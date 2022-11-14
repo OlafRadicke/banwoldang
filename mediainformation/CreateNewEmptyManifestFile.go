@@ -33,7 +33,10 @@ func (mediaInfo *MediaInformation) CreateNewEmptyManifestFile() {
 
 		comment.AddCategory("00-script-create-manifest")
 
-		mediaInfo.SaveManifestFile()
+		err = mediaInfo.SaveManifestFile()
+		if err != nil {
+			cl.ErrorLogger.Println(err)
+		}
 
 
 // 		openFile, err := os.Create(mediaInfo.Comments.FilePath)

@@ -42,7 +42,10 @@ func GenerateLinkDirTreeOfChecksum(mediaInfo *mediainformation.MediaInformation)
 		mediaInfo.SetAbsoluteManifestLinkDirPath(catSubDirectoryName)
 		mediaInfo.CreateLinkDirSubDir(catSubDirectoryName)
 		mediaInfo.Comments.AddCategory("00-dublette")
-		mediaInfo.SaveManifestFile()
+		err = mediaInfo.SaveManifestFile()
+		if err != nil {
+			cl.ErrorLogger.Println(err)
+		}
 	}
 
 

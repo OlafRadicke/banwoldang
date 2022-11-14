@@ -29,7 +29,10 @@ func (mediaInfo *MediaInformation) ReconstructManifestFile() {
 
 		cl.InfoLogger.Println("Comment file not found. Create new: ", reconstructedpath)
 		mediaInfo.Comments.AddCategory("00-script-create-manifest")
-		mediaInfo.SaveManifestFile()
+		err = mediaInfo.SaveManifestFile()
+		if err != nil {
+			cl.ErrorLogger.Println(err)
+		}
 	}
 
 }

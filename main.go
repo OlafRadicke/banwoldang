@@ -85,9 +85,7 @@ func WalkThroughCollection(progConfig *config.YamlConfig, statistic *statistics.
 	gtFileTree.GoThroughCollection()
 
 
-	for _, path := range gtFileTree.ListOfMediaFiles {
-		fmt.Printf("%s \n",path)
-	}
+
 
 	for index, path := range gtFileTree.ListOfMediaFiles {
 		if progConfig.ShowProgress {
@@ -97,6 +95,9 @@ func WalkThroughCollection(progConfig *config.YamlConfig, statistic *statistics.
 		ld.GenerateLinkDirTreeOfChecksum(mediaInfo)
 	}
 	fmt.Printf("\n")
+	for _, path := range gtFileTree.ListOfCommentFiles {
+		fmt.Printf("%s \n",path)
+	}
 	for index, path := range gtFileTree.ListOfCommentFiles {
 		if progConfig.ShowProgress {
 			fmt.Printf("\rComment files: %d/%d", index, len(gtFileTree.ListOfCommentFiles))

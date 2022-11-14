@@ -14,6 +14,9 @@ func (mediaInfo *MediaInformation) SetAbsoluteManifestSourcePath(relativePath st
 	if err2 != nil {
 		cl.ErrorLogger.Fatal(err2)
 	}
+	if filepath.Ext(absoluteManifestSourcePath) != ".xml" {
+		cl.ErrorLogger.Fatal("Thats a not a right name for an command file: ", absoluteManifestSourcePath)
+	}
 	mediaInfo.Comments.FilePath = absoluteManifestSourcePath
 
 }
