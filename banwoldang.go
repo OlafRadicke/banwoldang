@@ -84,25 +84,20 @@ func WalkThroughCollection(progConfig *config.YamlConfig, statistic *statistics.
 	gtFileTree := gt.NewFileTree(progConfig.SourceDir)
 	gtFileTree.GoThroughCollection()
 
-
-
-
 	for index, path := range gtFileTree.ListOfMediaFiles {
 		if progConfig.ShowProgress {
 			fmt.Printf("\rMedia files: %d/%d", index, len(gtFileTree.ListOfMediaFiles))
 		}
-		mediaInfo := mediainformation.NewMediaInformation(progConfig, statistic, path)
-		ld.GenerateLinkDirTreeOfChecksum(mediaInfo)
+		mediainformation.NewMediaInformation(progConfig, statistic, path)
 	}
 	fmt.Printf("\n")
-	for _, path := range gtFileTree.ListOfCommentFiles {
-		fmt.Printf("%s \n",path)
-	}
+	statistic.ResetUsedCheckSum()
 	for index, path := range gtFileTree.ListOfCommentFiles {
 		if progConfig.ShowProgress {
 			fmt.Printf("\rComment files: %d/%d", index, len(gtFileTree.ListOfCommentFiles))
 		}
 		mediaInfo := mediainformation.NewMediaInformationByManifest(progConfig, statistic, path)
+		ld.GenerateLinkDirTreeOfChecksum(mediaInfo)
 		ld.GenerateLinkDirTreeOfCategories(mediaInfo)
 
 		fileTree.JoinAllUsedCategories(mediaInfo.Comments.GetCategories())

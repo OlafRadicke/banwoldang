@@ -24,11 +24,7 @@ func NewMediaInformation(progConfig *config.YamlConfig, statistics *statistics.S
 	mediaInfo.SetAbsoluteLinkDirPath(progConfig.LinkDir)
 	mediaInfo.SetAbsoluteContentSourcePath(path)
 	mediaInfo.ReconstructManifestFile()
-	_, err = mediaInfo.GetHashValue()
-	if err != nil {
-		cl.ErrorLogger.Println("Hash sum error: ", err)
-	}
-	// mediaInfo.CreateMediaFileHash()
+
 	return &mediaInfo
 }
 
