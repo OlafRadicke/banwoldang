@@ -36,7 +36,7 @@ type MediaInformation struct {
 	ContentFileName string
 
 	// The hash value of the media file
-	HashValue string
+	hashValue string
 
 	// The extension of the media file
 	Extension string

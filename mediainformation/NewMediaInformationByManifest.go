@@ -20,10 +20,15 @@ func NewMediaInformationByManifest(progConfig *config.YamlConfig, statistics *st
 	if err != nil {
 		cl.InfoLogger.Println("error to init object: ", err)
 	}
+	mediaInfo.hashValue = ""
 	mediaInfo.SetAbsoluteLinkDirPath(progConfig.LinkDir)
 	mediaInfo.SetAbsoluteManifestSourcePath(path)
 	mediaInfo.ReconstructContenSourceFile()
-	mediaInfo.CreateMediaFileHash()
+	_, err = mediaInfo.GetHashValue()
+	if err != nil {
+		cl.ErrorLogger.Println("Hash sum error: ", err)
+	}
+	// mediaInfo.CreateMediaFileHash()
 	return &mediaInfo
 }
 

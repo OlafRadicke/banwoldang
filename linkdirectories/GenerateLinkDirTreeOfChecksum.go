@@ -17,7 +17,11 @@ func GenerateLinkDirTreeOfChecksum(mediaInfo *mediainformation.MediaInformation)
 	cl.InfoLogger.Println("++++++++++++++++++++++ Create checksum link ++++++++++++++++++++++")
 	cl.InfoLogger.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
-	checksum := mediaInfo.HashValue
+	checksum, err := mediaInfo.GetHashValue()
+	if err != nil {
+		cl.ErrorLogger.Println(err)
+		return
+	}
 	if len(checksum) < 1 {
 		cl.ErrorLogger.Println("Is this checksum relay correct?: ", checksum)
 		firstChar = "unknow"

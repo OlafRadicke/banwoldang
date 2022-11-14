@@ -2,7 +2,6 @@ TODOs
 -----
 
 
-- Double check of generated check sum
 - Refactoring Configuration Object and his using
 - Logging cleanup
 - Log level

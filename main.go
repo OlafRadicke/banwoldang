@@ -47,7 +47,7 @@ func main() {
 	cl.InfoLogger.Println("absoluteLinkDir: ", fileTree.LinkDir)
 	cl.InfoLogger.Println("Search in: ", fileTree.SourcePath)
 
-	useNewLib(progConfig, statistic, fileTree)
+	WalkThroughCollection(progConfig, statistic, fileTree)
 	// fileTree.GoThroughCollection()
 	fileTree.CreateTagsXmlFile()
 	fileTree.Statistic.WriteStatistic()
@@ -76,7 +76,7 @@ func readConfig(configPath string) *config.YamlConfig {
 	return &yamlConf
 }
 
-func useNewLib(progConfig *config.YamlConfig, statistic *statistics.Statistics, fileTree  *filetree.FileTree){
+func WalkThroughCollection(progConfig *config.YamlConfig, statistic *statistics.Statistics, fileTree  *filetree.FileTree){
 	// Read xml...
 
 	fmt.Println("Start walk in ", progConfig.SourceDir)
@@ -84,6 +84,10 @@ func useNewLib(progConfig *config.YamlConfig, statistic *statistics.Statistics, 
 	gtFileTree := gt.NewFileTree(progConfig.SourceDir)
 	gtFileTree.GoThroughCollection()
 
+
+	for _, path := range gtFileTree.ListOfMediaFiles {
+		fmt.Printf("%s \n",path)
+	}
 
 	for index, path := range gtFileTree.ListOfMediaFiles {
 		if progConfig.ShowProgress {

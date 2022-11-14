@@ -5,20 +5,6 @@ import (
 	"github.com/OlafRadicke/banwoldang/config"
 )
 
-// filetree The inteface of the feletree struckt
-// type filetree interface {
-// 	GoThroughCollection()
-// 	NewFileTree() FileTree
-// 	PrintAll()
-
-// 	fileHandler(path string, info os.FileInfo, err error) error
-
-// 	SetAbsoluteSourcePath(string)
-// 	SetAbsoluteLinkDir(string)
-// 	JoinAllUsedCategories(Categories []string)
-// 	CreateTagsXmlFile()
-// }
-
 // FileTree This struct represent the information about the tree
 type FileTree struct {
 	// SourcePath The start path for searching media files
@@ -43,16 +29,3 @@ type FileTree struct {
 	progConfig *config.YamlConfig
 }
 
-// NewProgArguments create new instance of FileTree and get it back.
-func NewFileTree(progConfig *config.YamlConfig, statistics *statistics.Statistics) *FileTree {
-	fileTree := FileTree{}
-
-	fileTree.SourcePath = ""
-	fileTree.LinkDir = ""
-	// fileTree.Findings = 0
-	fileTree.UseChecksum = false
-	fileTree.UseHardLink = false
-	fileTree.progConfig = progConfig
-	fileTree.Statistic = statistics
-	return &fileTree
-}
