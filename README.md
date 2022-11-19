@@ -113,7 +113,7 @@ Run
 ---
 
 ```bash
-go run ./main.go  -f example/config.yaml
+go run ./banwoldang.go  -f example/config.yaml
 ```
 
 or

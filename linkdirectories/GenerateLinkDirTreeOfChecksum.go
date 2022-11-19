@@ -8,7 +8,6 @@ import (
 // GenerateLinkDirTreeOfChecksum Generate directory tree with symlinks to file
 // depend of his checksum.
 func GenerateLinkDirTreeOfChecksum(mediaInfo *mediainformation.MediaInformation) {
-
 	var (
 		firstChar string = ""
 		err error
@@ -47,12 +46,5 @@ func GenerateLinkDirTreeOfChecksum(mediaInfo *mediainformation.MediaInformation)
 			cl.ErrorLogger.Println(err)
 		}
 	}
-
-
-	err = mediaInfo.CreateContentLink()
-	if err != nil {
-		cl.DuplicateLogger.Println(err)
-	}
 	mediaInfo.CreateManifestLink()
-
 }
