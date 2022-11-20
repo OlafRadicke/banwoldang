@@ -147,8 +147,20 @@ ffmpeg_support: true
 Logging
 -------
 
-Three log files are written:
+This log files are written:
 
-- ./logs/duplicates.log
-- ./logs/error.log
-- ./logs/info.log
+- ***./logs/duplicates.log***: Which files were detected as duplicates
+- ***./logs/error.log***: error outputs
+- ***./logs/info.log***: (Dibugging) information
+- ***./logs/orphan-comments.log***: comment files for which no media file was found
+
+Helper scrpt
+------------
+
+Enter
+
+```bash
+./scripts/empty_logs.sh
+```
+
+...to clean up the logs
