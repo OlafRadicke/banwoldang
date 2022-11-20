@@ -1,10 +1,13 @@
-package mediainformation
+package linkdirectories
 
-import cl "github.com/OlafRadicke/banwoldang/customlogger"
+import (
+	cl "github.com/OlafRadicke/banwoldang/customlogger"
+	"github.com/OlafRadicke/banwoldang/mediainformation"
+)
 
 // GenerateLinkDirTreeOfOldNameParts Creates a directory tree with links based on the
 // parts of the conten source file.
-func (mediaInfo *MediaInformation) GenerateLinkDirTreeOfOldNameParts() {
+func GenerateLinkDirTreeOfOldNameParts(mediaInfo *mediainformation.MediaInformation) {
 
 	listOfParts := mediaInfo.ExtractFileNameParts()
 

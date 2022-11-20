@@ -94,6 +94,16 @@ If the media is a movie, it will check what resolution it has and set each for
 
 A separate directory is generated
 
+Dos and don'ts
+--------------
+
+The tree with the links is not meant to be edited. The metadata of the media
+files can be viewed and also edited with gthumb. If you run banwoldang again,
+the link tree will not be synchronized and obsolete links will not be deleted.
+Instead, the entire link tree should be deleted and recreated. The only
+***"place of truth"*** is and remains the directory with the media files and
+their original comment files.
+
 Install requirements
 --------------------
 

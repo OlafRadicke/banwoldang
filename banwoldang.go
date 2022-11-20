@@ -9,10 +9,10 @@ import (
 
 	"github.com/OlafRadicke/banwoldang/config"
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
-	filetree "github.com/OlafRadicke/banwoldang/filetree"
+	"github.com/OlafRadicke/banwoldang/filetree"
 	"github.com/OlafRadicke/banwoldang/statistics"
-	gt "github.com/OlafRadicke/go-gthumb"
-	ld "github.com/OlafRadicke/banwoldang/linkdirectories"
+	gthumb "github.com/OlafRadicke/go-gthumb"
+	"github.com/OlafRadicke/banwoldang/linkdirectories"
 	"github.com/OlafRadicke/banwoldang/mediainformation"
 
 )
@@ -81,7 +81,7 @@ func WalkThroughCollection(progConfig *config.YamlConfig, statistic *statistics.
 
 	fmt.Println("Start walk in ", progConfig.SourceDir)
 
-	gtFileTree := gt.NewFileTree(progConfig.SourceDir)
+	gtFileTree := gthumb.NewFileTree(progConfig.SourceDir)
 	gtFileTree.GoThroughCollection()
 
 	for index, path := range gtFileTree.ListOfMediaFiles {
@@ -97,8 +97,7 @@ func WalkThroughCollection(progConfig *config.YamlConfig, statistic *statistics.
 			fmt.Printf("\rComment files: %d/%d", index, len(gtFileTree.ListOfCommentFiles))
 		}
 		mediaInfo := mediainformation.NewMediaInformationByManifest(progConfig, statistic, path)
-		ld.GenerateLinkDirTreeOfChecksum(mediaInfo)
-		ld.GenerateLinkDirTreeOfCategories(mediaInfo)
+		linkdirectories.GenerateLinkDirTree(progConfig, mediaInfo)
 
 		fileTree.JoinAllUsedCategories(mediaInfo.Comments.GetCategories())
 		// mediaInfo.GenerateLinkDirTreeWithoutManifests()

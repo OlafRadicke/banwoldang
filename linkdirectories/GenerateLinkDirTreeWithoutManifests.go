@@ -1,13 +1,13 @@
-package mediainformation
+package linkdirectories
 
 import (
 	"os"
-
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
+	"github.com/OlafRadicke/banwoldang/mediainformation"
 )
 
 // GenerateLinkDirTreeWithoutManifests Generate directory with symlinks of file without categories.
-func (mediaInfo *MediaInformation) GenerateLinkDirTreeWithoutManifests() {
+func GenerateLinkDirTreeWithoutManifests(mediaInfo *mediainformation.MediaInformation) {
 
 	mediaInfo.SetAbsoluteContentLinkDirPath("00-no-manifest")
 	mediaInfo.SetAbsoluteManifestLinkDirPath("00-no-manifest")

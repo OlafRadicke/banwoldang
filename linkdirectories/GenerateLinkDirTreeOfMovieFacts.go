@@ -1,4 +1,4 @@
-package mediainformation
+package linkdirectories
 
 import (
 	"context"
@@ -7,13 +7,14 @@ import (
 	"time"
 
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
+	"github.com/OlafRadicke/banwoldang/mediainformation"
 	"gopkg.in/vansante/go-ffprobe.v2"
 )
 
 // GenerateLinkDirTreeOfMovieFacts Creates a directory tree with links based on the
 // the facts of the found at movie files:
 // - Links for duration in minutes
-func (mediaInfo *MediaInformation) GenerateLinkDirTreeOfMovieFacts() {
+func GenerateLinkDirTreeOfMovieFacts(mediaInfo *mediainformation.MediaInformation) {
 	var minutes_duration string
 	var resolution_height string
 	var resolution_width string
