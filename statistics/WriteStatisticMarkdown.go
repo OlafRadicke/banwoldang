@@ -28,6 +28,9 @@ func (statistic *Statistics) WriteStatisticMarkdown() {
 	textline = textline + "\n## Duplictes by chech sums \n\n"
 
 	for checksum, locations := range statistic.CheckSumLocations {
+		if len(locations) == 1 {
+			continue
+		}
 		textline = textline + "## " + checksum + " (" + string(len(locations)) + ") \n\n"
 		for number, location := range locations {
 			fmt.Printf(" %d\n", number)
