@@ -11,5 +11,6 @@ func NewStatistics(statisticDir string) *Statistics {
 	statistic.ResolutionHeight = make(map[int]int)
 	statistic.ResolutionWidth = make(map[int]int)
 	statistic.UsedCheckSum = make(map[string]int)
+	statistic.CheckSumLocations = make(map[string][]string)
 	return &statistic
 }

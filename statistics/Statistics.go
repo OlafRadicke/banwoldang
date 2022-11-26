@@ -26,5 +26,8 @@ type Statistics struct {
 	// Normally, a check sum may only occur once. This serves
 	// the doubel check.
 	UsedCheckSum map[string]int
+
+	// A list of Duplicates with an list of his locations
+	CheckSumLocations map[string][]string
 }
 

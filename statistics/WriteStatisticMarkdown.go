@@ -2,6 +2,7 @@ package statistics
 
 import (
 	"os"
+	"fmt"
 	"strconv"
 
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
@@ -24,6 +25,16 @@ func (statistic *Statistics) WriteStatisticMarkdown() {
 	textline = textline + "Count of different Duration: " + strconv.Itoa(len(statistic.Duration)) + "\n"
 	textline = textline + "Count of different Height: " + strconv.Itoa(len(statistic.ResolutionHeight)) + "\n"
 	textline = textline + "Count of different Width: " + strconv.Itoa(len(statistic.ResolutionWidth)) + "\n"
+	textline = textline + "\n## Duplictes by chech sums \n\n"
+
+	for checksum, locations := range statistic.CheckSumLocations {
+		textline = textline + "## " + checksum + " (" + string(len(locations)) + ") \n\n"
+		for number, location := range locations {
+			fmt.Printf(" %d\n", number)
+			textline = textline + "- ![" + location + "](" + location + ") \n"
+		}
+	}
+
 	_, err = mdFile.WriteString(textline)
 	if err != nil {
 		cl.ErrorLogger.Println(err)
