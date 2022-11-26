@@ -2,6 +2,7 @@ package mediainformation
 
 import (
 	"path/filepath"
+    "fmt"
 
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
@@ -15,6 +16,7 @@ func (mediaInfo *MediaInformation) SetAbsoluteManifestSourcePath(relativePath st
 		cl.ErrorLogger.Fatal(err2)
 	}
 	if filepath.Ext(absoluteManifestSourcePath) != ".xml" {
+		fmt.Println("error! check the log files for more information")
 		cl.ErrorLogger.Fatal("Thats a not a right name for an command file: ", absoluteManifestSourcePath)
 	}
 	mediaInfo.Comments.FilePath = absoluteManifestSourcePath

@@ -2,6 +2,7 @@ package mediainformation
 
 import (
 	"path/filepath"
+    "fmt"
 
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
@@ -10,6 +11,7 @@ import (
 // file for the link directory tree.
 // @subDir param is the name of a sub directory for link directory tree.
 func (mediaInfo *MediaInformation) SetAbsoluteManifestLinkDirPath(subDir string) {
+	var err error
 	checksum, err := mediaInfo.GetHashValue()
 	if err != nil {
 		cl.ErrorLogger.Println(err)
@@ -17,9 +19,10 @@ func (mediaInfo *MediaInformation) SetAbsoluteManifestLinkDirPath(subDir string)
 	}
 
 	genFilePath := mediaInfo.AbsoluteLinkDirPath + "/" + subDir + "/.comments/" + checksum + mediaInfo.Extension + ".xml"
-	absolutLinkTarget, err1 := filepath.Abs(genFilePath)
-	if err1 != nil {
-		cl.ErrorLogger.Fatal(err1)
+	absolutLinkTarget, err := filepath.Abs(genFilePath)
+	if err != nil {
+		fmt.Println("error! check the log files for more information")
+		cl.ErrorLogger.Fatal(err)
 	}
 	mediaInfo.AbsoluteManifestLinkDirPath = absolutLinkTarget
 }

@@ -7,7 +7,7 @@ import (
 
 // GenerateLinkDirTreeOfChecksum Generate directory tree with symlinks to file
 // depend of his checksum.
-func GenerateLinkDirTreeOfChecksum(mediaInfo *mediainformation.MediaInformation) {
+func GenerateLinkDirTreeOfChecksum(mediaInfo *mediainformation.MediaInformation) (error) {
 	var (
 		firstChar string = ""
 		err error
@@ -19,7 +19,13 @@ func GenerateLinkDirTreeOfChecksum(mediaInfo *mediainformation.MediaInformation)
 	checksum, err := mediaInfo.GetHashValue()
 	if err != nil {
 		cl.ErrorLogger.Println(err)
-		return
+		cl.DuplicateLogger.Println(mediaInfo.AbsoluteContentSourcePath)
+		catSubDirectoryName := "00-checksum/00-duplicates"
+		mediaInfo.SetAbsoluteContentLinkDirPath(catSubDirectoryName)
+		mediaInfo.SetAbsoluteManifestLinkDirPath(catSubDirectoryName)
+		mediaInfo.CreateLinkDirSubDir(catSubDirectoryName)
+		mediaInfo.Comments.AddCategory("00-dublette")
+		return err
 	}
 	if len(checksum) < 1 {
 		cl.ErrorLogger.Println("Is this checksum relay correct?: ", checksum)
@@ -47,4 +53,5 @@ func GenerateLinkDirTreeOfChecksum(mediaInfo *mediainformation.MediaInformation)
 		}
 	}
 	mediaInfo.CreateManifestLink()
+	return nil
 }

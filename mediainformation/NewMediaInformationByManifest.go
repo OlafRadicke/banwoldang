@@ -11,7 +11,7 @@ import (
 
 // NewProgArguments create new instance of MediaInformation and get it back.
 // @path Path of comment file.
-func NewMediaInformationByManifest(progConfig *config.YamlConfig, statistics *statistics.Statistics, path string) *MediaInformation {
+func NewMediaInformationByManifest(progConfig *config.YamlConfig, statistics *statistics.Statistics, path string) (*MediaInformation, error) {
 	var err error
 	mediaInfo := MediaInformation{}
 	mediaInfo.progConfig = progConfig
@@ -23,12 +23,24 @@ func NewMediaInformationByManifest(progConfig *config.YamlConfig, statistics *st
 	mediaInfo.hashValue = ""
 	mediaInfo.SetAbsoluteLinkDirPath(progConfig.LinkDir)
 	mediaInfo.SetAbsoluteManifestSourcePath(path)
-	mediaInfo.ReconstructContenSourceFile()
+	err = mediaInfo.ReconstructContenSourceFile()
+	if err != nil {
+		cl.ErrorLogger.Println("ReconstructContenSourceFile error: ", err)
+		return nil, err
+	}
 	_, err = mediaInfo.GetHashValue()
 	if err != nil {
 		cl.ErrorLogger.Println("Hash sum error: ", err)
+		cl.DuplicateLogger.Println(mediaInfo.AbsoluteContentSourcePath)
+		catSubDirectoryName := "00-checksum/00-duplicates"
+		mediaInfo.SetAbsoluteContentLinkDirPath(catSubDirectoryName)
+		mediaInfo.SetAbsoluteManifestLinkDirPath(catSubDirectoryName)
+		mediaInfo.CreateLinkDirSubDir(catSubDirectoryName)
+		mediaInfo.Comments.AddCategory("00-dublette")
+		return nil, err
 	}
+
 	// mediaInfo.CreateMediaFileHash()
-	return &mediaInfo
+	return &mediaInfo, nil
 }
 

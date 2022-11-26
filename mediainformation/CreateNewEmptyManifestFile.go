@@ -2,6 +2,7 @@ package mediainformation
 
 import (
 	"os"
+    "fmt"
 	"path/filepath"
 
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
@@ -22,6 +23,7 @@ func (mediaInfo *MediaInformation) CreateNewEmptyManifestFile() {
 		manifestBaseDir := filepath.Dir(mediaInfo.Comments.FilePath)
 		err := os.MkdirAll(manifestBaseDir, 0770)
 		if err != nil {
+			fmt.Println("error! check the log files for more information")
 			cl.ErrorLogger.Fatal("[202108040831]", err)
 		}
 

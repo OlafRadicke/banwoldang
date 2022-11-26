@@ -2,7 +2,7 @@ package mediainformation
 
 import (
 	"os"
-
+    "fmt"
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
 )
 
@@ -15,6 +15,7 @@ func (mediaInfo *MediaInformation) CreateLinkDirSubDir(subDir string) {
 	if os.IsNotExist(err) {
 		err := os.MkdirAll(katPath, 0770)
 		if err != nil {
+			fmt.Println("error! check the log files for more information")
 			cl.ErrorLogger.Fatal(err)
 		}
 	}

@@ -66,11 +66,13 @@ func readConfig(configPath string) *config.YamlConfig {
 
 	configContent, err := ioutil.ReadFile(configPath)
 	if err != nil {
+		fmt.Println("error! check the log files for more information")
 		cl.ErrorLogger.Fatal(err)
 	}
 
 	err = yaml.Unmarshal([]byte(configContent), &yamlConf)
 	if err != nil {
+		fmt.Println("error! check the log files for more information")
 		cl.ErrorLogger.Fatal(err)
 	}
 	return &yamlConf
@@ -96,11 +98,14 @@ func WalkThroughCollection(progConfig *config.YamlConfig, statistic *statistics.
 		if progConfig.ShowProgress {
 			fmt.Printf("\rComment files: %d/%d", index, len(gtFileTree.ListOfCommentFiles))
 		}
-		mediaInfo := mediainformation.NewMediaInformationByManifest(progConfig, statistic, path)
+		mediaInfo, err := mediainformation.NewMediaInformationByManifest(progConfig, statistic, path)
+		if err != nil {
+			cl.ErrorLogger.Println(err)
+			cl.ErrorLogger.Println("jump over ", path)
+			continue
+		}
 		linkdirectories.GenerateLinkDirTree(progConfig, mediaInfo)
-
 		fileTree.JoinAllUsedCategories(mediaInfo.Comments.GetCategories())
-		// mediaInfo.GenerateLinkDirTreeWithoutManifests()
 	}
 	fmt.Printf("\n")
 

@@ -2,6 +2,7 @@ package linkdirectories
 
 import (
 	"os"
+    "fmt"
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
 	"github.com/OlafRadicke/banwoldang/mediainformation"
 )
@@ -23,6 +24,7 @@ func GenerateLinkDirTreeWithoutManifests(mediaInfo *mediainformation.MediaInform
 	if _, err := os.Stat(katPath); os.IsNotExist(err) {
 		err := os.MkdirAll(katPath, 0770)
 		if err != nil {
+			fmt.Println("error! check the log files for more information")
 			cl.ErrorLogger.Fatal(err)
 		}
 	}

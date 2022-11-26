@@ -25,9 +25,8 @@ type MediaInformation struct {
 	// manifest file.
 	AbsoluteManifestLinkDirPath string
 
-	// Absolute path of manifest xml file.
-	// AbsoluteManifestSourcePath string
-	// Comments.FilePath
+	// linkSubDir The sub directory of the link directory.
+	linkSubDir string
 
 	// The relative directory path on up with the media files.
 	OnsUpPath string
@@ -46,15 +45,6 @@ type MediaInformation struct {
 
 	// This object represents the conten of the XML comment files
 	Comments *gt.CommentsFile
-
-	// // Is the value true, than it will be create checksums as file names (for the links)
-	// UseChecksum bool
-
-	// // Is the value true, than it will be try to create hard links (for the link tree directories)
-	// UseHardLink bool
-
-	// // Is the value true, than ffmpeg support try to create links about media facts
-	// UseFfmpeg bool
 
 	// A helper object for statistic analyses
 	Statistics *statistics.Statistics
