@@ -22,11 +22,6 @@ type Statistics struct {
 	// Count how often tags is in using
 	UsedTags map[string]int
 
-	// Count how often a check sum is in using.
-	// Normally, a check sum may only occur once. This serves
-	// the doubel check.
-	UsedCheckSum map[string]int
-
 	// A list of Duplicates with an list of his locations
 	CheckSumLocations map[string][]string
 }

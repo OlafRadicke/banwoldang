@@ -3,30 +3,36 @@ package linkdirectories
 import (
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
 	"github.com/OlafRadicke/banwoldang/mediainformation"
+	"github.com/OlafRadicke/banwoldang/statistics"
 )
 
 // GenerateLinkDirTreeOfChecksum Generate directory tree with symlinks to file
 // depend of his checksum.
-func GenerateLinkDirTreeOfChecksum(mediaInfo *mediainformation.MediaInformation) (error) {
+func GenerateLinkDirTreeOfChecksum(mediaInfo *mediainformation.MediaInformation, statistics *statistics.Statistics) (error) {
 	var (
 		firstChar string = ""
 		err error
+		checksum string
 	)
 	cl.InfoLogger.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 	cl.InfoLogger.Println("++++++++++++++++++++++ Create checksum link ++++++++++++++++++++++")
 	cl.InfoLogger.Println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
-	checksum, err := mediaInfo.GetHashValue()
+	checksum, err = mediaInfo.GetHashValue()
 	if err != nil {
 		cl.ErrorLogger.Println(err)
-		cl.DuplicateLogger.Println(mediaInfo.AbsoluteContentSourcePath)
-		catSubDirectoryName := "00-checksum/00-duplicates"
-		mediaInfo.SetAbsoluteContentLinkDirPath(catSubDirectoryName)
-		mediaInfo.SetAbsoluteManifestLinkDirPath(catSubDirectoryName)
-		mediaInfo.CreateLinkDirSubDir(catSubDirectoryName)
-		mediaInfo.Comments.AddCategory("00-dublette")
 		return err
 	}
+	locationsCount, err := statistics.GetCheckSumLocationsCount(checksum)
+	if err != nil {
+		cl.ErrorLogger.Println(err)
+		return err
+	} else{
+		if locationsCount > 1 {
+			mediaInfo.Comments.AddCategory("00-dublette")
+		}
+	}
+
 	if len(checksum) < 1 {
 		cl.ErrorLogger.Println("Is this checksum relay correct?: ", checksum)
 		firstChar = "unknow"
@@ -39,19 +45,7 @@ func GenerateLinkDirTreeOfChecksum(mediaInfo *mediainformation.MediaInformation)
 	mediaInfo.SetAbsoluteContentLinkDirPath(catSubDirectoryName)
 	mediaInfo.SetAbsoluteManifestLinkDirPath(catSubDirectoryName)
 	mediaInfo.CreateLinkDirSubDir(catSubDirectoryName)
-	err = mediaInfo.CreateContentLink()
-	if err != nil {
-		cl.DuplicateLogger.Println(mediaInfo.AbsoluteContentSourcePath)
-		catSubDirectoryName := "00-checksum/00-duplicates"
-		mediaInfo.SetAbsoluteContentLinkDirPath(catSubDirectoryName)
-		mediaInfo.SetAbsoluteManifestLinkDirPath(catSubDirectoryName)
-		mediaInfo.CreateLinkDirSubDir(catSubDirectoryName)
-		mediaInfo.Comments.AddCategory("00-dublette")
-		err = mediaInfo.SaveManifestFile()
-		if err != nil {
-			cl.ErrorLogger.Println(err)
-		}
-	}
+
 	mediaInfo.CreateManifestLink()
 	return nil
 }

@@ -49,10 +49,6 @@ The creation of (real) checksums can be disabled in the configuration with:
 real_checksum: false
 ```
 
-### 00-checksum/duplicates
-
-Here a links to founded checksum dublicates.
-
 ### 00-old-name-parts
 
 The filenames of the media files are split into their parts and this is
@@ -85,7 +81,7 @@ For each tag found a category was created.
 Video movies are looked how long they are. For each duration there is a
 separate directory. It is always rounded up to full minutes.
 
-## resolution
+### resolution
 
 If the media is a movie, it will check what resolution it has and set each for
 
@@ -93,6 +89,18 @@ If the media is a movie, it will check what resolution it has and set each for
 - width
 
 A separate directory is generated
+
+### Statistics
+
+Statistics are also created during the run. The following files are located in
+the base directory of the link directory:
+
+- statistics_duration.csv
+- statistics.md
+- statistics_name-parts.csv
+- statistics_resolution_height.csv
+- statistics_resolution_width.csv
+- statistics_tag.csv
 
 Dos and don'ts
 --------------
@@ -159,7 +167,6 @@ Logging
 
 This log files are written:
 
-- ***./logs/duplicates.log***: Which files were detected as duplicates
 - ***./logs/error.log***: error outputs
 - ***./logs/info.log***: (Dibugging) information
 - ***./logs/orphan-comments.log***: comment files for which no media file was found

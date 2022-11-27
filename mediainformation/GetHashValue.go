@@ -17,12 +17,6 @@ func (mediaInfo *MediaInformation) GetHashValue() (string, error){
 		if err != nil {
 			return "", err
 		}
-		mediaInfo.Statistics.AddCheckSumLocations(hash, mediaInfo.AbsoluteContentSourcePath)
-		err = mediaInfo.Statistics.ContUsedCheckSum(hash)
-		if err != nil {
-			cl.ErrorLogger.Println("Check sum error with file: ", mediaInfo.AbsoluteContentSourcePath)
-			// return "", err
-		}
 		mediaInfo.hashValue = hash
 	}
 	return mediaInfo.hashValue, nil

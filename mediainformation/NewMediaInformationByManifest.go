@@ -31,12 +31,6 @@ func NewMediaInformationByManifest(progConfig *config.YamlConfig, statistics *st
 	_, err = mediaInfo.GetHashValue()
 	if err != nil {
 		cl.ErrorLogger.Println("Hash sum error: ", err)
-		cl.DuplicateLogger.Println(mediaInfo.AbsoluteContentSourcePath)
-		catSubDirectoryName := "00-checksum/00-duplicates"
-		mediaInfo.SetAbsoluteContentLinkDirPath(catSubDirectoryName)
-		mediaInfo.SetAbsoluteManifestLinkDirPath(catSubDirectoryName)
-		mediaInfo.CreateLinkDirSubDir(catSubDirectoryName)
-		mediaInfo.Comments.AddCategory("00-dublette")
 		return nil, err
 	}
 

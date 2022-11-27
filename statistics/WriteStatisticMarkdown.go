@@ -2,7 +2,6 @@ package statistics
 
 import (
 	"os"
-	"fmt"
 	"strconv"
 
 	cl "github.com/OlafRadicke/banwoldang/customlogger"
@@ -31,10 +30,9 @@ func (statistic *Statistics) WriteStatisticMarkdown() {
 		if len(locations) == 1 {
 			continue
 		}
-		textline = textline + "## " + checksum + " (" + string(len(locations)) + ") \n\n"
+		textline = textline + "## " + checksum + " (" + strconv.Itoa(len(locations)) + ") \n\n"
 		for number, location := range locations {
-			fmt.Printf(" %d\n", number)
-			textline = textline + "- ![" + location + "](" + location + ") \n"
+			textline = textline + "- ![" + strconv.Itoa(number) + "](" + location + ") \n"
 		}
 	}
 

@@ -13,6 +13,7 @@ import (
 // @path Path of media file.
 func NewMediaInformation(progConfig *config.YamlConfig, statistics *statistics.Statistics, path string) *MediaInformation {
 	var err error
+	var checksum string
 	mediaInfo := MediaInformation{}
 	mediaInfo.progConfig = progConfig
 	mediaInfo.Statistics = statistics
@@ -25,6 +26,11 @@ func NewMediaInformation(progConfig *config.YamlConfig, statistics *statistics.S
 	mediaInfo.SetAbsoluteContentSourcePath(path)
 	mediaInfo.ReconstructManifestFile()
 
+	checksum, err = mediaInfo.GetHashValue()
+	if err != nil {
+		cl.InfoLogger.Println("checksum error: ", err)
+	}
+	mediaInfo.Statistics.AddCheckSumLocations(checksum, path)
 	return &mediaInfo
 }
 

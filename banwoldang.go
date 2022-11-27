@@ -93,7 +93,6 @@ func WalkThroughCollection(progConfig *config.YamlConfig, statistic *statistics.
 		mediainformation.NewMediaInformation(progConfig, statistic, path)
 	}
 	fmt.Printf("\n")
-	statistic.ResetUsedCheckSum()
 	for index, path := range gtFileTree.ListOfCommentFiles {
 		if progConfig.ShowProgress {
 			fmt.Printf("\rComment files: %d/%d", index, len(gtFileTree.ListOfCommentFiles))
@@ -104,7 +103,7 @@ func WalkThroughCollection(progConfig *config.YamlConfig, statistic *statistics.
 			cl.ErrorLogger.Println("jump over ", path)
 			continue
 		}
-		linkdirectories.GenerateLinkDirTree(progConfig, mediaInfo)
+		linkdirectories.GenerateLinkDirTree(progConfig, statistic, mediaInfo)
 		fileTree.JoinAllUsedCategories(mediaInfo.Comments.GetCategories())
 	}
 	fmt.Printf("\n")
